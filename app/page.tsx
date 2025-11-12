@@ -2,7 +2,7 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurIn from "@/components/magicui/blur-in";
 import WordFadeIn from "@/components/magicui/word-fade-in";
 import ShimmerButton from "@/components/magicui/shimmer-button";
-import PhotoGallery from "@/components/sections/photo-gallery/photo-gallery";
+import PhotoGallery from "@/components/sections/photo-gallery";
 
 export default function Home() {
   return (

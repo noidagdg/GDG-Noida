@@ -52,6 +52,24 @@
   }
 }
 
+@keyframes scroll-vertical-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--scroll-height, 0px) * -1));
+  }
+}
+
+@keyframes scroll-vertical-up {
+  from {
+    transform: translateY(calc(var(--scroll-height, 0px) * -1));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 @layer utilities {
   .animate-shimmer {
     animation: shimmer var(--shimmer-duration, 3s) infinite;

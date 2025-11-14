@@ -11,75 +11,74 @@ interface PhotoGalleryProps {
 
 // Sample image data - replace with actual images
 const columnImages = [
-  // Column 1 (static)
+  // Column 1 (static) - w-134 h-182
   [
-    { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300", alt: "Event 1" },
-    { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=400", alt: "Event 2" },
-    { src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=350", alt: "Event 3" },
+    { src: "/assets/photo-gallery/column1.webp", alt: "Event 1" },
+    { src: "/assets/photo-gallery/column1-2.webp", alt: "Event 2" },
   ],
-  // Column 2 (infinite scroll - left side)
+  // Column 2 (infinite scroll - left side) - w-134 h-146
   [
-    { src: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=300", alt: "Event 4" },
-    { src: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=400&h=350", alt: "Event 5" },
-    { src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=400", alt: "Event 6" },
-    { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=320", alt: "Event 7" },
-    { src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=380", alt: "Event 8" },
+    { src: "/assets/photo-gallery/column2-1.webp", alt: "Event 4" },
+    { src: "/assets/photo-gallery/column2-2.webp", alt: "Event 5" },
+    { src: "/assets/photo-gallery/column2-3.webp", alt: "Event 6" },
+    { src: "/assets/photo-gallery/column2-1.webp", alt: "Event 7" },
+    { src: "/assets/photo-gallery/column2-2.webp", alt: "Event 8" },
   ],
-  // Column 3 (static)
+  // Column 3 - EMPTY (only center cards will show here)
+  [],
+  // Column 4 - EMPTY (only center cards will show here)
+  [],
+  // Column 5 - EMPTY (only center cards will show here)
+  [],
+  // Column 6 - EMPTY (only center cards will show here)
+  [],
+  // Column 7 (infinite scroll - right side) - w-134 h-146
   [
-    { src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=350", alt: "Event 7" },
-    { src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&h=300", alt: "Event 8" },
-    { src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=380", alt: "Event 9" },
+    { src: "/assets/photo-gallery/column7-1.webp", alt: "Event 17" },
+    { src: "/assets/photo-gallery/column7-2.webp", alt: "Event 18" },
+    { src: "/assets/photo-gallery/column7-3.webp", alt: "Event 19" },
+    { src: "/assets/photo-gallery/column7-1.webp", alt: "Event 20" },
+    { src: "/assets/photo-gallery/column7-2.webp", alt: "Event 21" },
   ],
-  // Column 4 (static - left of center)
+  // Column 8 (static) - w-134 h-182
   [
-    { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=320", alt: "Event 10" },
-    { src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=400", alt: "Event 11" },
-  ],
-  // Column 5 (static - right of center)
-  [
-    { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=400", alt: "Event 12" },
-    { src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=300", alt: "Event 13" },
-  ],
-  // Column 6 (static)
-  [
-    { src: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=350", alt: "Event 14" },
-    { src: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=400&h=300", alt: "Event 15" },
-    { src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=380", alt: "Event 16" },
-  ],
-  // Column 7 (infinite scroll - right side)
-  [
-    { src: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400&h=300", alt: "Event 17" },
-    { src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&h=350", alt: "Event 18" },
-    { src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=400&h=400", alt: "Event 19" },
-    { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=330", alt: "Event 20" },
-    { src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=370", alt: "Event 21" },
-  ],
-  // Column 8 (static)
-  [
-    { src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=350", alt: "Event 20" },
-    { src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300", alt: "Event 21" },
-    { src: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=320", alt: "Event 22" },
+    { src: "/assets/photo-gallery/column8-1.webp", alt: "Event 20" },
+    { src: "/assets/photo-gallery/column8-2.webp", alt: "Event 21" },
   ],
 ];
 
+// Center cards data - 4 cards above the text (w-135 h-250)
+// The offset represents distance from card bottom to text
+// Card 3 has the highest offset (113px), so it will be at the top (marginTop: 0)
+const centerCards = [
+  { src: "/assets/photo-gallery/column3.webp", alt: "Center Card 1", offset: 50 }, // 50px above text
+  { src: "/assets/photo-gallery/column4.webp", alt: "Center Card 2", offset: 86 }, // 86px above text
+  { src: "/assets/photo-gallery/column5.webp", alt: "Center Card 3", offset: 113 }, // 113px above text (TOP)
+  { src: "/assets/photo-gallery/column6.webp", alt: "Center Card 4", offset: 50 }, // 50px above text
+];
+
+// Find max offset to calculate relative positions
+const maxOffset = Math.max(...centerCards.map(card => card.offset)); // 113px
+
 export default function PhotoGallery({ className }: PhotoGalleryProps) {
   return (
-    <section className={cn("relative w-full overflow-hidden bg-linear-to-b from-gray-50 to-white py-32", className)}>
+    <section className={cn("relative w-full overflow-hidden bg-linear-to-b from-gray-50 to-white", className)}>
       <div className="relative mx-auto max-w-[1920px]">
         {/* Image Columns Grid */}
-        <div className="relative grid grid-cols-2 gap-4 px-4 sm:grid-cols-4 lg:grid-cols-8">
-          {/* Column 1 - Static */}
-          <div className="flex flex-col gap-4">
+        <div className="relative flex items-start justify-center gap-[10px]">
+          {/* Left Side - Column 1 & 2 */}
+          <div className="flex gap-[19px]">
+            {/* Column 1 - Static (w-134 h-182) */}
+            <div className="flex flex-col items-center justify-start gap-[19px] pt-[70px]">
             {columnImages[0].map((img, idx) => (
               <BlurFade key={idx} delay={0.1 + idx * 0.05} inView>
-                <div className="group relative overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                <div className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                   <Image
                     src={img.src}
                     alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    width={134}
+                    height={182}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </div>
@@ -87,18 +86,18 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
             ))}
           </div>
 
-          {/* Column 2 - Infinite Scroll (Left) */}
-          <div className="flex flex-col">
-            <InfiniteScroll direction="down" speed={30} className="h-[800px]">
+          {/* Column 2 - Infinite Scroll (Left) (w-134 h-146) */}
+          <div className="flex flex-col items-center justify-center">
+            <InfiniteScroll direction="down" speed={30} className="h-[610px]">
               <>
                 {columnImages[1].map((img, idx) => (
-                  <div key={`col2-${idx}`} className="group relative mb-4 overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                  <div key={`col2-${idx}`} className="group relative mb-[19px] h-[146px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                     <Image
                       src={img.src}
                       alt={img.alt}
-                      width={400}
-                      height={300}
-                      className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      width={134}
+                      height={146}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
@@ -106,131 +105,89 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
               </>
             </InfiniteScroll>
           </div>
-
-          {/* Column 3 - Static */}
-          <div className="flex flex-col gap-4">
-            {columnImages[2].map((img, idx) => (
-              <BlurFade key={idx} delay={0.2 + idx * 0.05} inView>
-                <div className="group relative overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
-              </BlurFade>
-            ))}
           </div>
 
-          {/* Column 4 - Static */}
-          <div className="flex flex-col gap-4">
-            {columnImages[3].map((img, idx) => (
-              <BlurFade key={idx} delay={0.3 + idx * 0.05} inView>
-                <div className="group relative overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-
-          {/* Column 5 - Static */}
-          <div className="flex flex-col gap-4">
-            {columnImages[4].map((img, idx) => (
-              <BlurFade key={idx} delay={0.3 + idx * 0.05} inView>
-                <div className="group relative overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-
-          {/* Column 6 - Static */}
-          <div className="flex flex-col gap-4">
-            {columnImages[5].map((img, idx) => (
-              <BlurFade key={idx} delay={0.4 + idx * 0.05} inView>
-                <div className="group relative overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-
-          {/* Column 7 - Infinite Scroll (Right) */}
-          <div className="flex flex-col">
-            <InfiniteScroll direction="down" speed={25} className="h-[800px]">
-              <>
-                {columnImages[6].map((img, idx) => (
-                  <div key={`col7-${idx}`} className="group relative mb-4 overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+          {/* Middle Section - Center cards and text */}
+          <div className="relative flex flex-col items-center justify-center">
+            <div className="relative flex flex-col items-center justify-center">
+            {/* 4 Cards Above Text (w-135 h-250) */}
+            <div className="relative flex items-start justify-center gap-[19px] mt-2" style={{ marginBottom: `${maxOffset}px` }}>
+              {centerCards.map((card, idx) => (
+                <BlurFade key={idx} delay={0.5 + idx * 0.1} inView>
+                  <div 
+                    className="group relative h-[250px] w-[135px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                    style={{ 
+                      marginTop: `${maxOffset - card.offset}px`
+                    }}
+                  >
                     <Image
-                      src={img.src}
-                      alt={img.alt}
-                      width={400}
-                      height={300}
-                      className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      src={card.src}
+                      alt={card.alt}
+                      width={135}
+                      height={250}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
-                ))}
-              </>
-            </InfiniteScroll>
-          </div>
+                </BlurFade>
+              ))}
+            </div>
 
-          {/* Column 8 - Static */}
-          <div className="flex flex-col gap-4">
-            {columnImages[7].map((img, idx) => (
-              <BlurFade key={idx} delay={0.5 + idx * 0.05} inView>
-                <div className="group relative overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    width={400}
-                    height={300}
-                    className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-
-          {/* Central Text Overlay */}
-          <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-            <div className="relative rounded-3xl bg-white/90 px-12 py-10 text-center shadow-2xl backdrop-blur-sm">
-              <BlurFade delay={0.6} inView>
-                <h2 className="text-5xl font-bold text-zinc-900 sm:text-6xl md:text-7xl lg:text-8xl">
+            {/* Text Overlay */}
+            <div className="relative text-center">
+              <BlurFade delay={0.9} inView>
+                <h2 className="whitespace-nowrap text-5xl text-zinc-900 sm:text-6xl md:text-7xl lg:text-8xl">
                   Photo <span className="font-black">Gallery</span>
                 </h2>
               </BlurFade>
-              <BlurFade delay={0.7} inView>
+              <BlurFade delay={1.0} inView>
                 <p className="mt-4 text-lg text-zinc-600 sm:text-xl md:text-2xl">
                   A glimpse into our most memorable moments
                 </p>
               </BlurFade>
             </div>
+            </div>
+          </div>
+
+          {/* Right Side - Column 7 & 8 */}
+          <div className="flex gap-[19px]">
+          {/* Column 7 - Infinite Scroll (Right) (w-134 h-146) */}
+          <div className="flex flex-col items-center justify-center">
+            <InfiniteScroll direction="down" speed={25} className="h-[610px]">
+              <>
+                {columnImages[6].map((img, idx) => (
+                  <div key={`col7-${idx}`} className="group relative mb-[19px] h-[146px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      width={134}
+                      height={146}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  </div>
+                ))}
+              </>
+            </InfiniteScroll>
+          </div>
+
+          {/* Column 8 - Static (w-134 h-182) */}
+          <div className="flex flex-col items-center justify-start gap-[19px] pt-[70px]">
+            {columnImages[7].map((img, idx) => (
+              <BlurFade key={idx} delay={0.5 + idx * 0.05} inView>
+                <div className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={134}
+                    height={182}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                </div>
+              </BlurFade>
+            ))}
+          </div>
           </div>
         </div>
       </div>

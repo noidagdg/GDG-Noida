@@ -24,14 +24,6 @@ const columnImages = [
     { src: "/assets/photo-gallery/column2-1.webp", alt: "Event 7" },
     { src: "/assets/photo-gallery/column2-2.webp", alt: "Event 8" },
   ],
-  // Column 3 - EMPTY (only center cards will show here)
-  [],
-  // Column 4 - EMPTY (only center cards will show here)
-  [],
-  // Column 5 - EMPTY (only center cards will show here)
-  [],
-  // Column 6 - EMPTY (only center cards will show here)
-  [],
   // Column 7 (infinite scroll - right side) - w-134 h-146
   [
     { src: "/assets/photo-gallery/column7-1.webp", alt: "Event 17" },
@@ -46,10 +38,6 @@ const columnImages = [
     { src: "/assets/photo-gallery/column8-2.webp", alt: "Event 21" },
   ],
 ];
-
-// Center cards data - 4 cards above the text (w-135 h-250)
-// The offset represents distance from card bottom to text
-// Card 3 has the highest offset (113px), so it will be at the top (marginTop: 0)
 const centerCards = [
   { src: "/assets/photo-gallery/column3.webp", alt: "Center Card 1", offset: 50 }, // 50px above text
   { src: "/assets/photo-gallery/column4.webp", alt: "Center Card 2", offset: 86 }, // 86px above text
@@ -155,7 +143,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
           <div className="flex flex-col items-center justify-center">
             <InfiniteScroll direction="down" speed={25} className="h-[610px]">
               <>
-                {columnImages[6].map((img, idx) => (
+                {columnImages[2].map((img, idx) => (
                   <div key={`col7-${idx}`} className="group relative mb-[19px] h-[146px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                     <Image
                       src={img.src}
@@ -173,7 +161,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
 
           {/* Column 8 - Static (w-134 h-182) */}
           <div className="flex flex-col items-center justify-start gap-[19px] pt-[70px]">
-            {columnImages[7].map((img, idx) => (
+            {columnImages[3].map((img, idx) => (
               <BlurFade key={idx} delay={0.5 + idx * 0.05} inView>
                 <div className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                   <Image

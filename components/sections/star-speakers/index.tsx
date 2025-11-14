@@ -46,8 +46,8 @@ export default function StarSpeakers({ className }: StarSpeakersProps) {
         {/* Section Header */}
         <div className="mb-12 text-center md:mb-16">
           <BlurFade delay={0.1} inView>
-            <h2 className="text-4xl font-bold text-zinc-900 md:text-5xl lg:text-6xl">
-              Our Star Speakers
+            <h2 className="text-4xl text-zinc-900 md:text-5xl lg:text-6xl">
+              Our Star <span className="font-bold">Speakers</span>
             </h2>
           </BlurFade>
           <BlurFade delay={0.2} inView>
@@ -76,11 +76,11 @@ export default function StarSpeakers({ className }: StarSpeakersProps) {
                   />
                 </div>
 
-                {/* Gradient Overlay (white to transparent, from bottom to 100px) */}
+                {/* Gradient Overlay (white to transparent, from bottom to 150px) */}
                 <div 
                   className="absolute bottom-0 left-0 right-0 pointer-events-none"
                   style={{
-                    height: '100px',
+                    height: '150px',
                     background: 'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
                   }}
                 />

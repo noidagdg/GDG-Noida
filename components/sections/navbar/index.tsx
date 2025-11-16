@@ -21,7 +21,7 @@ export default function Navbar({ className }: { className?: string }) {
       <nav className="relative rounded-full border border-opacity-50 border: 0.5px solid #000; backdrop-blur-sm dark:bg-black dark:border-white/20 bg-transparent  shadow-input flex items-center justify-between px-8 py-6">
         <Link href="/" className="flex items-center space-x-3">
           <Image 
-            src="/assets/noida_long_logo.svg" 
+            src="/assets/noida_long_logo0.svg" 
             alt="GDG Noida Logo" 
             width={200} 
             height={40} 

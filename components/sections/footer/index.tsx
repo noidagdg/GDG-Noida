@@ -4,7 +4,7 @@ import { Instagram, Twitter, Linkedin, Youtube } from 'lucide-react'
 
 function Footer() {
   return (
-    <footer className="bg-[#DDE6F4] text-gray-800 min-h-[542px]">
+    <footer className="bg-[#202124] text-white min-h-[542px]">
       <div className="mx-auto px-4 sm:px-8 md:px-12 lg:px-16 py-12 md:py-16 lg:py-20">
         <div className="flex flex-col gap-12 md:gap-16 lg:gap-20">
           {/* Main Content Row */}
@@ -22,14 +22,14 @@ function Footer() {
 
             {/* About Section */}
             <div className="inline-flex flex-col justify-start items-start gap-4">
-              <div className="self-stretch justify-start text-gray-800 text-base font-semibold leading-6">
+              <div className="self-stretch justify-start text-white text-base font-semibold leading-6">
                 About
               </div>
               <div className="self-stretch flex flex-col justify-start items-start">
                 <div className="self-stretch py-2 inline-flex justify-start items-start">
                   <a
                     href="#"
-                    className="flex-1 justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     About Us
                   </a>
@@ -37,7 +37,7 @@ function Footer() {
                 <div className="self-stretch py-2 inline-flex justify-start items-start">
                   <a
                     href="#"
-                    className="flex-1 justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     Contact Us
                   </a>
@@ -45,7 +45,7 @@ function Footer() {
                 <div className="self-stretch py-2 inline-flex justify-start items-start">
                   <a
                     href="#"
-                    className="flex-1 justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     Brochure
                   </a>
@@ -55,14 +55,14 @@ function Footer() {
 
             {/* Resources Section */}
             <div className="inline-flex flex-col justify-start items-start gap-4">
-              <div className="self-stretch justify-start text-gray-800 text-base font-semibold leading-6">
+              <div className="self-stretch justify-start text-white text-base font-semibold leading-6">
                 Resources
               </div>
               <div className="self-stretch flex flex-col justify-start items-start">
                 <div className="self-stretch py-2 inline-flex justify-start items-start">
                   <a
                     href="#"
-                    className="flex-1 justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     Articles
                   </a>
@@ -70,7 +70,7 @@ function Footer() {
                 <div className="self-stretch py-2 inline-flex justify-start items-start">
                   <a
                     href="#"
-                    className="flex-1 justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     Blogs
                   </a>
@@ -78,7 +78,7 @@ function Footer() {
                 <div className="self-stretch py-2 inline-flex justify-start items-start">
                   <a
                     href="#"
-                    className="flex-1 justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     Gallery
                   </a>
@@ -86,7 +86,7 @@ function Footer() {
                 <div className="self-stretch py-2 inline-flex justify-start items-start">
                   <a
                     href="#"
-                    className="flex-1 justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     FAQs
                   </a>
@@ -96,58 +96,58 @@ function Footer() {
 
             {/* Follow Us Section */}
             <div className="inline-flex flex-col justify-start items-start gap-4">
-              <div className="self-stretch justify-start text-gray-800 text-base font-semibold leading-6">
+              <div className="self-stretch justify-start text-white text-base font-semibold leading-6">
                 Follow Us
               </div>
               <div className="self-stretch flex flex-col justify-start items-start">
                 <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
                   <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Instagram size={16} className="text-gray-800" />
+                    <Instagram size={16} className="text-white" />
                   </div>
                   <a
                     href="https://instagram.com/gdg-noida"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     gdg-noida
                   </a>
                 </div>
                 <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
                   <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Twitter size={16} className="text-gray-800" />
+                    <Twitter size={16} className="text-white" />
                   </div>
                   <a
                     href="https://twitter.com/gdgnoida"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     gdgnoida
                   </a>
                 </div>
                 <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
                   <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Linkedin size={16} className="text-gray-800" />
+                    <Linkedin size={16} className="text-white" />
                   </div>
                   <a
                     href="https://linkedin.com/company/gdgnoida"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     gdgnoida
                   </a>
                 </div>
                 <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
                   <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Youtube size={16} className="text-gray-800" />
+                    <Youtube size={16} className="text-white" />
                   </div>
                   <a
                     href="https://youtube.com/@gdgnoida"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="justify-start text-gray-800 text-sm font-normal leading-5 hover:underline"
+                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
                   >
                     gdgnoida
                   </a>
@@ -159,29 +159,29 @@ function Footer() {
           {/* Bottom Section */}
           <div className="self-stretch flex flex-col justify-start items-start gap-6 md:gap-8">
             {/* Separator Line */}
-            <div className="self-stretch h-px bg-gray-600 border border-gray-600" />
+            <div className="self-stretch h-px bg-white border border-white" />
 
             {/* Copyright and Legal Links */}
             <div className="self-stretch flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div className="justify-start text-gray-800 text-sm font-normal leading-5 text-center sm:text-left">
+              <div className="justify-start text-white text-sm font-normal leading-5 text-center sm:text-left">
                 © gdgnoida.com All rights reserved.
               </div>
               <div className="flex flex-wrap justify-center sm:justify-start items-start gap-4 sm:gap-6">
                 <a
                   href="#"
-                  className="justify-start text-gray-800 text-sm font-normal underline leading-5 hover:underline"
+                  className="justify-start text-white text-sm font-normal underline leading-5 hover:underline"
                 >
                   Privacy Policy
                 </a>
                 <a
                   href="#"
-                  className="justify-start text-gray-800 text-sm font-normal underline leading-5 hover:underline"
+                  className="justify-start text-white text-sm font-normal underline leading-5 hover:underline"
                 >
                   Terms of Service
                 </a>
                 <a
                   href="#"
-                  className="justify-start text-gray-800 text-sm font-normal underline leading-5 hover:underline"
+                  className="justify-start text-white text-sm font-normal underline leading-5 hover:underline"
                 >
                   Cookies Settings
                 </a>

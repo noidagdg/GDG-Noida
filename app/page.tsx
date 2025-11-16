@@ -4,6 +4,7 @@ import StarSpeakers from "@/components/sections/star-speakers";
 import PhotoGallery from "@/components/sections/photo-gallery";
 import Sponsors from "@/components/sections/sponsors";
 import Footer from "@/components/sections/footer";
+import Testimonials from "@/components/sections/Testimonials";
 // import Marquee from "react-fast-marquee";
 
 export default function Home() {
@@ -11,10 +12,12 @@ export default function Home() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
+      <Testimonials />
       {/* <Marquee/> */}
       <StarSpeakers />
-      <PhotoGallery />
+      
       <Sponsors />
+      <PhotoGallery />
       <Footer />
     </div>
   );

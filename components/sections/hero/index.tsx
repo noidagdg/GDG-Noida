@@ -2,16 +2,16 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { Code2, Zap, Rocket } from 'lucide-react'
 import BlurFade from '@/components/magicui/blur-fade'
+import { BackgroundRippleEffect } from '@/components/ui/background-ripple-effect'
 
 function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col px-4 py-16 bg-white overflow-hidden w-full items-center justify-center">
+    <section className="relative min-h-screen flex flex-col px-4 py-8 md:py-16 bg-white overflow-hidden w-full items-center justify-center">
       {/* Background Cover SVG */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full z-0">
         <Image 
-          src="/assets/Cover.svg" 
+          src="/cover-bg.svg" 
           alt="Background" 
           fill
           className="object-cover"
@@ -19,60 +19,98 @@ function Hero() {
         />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        {/* Tech Icons */}
-        <BlurFade delay={0.1} inView>
-          <div className="flex justify-center items-center gap-6 mb-8">
-            <div className="p-3 bg-blue-50 rounded-lg">
-              <Code2 className="w-8 h-8 text-blue-600" />
-            </div>
-            <div className="p-3 bg-orange-50 rounded-lg">
-              <Zap className="w-8 h-8 text-orange-500" />
-            </div>
-            <div className="p-3 bg-green-50 rounded-lg">
-              <Rocket className="w-8 h-8 text-green-600" />
-            </div>
-          </div>
-        </BlurFade>
+      {/* Decorative Rectangle Elements - Bottom of Section */}
+      <div className="absolute bottom-0 left-0 right-0 w-full z-[1] overflow-hidden pointer-events-none flex items-end justify-center gap-4 md:gap-8 px-4">
+      <Image 
+          src="/assets/Rectangle 41272.svg" 
+          alt="" 
+          width={450}
+          height={450}
+          className=" object-contain w-auto "
+        />
+        
+        <Image 
+          src="/assets/Rectangle 41269.svg" 
+          alt="" 
+          width={400}
+          height={400}
+          className="  object-contain w-auto "
+        />
+        <Image 
+          src="/assets/Rectangle 41270.svg" 
+          alt="" 
+          width={500}
+          height={500}
+          className="  object-contain w-auto "
+        />
+        <Image 
+          src="/assets/Rectangle 41271.svg" 
+          alt="" 
+          width={600}
+          height={600}
+          className="  object-contain w-auto "
+        />
+         
+      </div>
 
+      {/* Background Ripple Effect - Responsive */}
+      <div className="hidden md:block">
+        <BackgroundRippleEffect 
+          rows={16} 
+          cols={38} 
+          cellSize={56}
+          colors={['#4285F4', '#F9AB00', '#34A853']}
+        />
+      </div>
+      <div className="block md:hidden">
+        <BackgroundRippleEffect 
+          rows={12} 
+          cols={12} 
+          cellSize={40}
+          colors={['#4285F4', '#F9AB00', '#34A853']}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-8xl mx-auto text-center space-y-6 md:space-y-8  px-4 mb-[200px]">
         {/* Main Slogan */}
         <BlurFade delay={0.25} inView>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6">
-            <span className="text-blue-600">Think.</span>{' '}
-            <span className="text-orange-500">Build.</span>{' '}
-            <span className="text-green-600">Grow.</span>
+          <h1 className="font-bold flex flex-wrap items-baseline justify-center sm:gap-3 md:gap-4">
+            <span className="text-[#4285F4] text-[48px] sm:text-[64px] md:text-[96px] lg:text-[140px] font-semibold leading-[1.1]">
+              Think<span className="text-black">.</span>
+            </span>
+            <span className="text-[#F9AB00] text-[48px] sm:text-[64px] md:text-[96px] lg:text-[140px] font-semibold leading-[1.1]">
+              Build<span className="text-black">.</span>
+            </span>
+            <span className="text-[#34A853] text-[48px] sm:text-[64px] md:text-[96px] lg:text-[140px] font-semibold leading-[1.1]">
+              Grow<span className="text-black">.</span>
+            </span>
           </h1>
         </BlurFade>
 
         {/* Description */}
         <BlurFade delay={0.5} inView>
-          <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-            Dive deep into the latest trends and innovations through talks, workshops, & more
+          <p className="mx-auto text-center text-black font-urbanist text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium leading-relaxed max-w-3xl px-2">
+            Dive deep into the latest trends and innovations through talks, workshops, &amp; more
           </p>
         </BlurFade>
 
         {/* Join Community Button */}
-        {/* <BlurFade delay={0.75} inView> */}
-            <button
-            className="flex items-center rounded-full justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer mx-auto"
-            style={{
-                padding: '8.973px 15.72px 9.366px 15.72px',
-                width: '275.769px',
-                height: '66.294px',
-            }}
-            >
-            {/* <Users size={20} /> */}
-            <Image src="/assets/commudle.svg" alt="Join Community" width={34} height={21} />
-            <span style={{
-                color: '#FFF',
-                fontSize: '26px',
-                fontWeight: '600',
-                lineHeight: '12.838px',
-            }}>Join Community</span>
+        <BlurFade delay={0.75} inView>
+          <button
+            className="flex items-center justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer mx-auto rounded-full shadow-lg w-full sm:w-auto px-4 sm:px-6 md:px-8 py-3 md:py-4 min-w-[200px] sm:min-w-[275px]"
+          >
+            <Image 
+              src="/assets/commudle.svg" 
+              alt="Join Community" 
+              width={34} 
+              height={21}
+              className="w-6 h-4 sm:w-8 sm:h-5 md:w-[34px] md:h-[21px]"
+            />
+            <span className="text-base sm:text-lg md:text-xl font-semibold">Join Community</span>
           </button>
-          {/* </ShimmerButton> */}
-        {/* </BlurFade> */}
+        </BlurFade>
       </div>
+      
     </section>
   )
 }

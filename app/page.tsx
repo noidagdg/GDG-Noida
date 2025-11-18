@@ -1,5 +1,6 @@
 import Navbar from "@/components/sections/navbar";
 import Hero from "@/components/sections/hero";
+import FlagshipEvents from "@/components/sections/flagship-events";
 import StarSpeakers from "@/components/sections/star-speakers";
 import PhotoGallery from "@/components/sections/photo-gallery";
 import Sponsors from "@/components/sections/sponsors";
@@ -12,6 +13,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
+      <FlagshipEvents />
       <Marquee />
       <StarSpeakers />
       <Sponsors />

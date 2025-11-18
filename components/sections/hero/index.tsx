@@ -7,7 +7,7 @@ import { BackgroundRippleEffect } from '@/components/ui/background-ripple-effect
 
 function Hero() {
   return (
-    <section className="relative h-[75vh] lg:min-h-screen lg:h-screen flex flex-col px-4 py-8 md:py-16 bg-white overflow-hidden w-full items-center justify-center">
+    <section className="relative lg:min-h-screen h-[70vh] md:h-screen flex flex-col px-4 py-8 md:py-12 lg:py-16 bg-white overflow-hidden w-full items-center justify-center">
       {/* Background Cover SVG */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Image 
@@ -119,17 +119,17 @@ function Hero() {
         />
       </div>
 
-      <div className="relative z-10 max-w-8xl mt-[150px] lg:mt-0 mx-auto text-center space-y-6 md:space-y-6  px-4 lg:mb-[200px] mb-[300px]">
+      <div className="relative z-10 mt-[100px] sm:mt-[120px] md:mt-[80px] lg:mt-0 mx-auto text-center space-y-4 sm:space-y-5 md:space-y-6 px-4 mb-[200px] sm:mb-[250px] md:mb-[180px] lg:mb-[200px]">
         {/* Main Slogan */}
         <BlurFade delay={0.25} inView>
-          <h1 className="font-bold flex lg:flex-wrap items-baseline justify-center sm:gap-3 md:gap-4">
-            <span className="text-[#4285F4] text-[43px] sm:text-[64px] md:text-[96px] lg:text-[140px] font-semibold leading-[1.1]">
+          <h1 className="font-bold flex flex-nowrap sm:flex-wrap items-center justify-center gap-[6px] sm:gap-3 md:gap-4 text-center">
+            <span className="text-[#4285F4] text-[38px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[140px] font-semibold leading-[1.1]">
               Think.
             </span>
-            <span className="text-[#F9AB00] text-[43px] sm:text-[64px] md:text-[96px] lg:text-[140px] font-semibold leading-[1.1]">
+            <span className="text-[#F9AB00] text-[38px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[140px] font-semibold leading-[1.1]">
               Build.
             </span>
-            <span className="text-[#34A853] text-[43px] sm:text-[64px] md:text-[96px] lg:text-[140px] font-semibold leading-[1.1]">
+            <span className="text-[#34A853] text-[38px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[140px] font-semibold leading-[1.1]">
               Grow.
             </span>
           </h1>
@@ -137,22 +137,22 @@ function Hero() {
 
         {/* Description */}
         <BlurFade delay={0.5} inView>
-          <p className="mx-auto text-center text-black font-urbanist text-base text-[12px] sm:text-[12px] md:text-xl lg:text-2xl xl:text-3xl font-medium leading-relaxed max-w-3xl px-2">
+          <p className="mx-auto text-center text-black font-urbanist text-[12px] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-medium leading-relaxed max-w-3xl px-2">
             Dive deep into the latest trends and innovations through talks, workshops, &amp; more
           </p>
         </BlurFade>
 
         {/* Join Community Button */}
         <BlurFade delay={0.75} inView>
-          <button className="flex items-center  justify-center gap-2 bg-[#4285F4] text-white hover:bg-blue-700 transition-colors cursor-pointer mx-auto rounded-full shadow-lg w-auto sm:w-auto px-4 sm:px-6 md:px-8  py-3 md:py-8 min-w-0 sm:min-w-[175px] h-[48px]">
-          <Image 
+          <button className="flex items-center justify-center gap-2 bg-[#4285F4] text-white hover:bg-blue-700 transition-colors cursor-pointer mx-auto rounded-full shadow-lg w-auto px-4 sm:px-6 md:px-8 lg:px-10 py-3 md:py-4 lg:py-5 min-w-0 sm:min-w-[175px] h-[48px] md:h-[52px] lg:h-[56px]">
+            <Image 
               src="/assets/commudle.svg" 
               alt="Join Community" 
               width={34} 
               height={21}
-              className="w-6 h-4 sm:w-8 sm:h-5 md:w-[34px] md:h-[21px] mb-1"
+              className="w-6 h-4 sm:w-8 sm:h-5 md:w-[34px] md:h-[21px]"
             />
-            <span className="text-[15px] sm:text-[13px] md:text-xl font-semibold">
+            <span className="text-[15px] sm:text-base md:text-lg lg:text-xl font-semibold">
               Join Community
             </span>
           </button>

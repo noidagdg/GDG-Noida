@@ -68,7 +68,7 @@ const sponsors: Sponsor[] = [
       testimonial: {
         text: "The overall feedback from the event has been outstanding! It was an amazing experience. We connected with numerous developers who were genuinely interested and enthusiastic about building innovative projects.",
         author: "Vaibhav Tyagi",
-        position: "Community Manager, Capx",
+        position: "Founder, Capx",
         rating: 5,
         photo: "/assets/sponsors/vaibhav.svg"
       }

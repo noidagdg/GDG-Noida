@@ -28,16 +28,26 @@ export const BackgroundRippleEffect = ({
   const [rippleKey, setRippleKey] = useState(0);
   const [activeColorIndex, setActiveColorIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const activeColor = colors[activeColorIndex] || colors[0];
   const fillColor = isHovered || clickedCell 
     ? hexToRgba(activeColor, 0.4) // Add opacity for hover/click
     : 'rgba(255, 255, 255, 0.1)';
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (row: number, col: number) => {
     setIsHovered(true);
     setActiveColorIndex((prev) => (prev + 1) % colors.length);
+    setClickedCell({ row, col });
+    setRippleKey((k) => k + 1);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    // Reset clicked cell after a short delay
+    setTimeout(() => {
+      setClickedCell(null);
+    }, 300);
   };
 
   const handleCellClick = (row: number, col: number) => {
@@ -58,8 +68,7 @@ export const BackgroundRippleEffect = ({
         "[--cell-border-color:var(--color-neutral-300)] [--cell-fill-color:var(--color-neutral-100)] [--cell-shadow-color:var(--color-neutral-500)]",
         "dark:[--cell-border-color:var(--color-neutral-700)] dark:[--cell-fill-color:var(--color-neutral-900)] dark:[--cell-shadow-color:var(--color-neutral-800)]",
       )}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="relative h-auto w-auto overflow-hidden">
         <div className="pointer-events-none absolute inset-0 z-[2] h-full w-full overflow-hidden" />
@@ -73,6 +82,7 @@ export const BackgroundRippleEffect = ({
           fillColor={fillColor}
           clickedCell={clickedCell}
           onCellClick={handleCellClick}
+          onCellHover={handleMouseEnter}
           interactive
         />
       </div>
@@ -89,6 +99,7 @@ type DivGridProps = {
   fillColor: string;
   clickedCell: { row: number; col: number } | null;
   onCellClick?: (row: number, col: number) => void;
+  onCellHover?: (row: number, col: number) => void;
   interactive?: boolean;
 };
 
@@ -106,6 +117,7 @@ const DivGrid = ({
   fillColor = "rgba(14,165,233,0.3)",
   clickedCell = null,
   onCellClick = () => {},
+  onCellHover = () => {},
   interactive = true,
 }: DivGridProps) => {
   const cells = useMemo(
@@ -154,6 +166,9 @@ const DivGrid = ({
               transition: clickedCell ? 'background-color 0.3s ease' : 'background-color 0.2s ease',
               ...style,
             }}
+            onMouseEnter={
+              interactive ? () => onCellHover?.(rowIdx, colIdx) : undefined
+            }
             onClick={
               interactive ? () => onCellClick?.(rowIdx, colIdx) : undefined
             }

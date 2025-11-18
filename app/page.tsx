@@ -17,7 +17,6 @@ export default function Home() {
       <Sponsors />
       <Testimonials />
       <PhotoGallery />
-      
       <Footer />
     </div>
   );

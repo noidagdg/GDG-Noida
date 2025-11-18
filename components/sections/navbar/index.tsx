@@ -22,7 +22,7 @@ export default function Navbar({ className }: { className?: string }) {
     <div
       className={cn("fixed top-4 md:top-10 inset-x-0 max-w-7xl mx-auto z-50 px-4 md:px-8 lg:px-20", className)}
     >
-      <nav className="relative rounded-full border border-black/10 backdrop-blur-sm dark:bg-black dark:border-white/20 bg-white/90 shadow-lg flex items-center justify-between px-4 md:px-8 py-2 md:py-6">
+      <nav className="relative rounded-full border border-white/70  dark:bg-black dark:border-white/20 bg-transparent backdrop-blur-xs shadow-lg flex items-center justify-between px-4 md:px-8 py-2 md:py-6 antialiased">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-3 z-50">
           <Image 
@@ -68,9 +68,9 @@ export default function Navbar({ className }: { className?: string }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full left-0 right-0 mt-4 mx-4 bg-white dark:bg-black rounded-2xl shadow-xl border border-black/10 dark:border-white/20 overflow-hidden lg:hidden"
+              className="absolute top-full left-0 right-0 mt-4 mx-4 dark:bg-black rounded-2xl shadow-xl border border-black/10 dark:border-white/20 overflow-hidden lg:hidden"
             >
-              <div className="flex flex-col p-4">
+              <div className="flex flex-col p-4 bg-white/90 dark:bg-black/80 backdrop-blur-3xl">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.name}

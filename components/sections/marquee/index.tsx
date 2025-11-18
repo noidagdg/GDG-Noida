@@ -59,7 +59,7 @@ function MarqueeSection() {
               alt={logo.name}
               width={147}
               height={53}
-              className="w-[147px] h-[53px] object-contain opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
+              className="w-[97px] h-[38px] lg:w-[147px]  lg:h-[53px] object-contain opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
             />
           </div>
         ))}

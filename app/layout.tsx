@@ -4,18 +4,27 @@ import { PageLoader } from "@/components/ui/page-loader";
 
 export const metadata: Metadata = {
   title: "GDG Noida",
-  description: "GDG Noida is a community of developers who are passionate about technology and innovation.",
+  description:
+    "GDG Noida is a community of developers who are passionate about technology and innovation.",
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    images: "/og-image.png",
     title: "GDG Noida",
-    description: "GDG Noida is a community of developers who are passionate about technology and innovation.",
+    description:
+      "GDG Noida is a community of developers who are passionate about technology and innovation.",
     url: "https://gdgnoida.com",
     siteName: "GDG Noida",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://gdgnoida.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "GDG Noida hero preview",
+      },
+    ],
   },
 };
 

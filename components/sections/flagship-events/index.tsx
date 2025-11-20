@@ -89,7 +89,7 @@ const eventSets: EventCard[][] = [
         { value: "150+", label: "Attendees" },
         { value: "8+", label: "Speakers" },
       ],
-      venue: "IIT Delhi Campus, Delhi",
+      venue: "IIIT Delhi Campus, Delhi",
       backgroundColor: "bg-[#FCE4EC]",
     },
     {

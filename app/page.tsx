@@ -1,6 +1,7 @@
 import Navbar from "@/components/sections/navbar";
 import Hero from "@/components/sections/hero";
 import FlagshipEvents from "@/components/sections/flagship-events";
+import UpcomingEvents from "@/components/sections/upcoming-events";
 import StarSpeakers from "@/components/sections/star-speakers";
 import PhotoGallery from "@/components/sections/photo-gallery";
 import Sponsors from "@/components/sections/sponsors";
@@ -15,9 +16,10 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Marquee />
-      <FlagshipEvents />
+      <UpcomingEvents />
       <StarSpeakers />
       <WhoWeAre />
+      <FlagshipEvents />
       <Sponsors />
       <Testimonials />
       <PhotoGallery />

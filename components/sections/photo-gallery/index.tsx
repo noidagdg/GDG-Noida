@@ -69,9 +69,9 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
           </div>
 
           {/* 3-Column Mobile Grid */}
-          <div className="flex items-center justify-center gap-2 sm:gap-4 md:gap-6 max-w-full">
+          <div className="flex items-center justify-center gap-3 sm:gap-5 md:gap-8 max-w-full">
             {/* Column 1 - Two Photos */}
-            <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 flex-shrink-0">
+            <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
               {columnImages[0].map((img) => (
                 <BlurFade key={`mobile-${img.src}`} delay={0.4} inView>
                   <div className="group relative h-[120px] w-[85px] sm:h-[150px] sm:w-[105px] md:h-[182px] md:w-[134px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
@@ -105,7 +105,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
             </div>
 
             {/* Column 8 - Two Photos */}
-            <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 flex-shrink-0">
+            <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
               {columnImages[3].map((img) => (
                 <BlurFade key={`mobile-${img.src}`} delay={0.7} inView>
                   <div className="group relative h-[120px] w-[85px] sm:h-[150px] sm:w-[105px] md:h-[182px] md:w-[134px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
@@ -127,11 +127,11 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
         {/* Desktop View - Full Layout (hidden on mobile) */}
         <div className="hidden lg:block relative">
         {/* Image Columns Grid */}
-        <div className="relative flex items-start justify-center gap-[10px]">
+        <div className="relative flex items-start justify-center gap-[30px]">
           {/* Left Side - Column 1 & 2 */}
-          <div className="flex gap-[19px]">
+          <div className="flex gap-[30px]">
             {/* Column 1 - Static (w-134 h-182) */}
-            <div className="flex flex-col items-center justify-start gap-[19px] pt-[70px]">
+            <div className="flex flex-col items-center justify-start gap-[30px] pt-[70px]">
             {columnImages[0].map((img, idx) => (
               <BlurFade key={idx} delay={0.1 + idx * 0.05} inView>
                 <div className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
@@ -173,7 +173,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
           <div className="relative flex flex-col items-center justify-center">
             <div className="relative flex flex-col items-center justify-center">
             {/* 4 Cards Above Text (w-135 h-250) */}
-            <div className="relative flex items-start justify-center gap-[19px] mt-2" style={{ marginBottom: `${maxOffset}px` }}>
+            <div className="relative flex items-start justify-center gap-[30px] mt-2" style={{ marginBottom: `${maxOffset}px` }}>
               {centerCards.map((card, idx) => (
                 <BlurFade key={idx} delay={0.5 + idx * 0.1} inView>
                   <div 
@@ -212,7 +212,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
           </div>
 
           {/* Right Side - Column 7 & 8 */}
-          <div className="flex gap-[19px]">
+          <div className="flex gap-[30px]">
           {/* Column 7 - Infinite Scroll (Right) (w-134 h-146) */}
           <div className="flex flex-col items-center justify-center">
             <InfiniteScroll direction="down" speed={25} className="h-[610px]">
@@ -234,7 +234,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
           </div>
 
           {/* Column 8 - Static (w-134 h-182) */}
-          <div className="flex flex-col items-center justify-start gap-[19px] pt-[70px]">
+          <div className="flex flex-col items-center justify-start gap-[30px] pt-[70px]">
             {columnImages[3].map((img, idx) => (
               <BlurFade key={idx} delay={0.5 + idx * 0.05} inView>
                 <div className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">

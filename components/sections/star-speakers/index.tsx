@@ -41,7 +41,7 @@ const speakers = [
 
 export default function StarSpeakers({ className }: StarSpeakersProps) {
   return (
-    <section className={cn("relative w-full overflow-hidden py-16 md:py-24", className)}>
+    <section id="speakers" className={cn("relative w-full overflow-hidden py-16 md:py-24", className)}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="mb-12 text-center md:mb-16">

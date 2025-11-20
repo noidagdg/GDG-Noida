@@ -10,13 +10,32 @@ export default function Navbar({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Events", href: "/events" },
-    { name: "About Us", href: "/about" },
-    { name: "Sponsors", href: "/sponsors" },
-    { name: "Blogs", href: "/blogs" },
-    { name: "Gallery", href: "/gallery" },
+    { name: "Home", href: "#home" },
+    { name: "Events", href: "#events" },
+    { name: "Speakers", href: "#speakers" },
+    { name: "About Us", href: "#about" },
+    { name: "Sponsors", href: "#sponsors" },
+    { name: "Testimonials", href: "#testimonials" },
+    { name: "Gallery", href: "#gallery" },
   ];
+
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      const navbarHeight = 100; // Approximate navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    setIsOpen(false);
+  };
 
   return (
     <div
@@ -37,13 +56,14 @@ export default function Navbar({ className }: { className?: string }) {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
               href={link.href}
-              className="text-black dark:text-white hover:opacity-80 transition-opacity font-medium text-sm"
+              onClick={(e) => handleScroll(e, link.href)}
+              className="text-black dark:text-white hover:opacity-80 transition-opacity font-medium text-sm cursor-pointer"
             >
               {link.name}
-            </Link>
+            </a>
           ))}
         </div>
 
@@ -78,13 +98,13 @@ export default function Navbar({ className }: { className?: string }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <Link
+                    <a
                       href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-3 rounded-lg transition-colors font-medium block"
+                      onClick={(e) => handleScroll(e, link.href)}
+                      className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-3 rounded-lg transition-colors font-medium block cursor-pointer"
                     >
                       {link.name}
-                    </Link>
+                    </a>
                   </motion.div>
                 ))}
               </div>

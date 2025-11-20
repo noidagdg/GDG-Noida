@@ -7,7 +7,7 @@ import { BackgroundRippleEffect } from '@/components/ui/background-ripple-effect
 
 function Hero() {
   return (
-    <section className="relative lg:min-h-screen h-[70vh] md:h-screen flex flex-col px-4 py-8 md:py-12 lg:py-16 bg-white overflow-hidden w-full items-center justify-center">
+    <section id="home" className="relative lg:min-h-screen h-[70vh] md:h-screen flex flex-col px-4 py-8 md:py-12 lg:py-16 bg-white overflow-hidden w-full items-center justify-center">
       {/* Background Cover SVG */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Image 
@@ -153,7 +153,9 @@ function Hero() {
               className="w-6 h-4 sm:w-8 sm:h-5 md:w-[34px] md:h-[21px]"
             />
             <span className="text-[15px] sm:text-base md:text-lg lg:text-xl font-semibold">
-              Join Community
+              <a href="https://www.commudle.com/communities/gdg-noida" target="_blank" rel="noopener noreferrer">
+                Join Community
+              </a>
             </span>
           </button>
         </BlurFade>

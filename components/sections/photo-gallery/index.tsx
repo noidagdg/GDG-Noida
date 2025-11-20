@@ -50,7 +50,7 @@ const maxOffset = Math.max(...centerCards.map(card => card.offset)); // 113px
 
 export default function PhotoGallery({ className }: PhotoGalleryProps) {
   return (
-    <section className={cn("relative w-full overflow-hidden bg-linear-to-b from-gray-50 to-white py-12 lg:py-0", className)}>
+    <section id="gallery" className={cn("relative w-full overflow-hidden bg-linear-to-b from-gray-50 to-white py-12 lg:py-0", className)}>
       <div className="relative mx-auto max-w-[1920px]">
         {/* Mobile View - Only 3 columns */}
         <div className="lg:hidden px-2 sm:px-4">

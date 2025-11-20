@@ -45,8 +45,9 @@ const imagePaths = {
 export default function WhoWeAre({ className }: WhoWeAreProps) {
   return (
     <section
+      id="about"
       className={cn(
-        "relative w-full overflow-hidden py-16 md:py-24 bg-white",
+        "relative w-full overflow-hidden py-16 md:py-20 bg-white",
         className
       )}
     >
@@ -117,7 +118,7 @@ export default function WhoWeAre({ className }: WhoWeAreProps) {
                   fill
                   className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                 />
-                <div className="absolute bottom-0 left-0 p-3 md:p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent w-full">
+                 <div className="absolute bottom-0 left-0 p-3 md:p-4 bg-linear-to-t from-black/90 via-black/50 to-transparent w-full">
                   <p className="text-white text-xs md:text-sm font-medium tracking-wide">GDG NOIDA Team</p>
                 </div>
               </div>
@@ -140,9 +141,9 @@ export default function WhoWeAre({ className }: WhoWeAreProps) {
           <div className="flex flex-col gap-3 md:gap-4 w-full">
             {/* Nested Grid: 3, 4 */}
             <div className="grid grid-cols-2 gap-3 md:gap-4 w-full">
-              {/* 3. GDG Noida night image */}
-              <BlurFade delay={0.45} inView>
-                <div className="bg-black rounded-2xl md:rounded-3xl overflow-hidden shadow-sm hover:scale-[1.02] transition-transform relative w-full aspect-[2/1]">
+               {/* 3. GDG Noida night image */}
+               <BlurFade delay={0.45} inView>
+                 <div className="bg-black rounded-2xl md:rounded-3xl overflow-hidden shadow-sm hover:scale-[1.02] transition-transform relative w-full aspect-2/1">
                   <Image
                     src={imagePaths.nightGdgNoida}
                     alt="GDG NOIDA"
@@ -152,9 +153,9 @@ export default function WhoWeAre({ className }: WhoWeAreProps) {
                 </div>
               </BlurFade>
 
-              {/* 4. 3+ Golden Years */}
-              <BlurFade delay={0.5} inView>
-                <div className="bg-[#E6F6EB] rounded-2xl md:rounded-3xl overflow-hidden shadow-sm hover:scale-[1.02] transition-transform relative w-full aspect-[2/1]">
+               {/* 4. 3+ Golden Years */}
+               <BlurFade delay={0.5} inView>
+                 <div className="bg-[#E6F6EB] rounded-2xl md:rounded-3xl overflow-hidden shadow-sm hover:scale-[1.02] transition-transform relative w-full aspect-2/1">
                   <Image
                     src={imagePaths.goldenYears}
                     alt="3+ Golden Years"
@@ -165,9 +166,9 @@ export default function WhoWeAre({ className }: WhoWeAreProps) {
               </BlurFade>
             </div>
 
-            {/* 8. Big image in middle of Noida */}
-            <BlurFade delay={0.55} inView>
-              <div className="bg-gradient-to-b from-blue-50 to-white rounded-2xl md:rounded-3xl overflow-hidden shadow-sm hover:scale-[1.02] transition-transform relative w-full aspect-[1.05/1]">
+             {/* 8. Big image in middle of Noida */}
+             <BlurFade delay={0.55} inView>
+               <div className="bg-linear-to-b from-blue-50 to-white rounded-2xl md:rounded-3xl overflow-hidden shadow-sm hover:scale-[1.02] transition-transform relative w-full aspect-[1.05/1]">
                 <Image
                   src={imagePaths.noidaGraphic}
                   alt="NOIDA City Graphic"

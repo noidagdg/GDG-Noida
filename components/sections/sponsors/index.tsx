@@ -114,13 +114,13 @@ function Sponsors() {
         const nextIndex = (currentIndex + 1) % sponsors.length
         return sponsors[nextIndex]
       })
-    }, 4000) // 10 seconds
+    }, 6000) // 10 seconds
 
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <section className={`relative pt-8 pb-12 px-4 md:pt-[32px] md:pb-[50px] md:px-[64px] ${activeSponsor.bgColor}`}>
+    <section id="sponsors" className={`relative pt-8 pb-12 px-4 md:pt-[32px] md:pb-[50px] md:px-[64px] ${activeSponsor.bgColor}`}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 md:mb-10">

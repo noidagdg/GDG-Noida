@@ -1,0 +1,145 @@
+import React from "react";
+
+export interface TestimonialAuthor {
+  name: string;
+  title: string;
+  imgSrc: string;
+}
+
+export interface TestimonialCard {
+  bgColor: string;
+  content: React.ReactNode;
+  author: TestimonialAuthor;
+}
+
+export interface TestimonialsData {
+  card1: TestimonialCard;
+  card2: TestimonialCard;
+  card3: TestimonialCard;
+  card4: TestimonialCard;
+  card5: TestimonialCard;
+  card6: TestimonialCard;
+}
+
+export const testimonials: TestimonialsData = {
+  card1: {
+    bgColor: "bg-[#FEFCE8]",
+    content: (
+      <>
+        <p className="mb-4">
+          In college, I faced many distractions that could have led me astray. In my second year, joining the GDG Noida community was a turning point.
+        </p>
+        <p className="mb-4">
+          Their events and sessions refocused me on my software development goals.{" "}
+          <strong className="font-semibold text-zinc-900">
+            Thanks to GDG Noida, I found the direction and inspiration to follow my passion.
+          </strong>{" "}
+          I&apos;m truly grateful for their support and the positive impact on my career.
+        </p>
+      </>
+    ),
+    author: {
+      name: "Shekhar Patel",
+      title: "Software Engineer, Lambdatest",
+      imgSrc: "/Images/shekhar.png",
+    },
+  },
+
+  card2: {
+    bgColor: "bg-[#FFECEB]",
+    content: (
+      <p>
+        <strong className="font-semibold text-zinc-900">
+          GDG Noida introduced me to open-source tech communities.
+        </strong>{" "}
+        Their guidance helped me advance my career, and I&apos;m grateful for the opportunities GDG Noida provided.
+        I&apos;m now excited to share my own experiences as a speaker!
+      </p>
+    ),
+    author: {
+      name: "Kaushik Karan Singh",
+      title: "Android Developer, Mind Geeks",
+      imgSrc: "/Images/kaushik-karan.png",
+    },
+  },
+
+  card3: {
+    bgColor: "bg-[#FFECEB]",
+    content: (
+      <p>
+        GDG Noida is my happy place. When I joined this community 2 years ago, I had no experience in proper communication.
+        The team, especially the organizers, were so helpful and always encouraged me.{" "}
+        <strong className="font-semibold text-zinc-900">
+          Thanks to GDG Noida, I&apos;ve improved my analytical thinking and task management skills and landed great opportunities.
+        </strong>
+      </p>
+    ),
+    author: {
+      name: "Abhinav Jha",
+      title: "Product Designer Intern, Nickelfox",
+      imgSrc: "/Images/abhinav-jha.png",
+    },
+  },
+
+  card4: {
+    bgColor: "bg-[#F0FFF4]",
+    content: (
+      <p>
+        I had the privilege of meeting Ansh Mehra at DevFest Noida. I learned the fundamentals of design from his YouTube videos.
+        As a distinguished speaker at the event, he left an indelible mark on me.
+        Meeting him at DevFest opened the door to a collaborative journey on a series of exciting projects.{" "}
+        <strong className="font-semibold text-zinc-900">
+          I am grateful to DevFest Noida for providing me with this opportunity to connect with great designers,
+        </strong>{" "}
+        which has accelerated my career growth and development.
+      </p>
+    ),
+    author: {
+      name: "Garima Pandey",
+      title: "UX Designer, Eden Care Medical",
+      imgSrc: "/Images/garima-pandey.png",
+    },
+  },
+
+  card5: {
+    bgColor: "bg-[#EBF8FF]",
+    content: (
+      <p>
+        Being part of GDG Noida was transformative for me. It was more than a community; it was where I found my voice and my people.
+        GDG Noida was my safe space to share ideas and learn without fear.{" "}
+        <strong className="font-semibold text-zinc-900">
+          I&apos;ll never forget speaking at the Women&apos;s Day event, #DareToBe.
+        </strong>{" "}
+        I was terrified, but they believed in me and gave me the courage to step into the spotlight.{" "}
+        <strong className="font-semibold text-zinc-900">
+          The connections I made built a reliable support system.
+        </strong>{" "}
+        The conversations, brainstorming, and sense of belonging helped me grow.
+      </p>
+    ),
+    author: {
+      name: "Sumati Gupta",
+      title: "Project Coordinator",
+      imgSrc: "/Images/sumati-gupta.png",
+    },
+  },
+
+  card6: {
+    bgColor: "bg-[#FDF1D3]",
+    content: (
+      <p>
+        Their guidance helped me advance my career, and I&apos;m grateful for the opportunities GDG Noida provided.{" "}
+        <strong className="font-semibold text-zinc-900">
+          The sessions and hands-on workshops inspired me to contribute to open source, 
+        </strong>{" "}
+        and collaborations sparked new friendships.{" "}
+      </p>
+    ),
+    author: {
+      name: "Parul Gupta",
+      title: "Associate Project Manager",
+      imgSrc: "/Images/parul-gupta.jpeg",
+    },
+  },
+};
+

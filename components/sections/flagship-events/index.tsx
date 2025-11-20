@@ -273,6 +273,7 @@ export default function FlagshipEvents () {
 
   return (
     <section 
+      id="events"
       className="py-20 px-4 md:px-8 lg:px-16 transition-all duration-700"
     >
       <div className="max-w-[1400px] mx-auto">

@@ -15,7 +15,62 @@ const imagePaths = {
   // 2. Android image
   androidImage: "/assets/who-we-are/android-image.png",
   // 3. GDG Noida image
-  gdgNoidaImage: "/assets/who-we-are/gdg-noida-logo.png",
+  gdgNoidaImage: "import { NextRequest, NextResponse } from 'next/server'
+
+// Replace with real DB calls (Prisma, Drizzle, etc.)
+const fakeStore: any[] = []
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json()
+    const { name, content } = body
+
+    if (!content) {
+      return NextResponse.json(
+        { error: 'content is required' },
+        { status: 400 },
+      )
+    }
+
+    const id = fakeStore.length + 1
+
+    fakeStore.push({
+      id,
+      name: name || `Template ${id}`,
+      content_json: content,
+    })
+
+    return NextResponse.json({ ok: true, id })
+  } catch (e: any) {
+    return NextResponse.json(
+      { error: e?.message || 'Server error' },
+      { status: 500 },
+    )
+  }
+}
+
+// Example GET /api/email-templates/1
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const idParam = searchParams.get('id')
+
+  if (!idParam) {
+    return NextResponse.json(
+      { error: 'id query param required' },
+      { status: 400 },
+    )
+  }
+
+  const id = Number(idParam)
+  const template = fakeStore.find((t) => t.id === id)
+
+  if (!template) {
+    return NextResponse.json({ error: 'not found' }, { status: 404 })
+  }
+
+  return NextResponse.json(template)
+}
+",
   // 4. 3+ golden years
   goldenYears: "/assets/who-we-are/golden-years.png",
   // 5. 33K+ community members

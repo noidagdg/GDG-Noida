@@ -167,6 +167,16 @@
   }
 }
 
+@keyframes slide {
+  0%,
+  100% {
+    left: 10%;
+  }
+  50% {
+    left: 70%;
+  }
+}
+
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {

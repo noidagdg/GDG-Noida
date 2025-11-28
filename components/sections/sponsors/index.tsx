@@ -206,14 +206,14 @@ function Sponsors() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="bg-white rounded-[20px] p-6 md:p-8 lg:p-10 shadow-2xl w-full h-[500px] md:h-[550px] lg:w-[809.983px] lg:h-[563px] flex flex-col"
+                className="bg-white rounded-[20px] p-6 md:p-8 lg:p-10 shadow-2xl w-full min-h-[500px] md:min-h-[550px] lg:min-h-[563px] flex flex-col"
               >
                 {/* Testimonial Text */}
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2, duration: 0.3 }}
-                  className="text-gray-800 text-sm md:text-base lg:text-lg leading-relaxed grow"
+                  className="text-gray-800 text-sm md:text-base lg:text-lg leading-relaxed flex-1"
                 >
                   {activeSponsor.testimonial.text}
                 </motion.p>

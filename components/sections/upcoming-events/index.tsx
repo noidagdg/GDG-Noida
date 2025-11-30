@@ -18,7 +18,7 @@ const upcomingEvents: UpcomingEvent[] = [
     title: "DevFest Noida 2025",
     subtitle: "Quickly create design mockups and prototypes with the latest Material 3, expressive components and styles",
     image: "/assets/upcomingEvents/leftCardUpEvent.svg",
-    link: "#",
+    link: "https://www.commudle.com/communities/gdg-noida/events/devfest-noida-2025",
     backgroundColor: "#E9F9EE",
   },
   {
@@ -26,7 +26,7 @@ const upcomingEvents: UpcomingEvent[] = [
     title: "HackSpace Noida",
     subtitle: "Easier-to-implement motion system for more customizable transitions powered by tokens",
     image: "/assets/upcomingEvents/rightCardUpEvent.svg",
-    link: "#",
+    link: "https://www.commudle.com/communities/gdg-cloud-noida/hackathons/google-hackspace",
     backgroundColor: "#FFF7E0",
   },
 ];

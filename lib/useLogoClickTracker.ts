@@ -1,36 +1,39 @@
-import { useEffect, useRef, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useCallback } from "react";
 
-const LOGO_CLICK_KEY = 'gdg_logo_clicks';
+const LOGO_CLICK_KEY = "gdg_logo_clicks";
 const REQUIRED_CLICKS = 5;
 
-export function useLogoClickTracker() {
-  const clickCountRef = useRef(0);
-  const router = useRouter();
+export function useLogoClickTracker(onSecretUnlocked?: () => void) {
+  const [clickCount, setClickCount] = useState(0);
 
   const trackClick = useCallback(() => {
-    clickCountRef.current += 1;
-    
-    // Store in localStorage for persistence
-    localStorage.setItem(LOGO_CLICK_KEY, String(clickCountRef.current));
+    setClickCount((prev) => {
+      const newCount = prev + 1;
 
-    if (clickCountRef.current === REQUIRED_CLICKS) {
-      // Reset counter
-      clickCountRef.current = 0;
-      localStorage.setItem(LOGO_CLICK_KEY, '0');
-      
-      // Navigate to secret page
-      router.push('/secret');
-    }
-  }, [router]);
+      // Store in localStorage for persistence
+      localStorage.setItem(LOGO_CLICK_KEY, String(newCount));
+
+      if (newCount === REQUIRED_CLICKS) {
+        // Trigger callback to open dialog
+        if (onSecretUnlocked) {
+          onSecretUnlocked();
+        }
+        // Reset counter
+        localStorage.setItem(LOGO_CLICK_KEY, "0");
+        return 0;
+      }
+
+      return newCount;
+    });
+  }, [onSecretUnlocked]);
 
   // Initialize from localStorage
   useEffect(() => {
     const stored = localStorage.getItem(LOGO_CLICK_KEY);
     if (stored) {
-      clickCountRef.current = parseInt(stored, 10);
+      setClickCount(parseInt(stored, 10));
     }
   }, []);
 
-  return { trackClick, clickCount: clickCountRef.current };
+  return { trackClick, clickCount };
 }

@@ -5,9 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useLogoClickTracker } from "@/lib/useLogoClickTracker";
 
 export default function Navbar({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { trackClick } = useLogoClickTracker();
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -43,7 +45,10 @@ export default function Navbar({ className }: { className?: string }) {
     >
       <nav className="relative rounded-full border border-white/70  dark:bg-black dark:border-white/20 bg-transparent backdrop-blur-xs shadow-lg flex items-center justify-between px-4 md:px-8 py-2 md:py-6 antialiased">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-3 z-50">
+        <button
+          onClick={trackClick}
+          className="flex items-center space-x-3 z-50 bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
+        >
           <Image 
             src="/assets/noida_long_logo0.svg" 
             alt="GDG Noida Logo" 
@@ -51,7 +56,7 @@ export default function Navbar({ className }: { className?: string }) {
             height={40} 
             className="h-5 md:h-6 w-auto object-contain" 
           />
-        </Link>
+        </button>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">

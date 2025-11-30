@@ -197,14 +197,14 @@ export default function AgendaPage() {
                             )}
                           </div>
                         )}
-                        {session.hasQnA && (
+                        {/* {session.hasQnA && (
                           <button
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-50 hover:bg-zinc-100 text-zinc-700 font-medium transition-colors text-xs mt-1 w-fit"
                           >
                             <MessageCircle className="w-3.5 h-3.5" />
                             Ask Q&apos;s
                           </button>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   ),

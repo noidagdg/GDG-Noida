@@ -13,6 +13,7 @@ export default function Navbar({ className }: { className?: string }) {
     { name: "Home", href: "#home" },
     { name: "Events", href: "#events" },
     { name: "Speakers", href: "#speakers" },
+    { name: "Agenda", href: "/agenda" },
     { name: "About Us", href: "#about" },
     { name: "Sponsors", href: "#sponsors" },
     { name: "Testimonials", href: "#testimonials" },
@@ -20,6 +21,11 @@ export default function Navbar({ className }: { className?: string }) {
   ];
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // If it's a full URL path (not a hash), let it navigate normally
+    if (href.startsWith("/")) {
+      return;
+    }
+    
     e.preventDefault();
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
@@ -56,14 +62,14 @@ export default function Navbar({ className }: { className?: string }) {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-6">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               onClick={(e) => handleScroll(e, link.href)}
               className="text-black dark:text-white hover:opacity-80 transition-opacity font-medium text-sm cursor-pointer"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -98,13 +104,13 @@ export default function Navbar({ className }: { className?: string }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <a
+                    <Link
                       href={link.href}
                       onClick={(e) => handleScroll(e, link.href)}
                       className="text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-4 py-3 rounded-lg transition-colors font-medium block cursor-pointer"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </motion.div>
                 ))}
               </div>

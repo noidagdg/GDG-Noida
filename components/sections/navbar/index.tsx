@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLogoClickTracker } from "@/lib/useLogoClickTracker";

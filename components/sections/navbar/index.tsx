@@ -27,6 +27,11 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
   const { trackClick } = useLogoClickTracker(onSecretUnlocked);
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // If it's a full URL path (not a hash), let it navigate normally
+    if (href.startsWith("/")) {
+      return;
+    }
+    
     e.preventDefault();
     const targetId = href.replace("#", "");
     const element = document.getElementById(targetId);
@@ -153,7 +158,7 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05, duration: 0.3 }}
                   >
-                    <a
+                    <Link
                       href={link.href}
                       onClick={(e) => handleScroll(e, link.href)}
                       className={cn(
@@ -164,7 +169,7 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
                       )}
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </motion.div>
                 ))}
               </div>

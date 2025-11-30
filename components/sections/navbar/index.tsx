@@ -61,7 +61,7 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
         )}
       >
         {/* Top accent line */}
-        <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+        <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-[#4285F4]/20 to-transparent" />
 
         {/* Logo Button */}
         <motion.button

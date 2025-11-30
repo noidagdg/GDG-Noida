@@ -24,9 +24,9 @@ export default function BlurFade({
   variant,
   duration = 0.4,
   delay = 0,
-  yOffset = 0,
+  yOffset = 6,
   inView = false,
-  inViewMargin = "0px",
+  inViewMargin = "-50px",
   blur = "6px",
 }: BlurFadeProps) {
   const defaultVariants = {

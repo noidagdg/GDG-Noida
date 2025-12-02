@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ConfettiAnimation } from "./confetti";
 
 interface SecretDialogProps {
   isOpen: boolean;
@@ -12,11 +13,23 @@ interface SecretDialogProps {
 
 export function SecretDialog({ isOpen, onClose }: SecretDialogProps) {
   const [isMounted] = useState(() => true);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShowConfetti(true);
+      const timer = setTimeout(() => setShowConfetti(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Confetti Animation */}
+          {showConfetti && <ConfettiAnimation />}
+
           {/* Backdrop with blur */}
           <motion.div
             initial={{ opacity: 0 }}

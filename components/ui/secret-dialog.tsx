@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,13 +11,7 @@ interface SecretDialogProps {
 }
 
 export function SecretDialog({ isOpen, onClose }: SecretDialogProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return null;
+  const [isMounted] = useState(() => true);
 
   return (
     <AnimatePresence>

@@ -187,7 +187,7 @@ function CounterNumber ({ value, eventKey }: { readonly value: string; readonly 
   const formattedCount = count.toLocaleString();
   
   return (
-    <span className="text-[33px] font-normal text-[#34A853]">
+    <span className="text-[24px] md:text-[28px] lg:text-[33px] font-normal text-[#34A853]">
       {formattedCount}
       {hasPlus && (
         <span
@@ -257,19 +257,19 @@ export default function FlagshipEvents () {
   };
 
   // Auto-slide every 10 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDirection(1);
-      setCurrentSet((prev) => {
-        let next = prev + 1;
-        if (next >= eventSets.length) next = 0;
-        return next;
-      });
-      setResetKey((prev) => prev + 1);
-    }, 10000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setDirection(1);
+  //     setCurrentSet((prev) => {
+  //       let next = prev + 1;
+  //       if (next >= eventSets.length) next = 0;
+  //       return next;
+  //     });
+  //     setResetKey((prev) => prev + 1);
+  //   }, 10000);
 
-    return () => clearInterval(interval);
-  }, [currentSet]);
+  //   return () => clearInterval(interval);
+  // }, [currentSet]);
 
   return (
     <section 
@@ -338,7 +338,9 @@ export default function FlagshipEvents () {
                 key={event.year}
                 className={cn(
                   "rounded-[20px] shadow-xl relative flex flex-col items-center",
-                  "w-full max-w-[372px] h-[493px] mx-auto lg:mx-0",
+                  "w-full max-w-[280px] md:max-w-[320px] lg:max-w-[372px]",
+                  "h-[380px] md:h-[430px] lg:h-[493px]",
+                  "mx-auto lg:mx-0",
                   event.backgroundColor,
                   // Mobile: spacing for stacking effect, Desktop: design specs
                   index === 0 ? "mt-0" : "mt-[25vh] lg:mt-0",
@@ -349,8 +351,8 @@ export default function FlagshipEvents () {
                 )}
               >
                 {/* Event Logo */}
-                <div className="mt-6 mb-4 flex items-center justify-center w-full px-6">
-                  <div className="relative w-full h-[60px]">
+                <div className="mt-4 md:mt-5 lg:mt-6 mb-3 md:mb-3.5 lg:mb-4 flex items-center justify-center w-full px-4 md:px-5 lg:px-6">
+                  <div className="relative w-full h-[45px] md:h-[50px] lg:h-[60px]">
                     <Image
                       src={event.logo}
                       alt={`DevFest ${event.year} Logo`}
@@ -361,7 +363,7 @@ export default function FlagshipEvents () {
                 </div>
 
                 {/* Event Image */}
-                <div className="relative w-[334px] h-[347px] shrink-0">
+                <div className="relative w-[250px] md:w-[290px] lg:w-[334px] h-[260px] md:h-[295px] lg:h-[347px] shrink-0">
                   <div className="relative w-full h-full rounded-2xl overflow-hidden">
                     <Image
                       src={event.image}
@@ -372,14 +374,14 @@ export default function FlagshipEvents () {
                   </div>
                   
                   {/* Stats Overlay */}
-                  <div className="absolute bottom-3 left-[35%] space-y-2.5">
+                  <div className="absolute bottom-2 md:bottom-2.5 lg:bottom-3 left-[30%] md:left-[32%] lg:left-[35%] space-y-1.5 md:space-y-2 lg:space-y-2.5">
                     {event.stats.map((stat) => (
                       <div
                         key={`${event.year}-${stat.label}`}
-                        className="bg-white rounded-[17px] px-2.5 py-2 flex items-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)] w-fit"
+                        className="bg-white rounded-[12px] md:rounded-[15px] lg:rounded-[17px] px-2 md:px-2.5 py-1.5 md:py-2 flex items-center gap-1.5 md:gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)] w-fit"
                       >
                         <CounterNumber value={stat.value} eventKey={`${currentSet}-${event.year}-${stat.label}`} />
-                        <span className="text-[22px] font-normal text-black">
+                        <span className="text-[16px] md:text-[19px] lg:text-[22px] font-normal text-black">
                           {stat.label}
                         </span>
                       </div>
@@ -388,9 +390,9 @@ export default function FlagshipEvents () {
                 </div>
 
                 {/* Venue */}
-                <div className="flex items-center justify-center gap-2 text-black mt-auto pt-2 pb-6">
-                  <MapPin className="w-5 h-5 shrink-0" />
-                  <span className="text-[20px] font-semibold">{event.venue}</span>
+                <div className="flex items-center justify-center gap-1.5 md:gap-2 text-black mt-auto pt-1.5 md:pt-2 pb-4 md:pb-5 lg:pb-6 px-4">
+                  <MapPin className="w-4 h-4 md:w-[18px] md:h-[18px] lg:w-5 lg:h-5 shrink-0" />
+                  <span className="text-[14px] md:text-[17px] lg:text-[20px] font-medium text-center leading-tight">{event.venue}</span>
                 </div>
               </div>
             );

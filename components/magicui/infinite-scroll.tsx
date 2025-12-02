@@ -56,7 +56,7 @@ export default function InfiniteScroll({
   }, [children]);
 
   // Convert children to array for duplication
-  const childrenArray = Children.toArray(children);
+  // const childrenArray = Children.toArray(children);
 
   return (
     <div className={cn("relative overflow-hidden", className)}>

@@ -151,7 +151,7 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
                 "overflow-hidden"
               )}
             >
-              <div className="flex flex-col p-2">
+              <div className="flex flex-col p-4 bg-white/90 dark:bg-black/80 backdrop-blur-3xl">
                 {NAV_LINKS.map((link, index) => (
                   <motion.div
                     key={link.name}

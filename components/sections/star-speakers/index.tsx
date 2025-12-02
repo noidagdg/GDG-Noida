@@ -58,11 +58,11 @@ export default function StarSpeakers({ className }: StarSpeakersProps) {
         </div>
 
         {/* Speaker Cards Grid */}
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid lg:grid-cols-4 lg:gap-8 lg:justify-center">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
           {speakers.map((speaker, idx) => (
             <BlurFade key={speaker.id} delay={0.3 + idx * 0.1} inView>
               <div
-                className="group relative h-[230px] sm:h-[314px] w-full lg:w-[260px] overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                className="group relative h-[230px] sm:h-[314px] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 style={{ backgroundColor: speaker.backgroundColor }}
               >
                 {/* Speaker Image - Centered */}

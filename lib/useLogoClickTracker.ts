@@ -1,10 +1,16 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 const LOGO_CLICK_KEY = "gdg_logo_clicks";
 const REQUIRED_CLICKS = 5;
 
 export function useLogoClickTracker(onSecretUnlocked?: () => void) {
-  const [clickCount, setClickCount] = useState(0);
+  const [clickCount, setClickCount] = useState(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem(LOGO_CLICK_KEY);
+      return stored ? parseInt(stored, 10) : 0;
+    }
+    return 0;
+  });
 
   const trackClick = useCallback(() => {
     setClickCount((prev) => {
@@ -26,14 +32,6 @@ export function useLogoClickTracker(onSecretUnlocked?: () => void) {
       return newCount;
     });
   }, [onSecretUnlocked]);
-
-  // Initialize from localStorage
-  useEffect(() => {
-    const stored = localStorage.getItem(LOGO_CLICK_KEY);
-    if (stored) {
-      setClickCount(parseInt(stored, 10));
-    }
-  }, []);
 
   return { trackClick, clickCount };
 }

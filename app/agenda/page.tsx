@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import BlurFade from "@/components/magicui/blur-fade";
 import Navbar from "@/components/sections/navbar";
 import Footer from "@/components/sections/footer";
-import { MapPin, ExternalLink, MessageCircle } from "lucide-react";
+import { MapPin, ExternalLink } from "lucide-react";
 import { Timeline } from "@/components/ui/timeline";
 
 interface Session {

@@ -18,8 +18,8 @@ const communityMessages = [
 
 export function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
-  const [totalImages, setTotalImages] = useState(0);
+  // const [imagesLoaded, setImagesLoaded] = useState(0);
+  // const [totalImages, setTotalImages] = useState(0);
   const [currentMessage, setCurrentMessage] = useState(0);
 
   // Rotate messages every 2 seconds
@@ -44,7 +44,7 @@ export function PageLoader() {
       return src && !img.complete;
     });
 
-    setTotalImages(imagesToLoad.length);
+    // setTotalImages(imagesToLoad.length);
 
     if (imagesToLoad.length === 0) {
       setIsLoading(false);
@@ -55,7 +55,7 @@ export function PageLoader() {
 
     const handleImageLoad = () => {
       loadedCount++;
-      setImagesLoaded(loadedCount);
+      // setImagesLoaded(loadedCount);
       
       if (loadedCount >= imagesToLoad.length) {
         // Add a small delay for smooth transition
@@ -67,7 +67,7 @@ export function PageLoader() {
 
     const handleImageError = () => {
       loadedCount++;
-      setImagesLoaded(loadedCount);
+      // setImagesLoaded(loadedCount);
       
       if (loadedCount >= imagesToLoad.length) {
         setTimeout(() => {

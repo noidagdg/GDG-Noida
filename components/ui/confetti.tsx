@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "motion/react";
 
 interface ConfettiPiece {
@@ -10,24 +10,25 @@ interface ConfettiPiece {
   duration: number;
   rotation: number;
   color: string;
+  randomX: number;
 }
 
 const COLORS = ["#4285F4", "#F9AB00", "#34A853", "#EA4335"];
 
-export function ConfettiAnimation() {
-  const [pieces, setPieces] = useState<ConfettiPiece[]>([]);
+function generateConfettiPieces(): ConfettiPiece[] {
+  return Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    delay: Math.random() * 0.2,
+    duration: 2 + Math.random() * 1,
+    rotation: Math.random() * 360,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    randomX: (Math.random() - 0.5) * 100,
+  }));
+}
 
-  useEffect(() => {
-    const confettiPieces: ConfettiPiece[] = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 0.2,
-      duration: 2 + Math.random() * 1,
-      rotation: Math.random() * 360,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)],
-    }));
-    setPieces(confettiPieces);
-  }, []);
+export function ConfettiAnimation() {
+  const pieces = useMemo(() => generateConfettiPieces(), []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[100]">
@@ -42,8 +43,8 @@ export function ConfettiAnimation() {
           }}
           animate={{
             opacity: 0,
-            y: window.innerHeight + 10,
-            x: (Math.random() - 0.5) * 100,
+            y: typeof window !== "undefined" ? window.innerHeight + 10 : 1000,
+            x: piece.randomX,
             rotate: piece.rotation + 360,
           }}
           transition={{

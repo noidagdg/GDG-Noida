@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,12 +13,32 @@ interface SecretDialogProps {
 
 export function SecretDialog({ isOpen, onClose }: SecretDialogProps) {
   const [showConfetti, setShowConfetti] = useState(false);
+  const wasOpenRef = useRef(false);
 
   useEffect(() => {
-    if (isOpen) {
-      setShowConfetti(true);
-      const timer = setTimeout(() => setShowConfetti(false), 3000);
-      return () => clearTimeout(timer);
+    // If dialog just opened, start confetti animation
+    if (isOpen && !wasOpenRef.current) {
+      wasOpenRef.current = true;
+
+      // Defer setState to avoid synchronous call in effect
+      const confettiTimer = setTimeout(() => {
+        setShowConfetti(true);
+      }, 0);
+
+      // Stop confetti after 3 seconds
+      const hideTimer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(confettiTimer);
+        clearTimeout(hideTimer);
+      };
+    }
+
+    // If dialog just closed, update the ref
+    if (!isOpen && wasOpenRef.current) {
+      wasOpenRef.current = false;
     }
   }, [isOpen]);
 

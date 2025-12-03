@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ConfettiAnimation } from "./confetti";
 
 interface SecretDialogProps {
   isOpen: boolean;
@@ -11,12 +12,43 @@ interface SecretDialogProps {
 }
 
 export function SecretDialog({ isOpen, onClose }: SecretDialogProps) {
-  const [isMounted] = useState(() => true);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const wasOpenRef = useRef(false);
+
+  useEffect(() => {
+    // If dialog just opened, start confetti animation
+    if (isOpen && !wasOpenRef.current) {
+      wasOpenRef.current = true;
+
+      // Defer setState to avoid synchronous call in effect
+      const confettiTimer = setTimeout(() => {
+        setShowConfetti(true);
+      }, 0);
+
+      // Stop confetti after 3 seconds
+      const hideTimer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(confettiTimer);
+        clearTimeout(hideTimer);
+      };
+    }
+
+    // If dialog just closed, update the ref
+    if (!isOpen && wasOpenRef.current) {
+      wasOpenRef.current = false;
+    }
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Confetti Animation */}
+          {showConfetti && <ConfettiAnimation />}
+
           {/* Backdrop with blur */}
           <motion.div
             initial={{ opacity: 0 }}

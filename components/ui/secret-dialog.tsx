@@ -12,7 +12,6 @@ interface SecretDialogProps {
 }
 
 export function SecretDialog({ isOpen, onClose }: SecretDialogProps) {
-  const [isMounted] = useState(() => true);
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {

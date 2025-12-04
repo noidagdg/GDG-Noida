@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLogoClickTracker } from "@/lib/useLogoClickTracker";
+import { usePathname, useRouter } from "next/navigation";
 
 interface NavbarProps {
   className?: string;
@@ -27,6 +28,8 @@ const NAV_LINKS = [
 export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { trackClick } = useLogoClickTracker(onSecretUnlocked);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     // If it's a full URL path (not a hash), let it navigate normally
@@ -36,6 +39,14 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
     
     e.preventDefault();
     const targetId = href.replace("#", "");
+    
+    // If not on home page and clicking a hash link, navigate to home with hash
+    if (pathname !== "/") {
+      router.push(`/${href}`);
+      setIsOpen(false);
+      return;
+    }
+    
     const element = document.getElementById(targetId);
 
     if (element) {

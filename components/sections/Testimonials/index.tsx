@@ -39,14 +39,14 @@ export default function Testimonials({ className }: TestimonialsProps) {
           >
             {/* Column 1 */}
             <div className="flex-none w-80 sm:w-96 flex flex-col gap-6 md:gap-5 lg:w-auto h-full">
-              <BlurFade delay={0.2} inView>
+              <BlurFade delay={0.05} inView>
                 <TestimonialCard
                   bgColor={testimonials.card1.bgColor}
                   content={testimonials.card1.content}
                   author={testimonials.card1.author}
                 />
               </BlurFade>
-              <BlurFade delay={0.3} inView>
+              <BlurFade delay={0.08} inView>
                 <TestimonialCard
                   bgColor={testimonials.card3.bgColor}
                   content={testimonials.card3.content}
@@ -57,14 +57,14 @@ export default function Testimonials({ className }: TestimonialsProps) {
 
             {/* Column 2 */}
             <div className="flex-none w-80 sm:w-96 flex flex-col gap-6 md:gap-5 lg:w-auto h-full">
-              <BlurFade delay={0.4} inView>
+              <BlurFade delay={0.05} inView>
                 <TestimonialCard
                   bgColor={testimonials.card2.bgColor}
                   content={testimonials.card2.content}
                   author={testimonials.card2.author}
                 />
               </BlurFade>
-              <BlurFade delay={0.5} inView>
+              <BlurFade delay={0.08} inView>
                 <TestimonialCard
                   bgColor={testimonials.card4.bgColor}
                   content={testimonials.card4.content}
@@ -75,14 +75,14 @@ export default function Testimonials({ className }: TestimonialsProps) {
 
             {/* Column 3 */}
             <div className="flex-none w-80 sm:w-96 flex flex-col gap-6 md:gap-5 lg:w-auto h-full">
-              <BlurFade delay={0.6} inView>
+              <BlurFade delay={0.05} inView>
                 <TestimonialCard
                   bgColor={testimonials.card5.bgColor}
                   content={testimonials.card5.content}
                   author={testimonials.card5.author}
                 />
               </BlurFade>
-              <BlurFade delay={0.7} inView>
+              <BlurFade delay={0.08} inView>
                 <TestimonialCard
                   bgColor={testimonials.card6.bgColor}
                   content={testimonials.card6.content}

@@ -2,15 +2,35 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { Star } from 'lucide-react'
 import { motion, AnimatePresence } from 'motion/react'
 import { BlurFade } from '@/components/magicui'
+
+// Custom Google-themed star icon
+function GoogleStar({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M12 2L14.9 8.62L22 9.27L16.5 14.14L18.18 21.02L12 17.27L5.82 21.02L7.5 14.14L2 9.27L9.1 8.62L12 2Z"
+        fill="#FBBC04"
+        stroke="#F9AB00"
+        strokeWidth="0.5"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 interface Sponsor {
   id: number
   name: string
   logo: string
-  bgColor: string
+  bgColor: string // Tailwind class for card backgrounds
+  gradientColor: string // Hex color for subtle radial gradient
   testimonial: {
     text: string
     author: string
@@ -26,6 +46,7 @@ const sponsors: Sponsor[] = [
       name: "Neo4j",
       logo: "/assets/sponsors/neo4j.svg",
       bgColor: "bg-blue-50",
+      gradientColor: "#EFF6FF", // blue-50 equivalent
       testimonial: {
         text: "I am thrilled to share my experience of collaborating with GDG Noida on behalf of Neo4j. Sponsoring DevFest Noida last year, I was impressed by the professionalism and dedication of the GDG team. The event was a resounding success, with an engaged audience that aligned perfectly with our goals. Based on this successful partnership, I have hosted multiple meetups with GDG Noida, and each event has been exceptional. The team consistently delivers high-quality tech events with seamless coordination and attention to detail, ensuring smooth execution and effective audience engagement. The visibility and reach we gained through our partnership with GDG Noida have been invaluable. I am very happy with the collaboration and look forward to continuing our long-term partnership",
         author: "Siddhant Agarwal",
@@ -39,6 +60,7 @@ const sponsors: Sponsor[] = [
       name: "GitHub",
       logo: "/assets/sponsors/github.svg",
       bgColor: "bg-yellow-50",
+      gradientColor: "#FEFCE8", // yellow-50 equivalent
       testimonial: {
         text: "I'm incredibly grateful to GDG Noida for providing an exceptional platform to showcase Copilot and engage with a passionate community of developers. The enthusiasm and competitive spirit displayed by participants in the contests were truly inspiring. I'm eager to contribute again at the next DevFest!",
         author: "Shubhangi Gupta",
@@ -52,6 +74,7 @@ const sponsors: Sponsor[] = [
       name: "Brevo",
       logo: "/assets/sponsors/brrr.svg",
       bgColor: "bg-green-50",
+      gradientColor: "#F0FDF4", // green-50 equivalent
       testimonial: {
         text: "Our partnership with GDG Noida has been a highlight of the past year for Brevo. Sponsoring DevFest Noida 2024 gave us a firsthand look at the team’s remarkable ability to connect with developers. Their dedication to fostering a vibrant and engaged tech community is truly inspiring, and it’s a mission we're proud to support. The high-quality events and seamless execution have not only enhanced our visibility but have also created meaningful connections. We are grateful for this reliable and committed partnership and look forward to continuing to build on this success in the future.",
         author: "Harshit Punwar",
@@ -65,6 +88,7 @@ const sponsors: Sponsor[] = [
       name: "Capx",
       logo: "/assets/sponsors/capx.svg",
       bgColor: "bg-pink-50",
+      gradientColor: "#FDF2F8", // pink-50 equivalent
       testimonial: {
         text: "The overall feedback from the event has been outstanding! It was an amazing experience. We connected with numerous developers who were genuinely interested and enthusiastic about building innovative projects.",
         author: "Vaibhav Tyagi",
@@ -77,11 +101,14 @@ const sponsors: Sponsor[] = [
 
 function Sponsors() {
   const [activeSponsor, setActiveSponsor] = useState<Sponsor>(sponsors[0])
+  const [resetKey, setResetKey] = useState(0)
   const sponsorRefs = useRef<{ [key: number]: HTMLDivElement | null }>({})
   const containerRef = useRef<HTMLDivElement | null>(null)
 
   const handleSponsorClick = (sponsor: Sponsor) => {
     setActiveSponsor(sponsor)
+    // Reset the auto-rotate timer when user clicks a tab
+    setResetKey(prev => prev + 1)
   }
 
   // Scroll active sponsor to center within container with top offset
@@ -106,7 +133,7 @@ function Sponsors() {
     }
   }, [activeSponsor])
 
-  // Auto-rotate sponsors every 10 seconds
+  // Auto-rotate sponsors every 6 seconds (resets on tab click)
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSponsor((currentSponsor) => {
@@ -114,14 +141,31 @@ function Sponsors() {
         const nextIndex = (currentIndex + 1) % sponsors.length
         return sponsors[nextIndex]
       })
-    }, 6000) // 10 seconds
+    }, 6000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [resetKey])
 
   return (
-    <section id="sponsors" className={`relative pt-8 pb-12 px-4 md:pt-[32px] md:pb-[50px] md:px-[64px] ${activeSponsor.bgColor}`}>
-      <div className="max-w-7xl mx-auto">
+    <section 
+      id="sponsors" 
+      className={`relative pt-8 pb-12 px-4 md:pt-[32px] md:pb-[50px] md:px-[64px] transition-colors duration-500 ${activeSponsor.bgColor}`}
+    >
+      {/* Top edge fade to white */}
+      <div 
+        className="absolute inset-x-0 top-0 h-16 pointer-events-none z-10"
+        style={{
+          background: `linear-gradient(to bottom, white 0%, transparent 100%)`
+        }}
+      />
+      {/* Bottom edge fade to white */}
+      <div 
+        className="absolute inset-x-0 bottom-0 h-16 pointer-events-none z-10"
+        style={{
+          background: `linear-gradient(to top, white 0%, transparent 100%)`
+        }}
+      />
+      <div className="max-w-7xl mx-auto relative z-20">
         {/* Header */}
         <div className="text-center mb-8 md:mb-10">
         <BlurFade delay={0.1} inView>
@@ -258,7 +302,7 @@ function Sponsors() {
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.4 + index * 0.05, duration: 0.2 }}
                         >
-                          <Star className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 fill-yellow-400 text-yellow-400" />
+                          <GoogleStar className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
                         </motion.div>
                       ))}
                     </div>

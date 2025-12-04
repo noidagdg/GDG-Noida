@@ -22,6 +22,19 @@ export function PageLoader() {
   // const [totalImages, setTotalImages] = useState(0);
   const [currentMessage, setCurrentMessage] = useState(0);
 
+  // Disable body scroll while loading
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLoading]);
+
   // Rotate messages every 2 seconds
   useEffect(() => {
     if (!isLoading) return;

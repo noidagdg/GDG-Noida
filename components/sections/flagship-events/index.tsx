@@ -256,20 +256,23 @@ export default function FlagshipEvents () {
     });
   };
 
-  // Auto-slide every 10 seconds
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setDirection(1);
-  //     setCurrentSet((prev) => {
-  //       let next = prev + 1;
-  //       if (next >= eventSets.length) next = 0;
-  //       return next;
-  //     });
-  //     setResetKey((prev) => prev + 1);
-  //   }, 10000);
+  // Auto-slide every 10 seconds (desktop only)
+  useEffect(() => {
+    // Don't auto-slide on mobile
+    if (isMobile) return;
 
-  //   return () => clearInterval(interval);
-  // }, [currentSet]);
+    const interval = setInterval(() => {
+      setDirection(1);
+      setCurrentSet((prev) => {
+        let next = prev + 1;
+        if (next >= eventSets.length) next = 0;
+        return next;
+      });
+      setResetKey((prev) => prev + 1);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [currentSet, isMobile]);
 
   return (
     <section 

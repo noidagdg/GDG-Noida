@@ -43,8 +43,8 @@ const eventSets: EventCard[][] = [
       image: "/assets/events/devfest23bg.png",
       logo: "/assets/events/devfest23logo.png",
       stats: [
-        { value: "3,820+", label: "Registrations" },
-        { value: "350+", label: "Attendees" },
+        { value: "4,730+", label: "Registrations" },
+        { value: "500+", label: "Attendees" },
         { value: "30+", label: "Speakers" },
       ],
       venue: "Holiday Inn, Mayur Vihar",
@@ -56,9 +56,9 @@ const eventSets: EventCard[][] = [
       image: "/assets/events/devfest24bg.png",
       logo: "/assets/events/devfest24logo.png",
       stats: [
-        { value: "3,820+", label: "Registrations" },
-        { value: "350+", label: "Attendees" },
-        { value: "30+", label: "Speakers" },
+        { value: "5,120+", label: "Registrations" },
+        { value: "600+", label: "Attendees" },
+        { value: "35+", label: "Speakers" },
       ],
       venue: "Expo Inn, Greater Noida",
       backgroundColor: "bg-[#ECEFF1]",

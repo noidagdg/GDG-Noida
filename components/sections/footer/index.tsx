@@ -1,190 +1,215 @@
+"use client";
+
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { Instagram, Twitter, Linkedin, Youtube } from 'lucide-react'
 
 function Footer() {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // Extract the hash from href (e.g., "/#about" -> "#about")
+    const hash = href.split('#')[1];
+    
+    // If we're on the home page, just scroll
+    if (pathname === '/') {
+      if (hash) {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      return;
+    }
+    
+    // Not on home page, navigate home first
+    router.push('/');
+    // Wait for navigation and page load, then scroll
+    setTimeout(() => {
+      if (hash) {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 1500); // Wait for home page animations to show
+  };
   return (
-    <footer className="bg-[#202124] text-white min-h-[542px]">
-      <div className="mx-auto px-4 sm:px-8 md:px-12 lg:px-16 py-12 md:py-16 lg:py-20">
-        <div className="flex flex-col gap-12 md:gap-16 lg:gap-20">
+    <footer className="bg-[#202124] text-white relative rounded-t-[40px] md:rounded-t-[60px] mt-8 md:mt-12">
+      <div className="mx-auto px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 pt-16 md:pt-20 lg:pt-24 pb-6 md:pb-8">
+        <div className="flex flex-col gap-12 md:gap-16">
           {/* Main Content Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-32 min-h-[240px] md:min-h-[240px] lg:h-60">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 lg:gap-20">
             {/* Logo Section */}
-            <div className="w-full md:w-64 h-40 flex items-start justify-center md:justify-start">
+            <div className="flex flex-col gap-4">
               <Image
                 src="/assets/gdg_logo.svg"
                 alt="GDG Noida Logo"
-                width={256}
-                height={160}
-                className="object-contain"
+                width={180}
+                height={112}
+                className="object-contain w-[180px] h-auto"
               />
+              <p className="text-gray-300 text-base leading-relaxed max-w-[250px]">
+                Empowering developers to build, learn, and grow together in the Noida community.
+              </p>
             </div>
 
             {/* About Section */}
-            <div className="inline-flex flex-col justify-start items-start gap-4">
-              <div className="self-stretch justify-start text-white text-base font-semibold leading-6">
+            <div className="flex flex-col gap-5">
+              <h3 className="text-white text-base font-semibold">
                 About
-              </div>
-              <div className="self-stretch flex flex-col justify-start items-start">
-                <div className="self-stretch py-2 inline-flex justify-start items-start">
-                  <a
-                    href="#"
-                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    About Us
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-start">
-                  <a
-                    href="#"
-                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    Contact Us
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-start">
-                  <a
-                    href="#"
-                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    Brochure
-                  </a>
-                </div>
+              </h3>
+              <div className="flex flex-col gap-3">
+                <Link
+                  href="/#about"
+                  onClick={(e) => handleNavClick(e, "/#about")}
+                  className="text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200"
+                >
+                  About Us
+                </Link>
+                <Link
+                  href="/#contact"
+                  onClick={(e) => handleNavClick(e, "/#contact")}
+                  className="text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200"
+                >
+                  Contact Us
+                </Link>
+                <Link
+                  href="/#brochure"
+                  onClick={(e) => handleNavClick(e, "/#brochure")}
+                  className="text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200"
+                >
+                  Brochure
+                </Link>
               </div>
             </div>
 
             {/* Resources Section */}
-            <div className="inline-flex flex-col justify-start items-start gap-4">
-              <div className="self-stretch justify-start text-white text-base font-semibold leading-6">
+            <div className="flex flex-col gap-5">
+              <h3 className="text-white text-base font-semibold">
                 Resources
-              </div>
-              <div className="self-stretch flex flex-col justify-start items-start">
-                <div className="self-stretch py-2 inline-flex justify-start items-start">
-                  <a
-                    href="#"
-                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    Articles
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-start">
-                  <a
-                    href="#"
-                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    Blogs
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-start">
-                  <a
-                    href="#"
-                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    Gallery
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-start">
-                  <a
-                    href="#"
-                    className="flex-1 justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    FAQs
-                  </a>
-                </div>
+              </h3>
+              <div className="flex flex-col gap-3">
+                <Link
+                  href="/#articles"
+                  onClick={(e) => handleNavClick(e, "/#articles")}
+                  className="text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200"
+                >
+                  Articles
+                </Link>
+                <Link
+                  href="/#blogs"
+                  onClick={(e) => handleNavClick(e, "/#blogs")}
+                  className="text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200"
+                >
+                  Blogs
+                </Link>
+                <Link
+                  href="/#gallery"
+                  onClick={(e) => handleNavClick(e, "/#gallery")}
+                  className="text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200"
+                >
+                  Gallery
+                </Link>
+                <Link
+                  href="/#faqs"
+                  onClick={(e) => handleNavClick(e, "/#faqs")}
+                  className="text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200"
+                >
+                  FAQs
+                </Link>
               </div>
             </div>
 
             {/* Follow Us Section */}
-            <div className="inline-flex flex-col justify-start items-start gap-4">
-              <div className="self-stretch justify-start text-white text-base font-semibold leading-6">
+            <div className="flex flex-col gap-5">
+              <h3 className="text-white text-base font-semibold">
                 Follow Us
-              </div>
-              <div className="self-stretch flex flex-col justify-start items-start">
-                <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
-                  <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Instagram size={16} className="text-white" />
-                  </div>
-                  <a
-                    href="https://instagram.com/gdg-noida"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    gdg-noida
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
-                  <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Twitter size={16} className="text-white" />
-                  </div>
-                  <a
-                    href="https://twitter.com/gdgnoida"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    gdgnoida
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
-                  <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Linkedin size={16} className="text-white" />
-                  </div>
-                  <a
-                    href="https://linkedin.com/company/gdgnoida"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    gdgnoida
-                  </a>
-                </div>
-                <div className="self-stretch py-2 inline-flex justify-start items-center gap-3">
-                  <div className="w-6 h-6 relative overflow-hidden flex items-center justify-center">
-                    <Youtube size={16} className="text-white" />
-                  </div>
-                  <a
-                    href="https://youtube.com/@gdgnoida"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="justify-start text-white text-sm font-normal leading-5 hover:underline"
-                  >
-                    gdgnoida
-                  </a>
-                </div>
+              </h3>
+              <div className="flex flex-col gap-3">
+                <a
+                  href="https://instagram.com/gdg-noida"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                >
+                  <Instagram size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <span>gdg-noida</span>
+                </a>
+                <a
+                  href="https://twitter.com/gdgnoida"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                >
+                  <Twitter size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <span>gdgnoida</span>
+                </a>
+                <a
+                  href="https://linkedin.com/company/gdgnoida"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                >
+                  <Linkedin size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <span>gdgnoida</span>
+                </a>
+                <a
+                  href="https://youtube.com/@gdgnoida"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                >
+                  <Youtube size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <span>gdgnoida</span>
+                </a>
               </div>
             </div>
           </div>
 
           {/* Bottom Section */}
-          <div className="self-stretch flex flex-col justify-start items-start gap-6 md:gap-8">
+          <div className="flex flex-col gap-6 pt-4">
             {/* Separator Line */}
-            <div className="self-stretch h-px bg-white border border-white" />
+            <div className="h-px bg-linear-to-r from-transparent via-gray-600 to-transparent" />
 
             {/* Copyright and Legal Links */}
-            <div className="self-stretch flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div className="justify-start text-white text-sm font-normal leading-5 text-center sm:text-left">
-                © gdgnoida.com All rights reserved.
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+              <div className="text-gray-400 text-base font-medium">
+                © *GDG Noida. All rights reserved.
               </div>
-              <div className="flex flex-wrap justify-center sm:justify-start items-start gap-4 sm:gap-6">
-                <a
-                  href="#"
-                  className="justify-start text-white text-sm font-normal underline leading-5 hover:underline"
+              <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+                <Link
+                  href="/#privacy"
+                  onClick={(e) => handleNavClick(e, "/#privacy")}
+                  className="text-gray-400 text-base hover:text-white transition-colors duration-200"
                 >
                   Privacy Policy
-                </a>
-                <a
-                  href="#"
-                  className="justify-start text-white text-sm font-normal underline leading-5 hover:underline"
+                </Link>
+                <span className="text-gray-600">•</span>
+                <Link
+                  href="/#terms"
+                  onClick={(e) => handleNavClick(e, "/#terms")}
+                  className="text-gray-400 text-base hover:text-white transition-colors duration-200"
                 >
                   Terms of Service
-                </a>
-                <a
-                  href="#"
-                  className="justify-start text-white text-sm font-normal underline leading-5 hover:underline"
+                </Link>
+                <span className="text-gray-600">•</span>
+                <Link
+                  href="/#cookies"
+                  onClick={(e) => handleNavClick(e, "/#cookies")}
+                  className="text-gray-400 text-base hover:text-white transition-colors duration-200"
                 >
                   Cookies Settings
-                </a>
+                </Link>
               </div>
             </div>
           </div>

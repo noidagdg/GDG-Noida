@@ -50,7 +50,7 @@ export default function RootLayout({
         <meta property="og:logo" content="https://iili.io/fdmbmil.png" />
       </head>
       <body
-        className="antialiased"
+        className="antialiased overflow-hidden"
         style={{ fontFamily: "'Product Sans', ui-sans-serif, system-ui, sans-serif" }}
         suppressHydrationWarning
       >

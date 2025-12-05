@@ -121,7 +121,7 @@ function Hero() {
 
       <div className="relative z-10 mt-[100px] sm:mt-[120px] md:mt-[80px] lg:mt-0 mx-auto text-center space-y-4 sm:space-y-5 md:space-y-6 px-4 mb-[200px] sm:mb-[250px] md:mb-[180px] lg:mb-[200px]">
         {/* Main Slogan */}
-        <BlurFade delay={0.25}>
+        <BlurFade delay={0.25} inView inViewMargin="0px">
           <h1 className="font-bold flex flex-nowrap sm:flex-wrap items-center justify-center gap-[6px] sm:gap-3 md:gap-4 text-center">
             <span className="text-[#4285F4] text-[38px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[140px] font-semibold leading-[1.1]">
               Think.
@@ -136,14 +136,14 @@ function Hero() {
         </BlurFade>
 
         {/* Description */}
-        <BlurFade delay={0.5}>
+        <BlurFade delay={0.5} inView inViewMargin="0px">
           <p className="mx-auto text-center text-black font-urbanist text-[12px] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl font-medium leading-relaxed max-w-3xl px-2">
             Dive deep into the latest trends and innovations through talks, workshops, &amp; more
           </p>
         </BlurFade>
 
         {/* Join Community Button */}
-        <BlurFade delay={0.75}>
+        <BlurFade delay={0.75} inView inViewMargin="0px">
           <button className="flex items-center justify-center gap-2 bg-[#4285F4] text-white hover:bg-blue-700 transition-colors cursor-pointer mx-auto rounded-full shadow-lg w-auto px-4 sm:px-6 md:px-8 lg:px-10 py-3 md:py-4 lg:py-5 min-w-0 sm:min-w-[175px] h-[48px] md:h-[52px] lg:h-[56px]">
             <Image 
               src="/assets/commudle.svg" 

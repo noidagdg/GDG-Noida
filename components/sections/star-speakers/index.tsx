@@ -11,30 +11,30 @@ interface StarSpeakersProps {
 const speakers = [
   {
     id: 1,
-    name: "Sahil Kalyani",
-    position: "Frontend Engineer, Amazon",
-    image: "/assets/speakers/speaker1.webp",
+    name: "Ansh Mehra",
+    position: "Founder, Cutting Edge School",
+    image: "/assets/speakers/speaker1.svg",
     backgroundColor: "#D2E3FC",
   },
   {
     id: 2,
-    name: "Siddhika Aggarwal",
-    position: "Co-Founder, Mahila Money",
-    image: "/assets/speakers/speaker2.webp",
+    name: "Joy Banerjee",
+    position: "Vice President Design, Blinkit",
+    image: "/assets/speakers/speaker3.svg",
     backgroundColor: "#CEEAD6",
   },
   {
     id: 3,
-    name: "Rohan Mishra",
-    position: "Co-Founder, Mastry",
-    image: "/assets/speakers/speaker3.webp",
+    name: "Saurabh Rajpal",
+    position: "Staff Customer Engineer, Google",
+    image: "/assets/speakers/speaker2.svg",
     backgroundColor: "#FAD2CF",
   },
   {
     id: 4,
-    name: "Arpan Garg",
-    position: "Founder, Commudle",
-    image: "/assets/speakers/speaker4.webp",
+    name: "Ruchi Batra",
+    position: "Design Leader, Microsoft",
+    image: "/assets/speakers/speaker4.svg",
     backgroundColor: "#FEEFC3",
   },
 ];
@@ -58,11 +58,15 @@ export default function StarSpeakers({ className }: StarSpeakersProps) {
         </div>
 
         {/* Speaker Cards Grid */}
-        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8">
           {speakers.map((speaker, idx) => (
             <BlurFade key={speaker.id} delay={0.3 + idx * 0.1} inView>
               <div
-                className="group relative h-[230px] sm:h-[314px] w-full overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl
+                  w-[156px] h-[187px]
+                  sm:w-[196px] sm:h-[235px]
+                  md:w-[220px] md:h-[263px]
+                  lg:w-[261px] lg:h-[313px]"
                 style={{ backgroundColor: speaker.backgroundColor }}
               >
                 {/* Speaker Image - Centered */}
@@ -70,8 +74,8 @@ export default function StarSpeakers({ className }: StarSpeakersProps) {
                   <Image
                     src={speaker.image}
                     alt={speaker.name}
-                    width={260}
-                    height={314}
+                    width={261}
+                    height={313}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
@@ -80,17 +84,17 @@ export default function StarSpeakers({ className }: StarSpeakersProps) {
                 <div 
                   className="absolute bottom-0 left-0 right-0 pointer-events-none"
                   style={{
-                    height: '150px',
+                    height: '120px',
                     background: 'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
                   }}
                 />
 
                 {/* Text Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 text-center">
-                  <h3 className="text-md md:text-xl lg:text-2xl font-bold text-black">
+                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-4 text-center">
+                  <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-black">
                     {speaker.name}
                   </h3>
-                  <p className="mt-1 text-xs md:text-sm lg:text-base text-black">
+                  <p className="mt-0.5 sm:mt-1 text-[10px] sm:text-xs md:text-sm lg:text-base text-black">
                     {speaker.position}
                   </p>
                 </div>

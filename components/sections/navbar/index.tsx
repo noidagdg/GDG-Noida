@@ -40,13 +40,28 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
     e.preventDefault();
     const targetId = href.replace("#", "");
     
-    // If not on home page and clicking a hash link, navigate to home with hash
+    // If not on home page and clicking a hash link, navigate to home first
     if (pathname !== "/") {
-      router.push(`/${href}`);
+      router.push('/');
       setIsOpen(false);
+      // Wait for navigation and home page animations, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          const navbarHeight = 100;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 1500); // Wait for home page animations to show
       return;
     }
     
+    // Already on home page, just scroll
     const element = document.getElementById(targetId);
 
     if (element) {

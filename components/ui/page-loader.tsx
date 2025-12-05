@@ -22,16 +22,15 @@ export function PageLoader() {
   // const [totalImages, setTotalImages] = useState(0);
   const [currentMessage, setCurrentMessage] = useState(0);
 
-  // Disable body scroll while loading
+  // Disable body scroll while loading (body starts with overflow-hidden class)
   useEffect(() => {
-    if (isLoading) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (!isLoading) {
+      // Remove the overflow-hidden class when loading is done
+      document.body.classList.remove("overflow-hidden");
     }
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.classList.remove("overflow-hidden");
     };
   }, [isLoading]);
 

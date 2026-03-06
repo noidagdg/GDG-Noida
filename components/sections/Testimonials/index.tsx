@@ -33,7 +33,7 @@ export default function Testimonials({ className }: TestimonialsProps) {
         <div className="max-w-[1400px] mx-auto">
           <div
             className="
-              hide-scrollbar
+              scrollbar-hide
               flex flex-nowrap items-stretch overflow-x-auto space-x-6 md:space-x-8 pb-4 
               lg:grid lg:grid-cols-3 lg:gap-6 lg:overflow-x-visible lg:space-x-0 lg:items-stretch"
           >

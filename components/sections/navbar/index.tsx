@@ -18,7 +18,7 @@ const NAV_LINKS = [
   { name: "Home", href: "#home" },
   { name: "Events", href: "#events" },
   { name: "Speakers", href: "#speakers" },
-  { name: "Agenda", href: "/agenda" },
+  // { name: "Agenda", href: "/agenda" }, // Hid for now per request
   { name: "About Us", href: "#about" },
   { name: "Sponsors", href: "#sponsors" },
   { name: "Testimonials", href: "#testimonials" },
@@ -36,10 +36,10 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
     if (href.startsWith("/")) {
       return;
     }
-    
+
     e.preventDefault();
     const targetId = href.replace("#", "");
-    
+
     // If not on home page and clicking a hash link, navigate to home first
     if (pathname !== "/") {
       router.push('/');
@@ -60,7 +60,7 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
       }, 1500); // Wait for home page animations to show
       return;
     }
-    
+
     // Already on home page, just scroll
     const element = document.getElementById(targetId);
 

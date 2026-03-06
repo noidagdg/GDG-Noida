@@ -41,18 +41,18 @@ const centerOffsets = [50, 86, 113, 50];
 const maxOffset = 113;
 
 // Simple crossfade component - uses key to force clean remount on src change
-function CrossfadeImage({ 
-  src, 
-  alt, 
-  width, 
-  height, 
+function CrossfadeImage({
+  src,
+  alt,
+  width,
+  height,
   fill = false,
   sizes,
-  className 
-}: { 
-  src: string; 
-  alt: string; 
-  width?: number; 
+  className
+}: {
+  src: string;
+  alt: string;
+  width?: number;
   height?: number;
   fill?: boolean;
   sizes?: string;
@@ -70,26 +70,26 @@ function CrossfadeImage({
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      
+
       // Keep old image visible, start fading
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setPreviousSrc(currentSrc);
       setCurrentSrc(src);
       setOpacity(0);
-      
+
       // Fade in new image
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           setOpacity(1);
         });
       });
-      
+
       // Clean up previous image after transition
       timeoutRef.current = setTimeout(() => {
         setPreviousSrc(null);
       }, 1000);
     }
-    
+
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -119,7 +119,7 @@ function CrossfadeImage({
           />
         )
       )}
-      
+
       {/* Current image (fades in) */}
       {fill ? (
         <Image
@@ -151,57 +151,63 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
   const [mediumSlots, setMediumSlots] = useState(() => [...mediumImagePool]);
   const [centerSlots, setCenterSlots] = useState(() => [...centerImagePool]);
 
-  // Every 10 seconds, swap 2 images within ONE randomly chosen category
+  // Update images smoothly by pulling from all pools to simulate continuous new photos
   useEffect(() => {
+    // Collect all available unique images across pools
+    const allImages = [...tallImagePool, ...mediumImagePool, ...centerImagePool];
+
     const interval = setInterval(() => {
-      // Pick which category (0=tall, 1=medium, 2=center)
+      // Pick which category to update (0=tall, 1=medium, 2=center)
       const category = Math.floor(Math.random() * 3);
-      
-      if (category === 0 && tallSlots.length >= 2) {
-        // Swap 2 positions in tall slots
-        setTallSlots(prev => {
+
+      // Randomly select an image that is not currently shown in the category
+      if (category === 0) {
+        setTallSlots((prev) => {
           const arr = [...prev];
           const len = arr.length;
           const i = Math.floor(Math.random() * len);
-          let j = Math.floor(Math.random() * len);
-          while (j === i) j = Math.floor(Math.random() * len);
-          // Swap
-          const temp = arr[i];
-          arr[i] = arr[j];
-          arr[j] = temp;
+
+          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
+          while (arr.includes(randomNextImage)) {
+            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
+          }
+
+          arr[i] = randomNextImage;
           return arr;
         });
-      } else if (category === 1 && mediumSlots.length >= 2) {
-        // Swap 2 positions in medium slots
-        setMediumSlots(prev => {
+      } else if (category === 1) {
+        setMediumSlots((prev) => {
           const arr = [...prev];
           const len = arr.length;
           const i = Math.floor(Math.random() * len);
-          let j = Math.floor(Math.random() * len);
-          while (j === i) j = Math.floor(Math.random() * len);
-          const temp = arr[i];
-          arr[i] = arr[j];
-          arr[j] = temp;
+
+          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
+          while (arr.includes(randomNextImage)) {
+            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
+          }
+
+          arr[i] = randomNextImage;
           return arr;
         });
-      } else if (centerSlots.length >= 2) {
-        // Swap 2 positions in center slots
-        setCenterSlots(prev => {
+      } else {
+        setCenterSlots((prev) => {
           const arr = [...prev];
           const len = arr.length;
           const i = Math.floor(Math.random() * len);
-          let j = Math.floor(Math.random() * len);
-          while (j === i) j = Math.floor(Math.random() * len);
-          const temp = arr[i];
-          arr[i] = arr[j];
-          arr[j] = temp;
+
+          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
+          while (arr.includes(randomNextImage)) {
+            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
+          }
+
+          arr[i] = randomNextImage;
           return arr;
         });
       }
-    }, 10000);
-    
+    }, 5000); // reduced from 10000ms to 5000ms for more active gallery feeling
+
     return () => clearInterval(interval);
-  }, [tallSlots.length, mediumSlots.length, centerSlots.length]);
+  }, []);
 
   // Column 1 uses tallSlots[0] and tallSlots[1]
   // Column 8 uses tallSlots[2] and tallSlots[3]

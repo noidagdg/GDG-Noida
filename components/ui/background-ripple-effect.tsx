@@ -31,13 +31,12 @@ export const BackgroundRippleEffect = ({
   const ref = useRef<HTMLDivElement | null>(null);
 
   const activeColor = colors[activeColorIndex] || colors[0];
-  const fillColor = isHovered || clickedCell 
+  const fillColor = isHovered || clickedCell
     ? hexToRgba(activeColor, 0.4) // Add opacity for hover/click
     : 'rgba(255, 255, 255, 0.1)';
 
   const handleMouseEnter = (row: number, col: number) => {
     setIsHovered(true);
-    setActiveColorIndex((prev) => (prev + 1) % colors.length);
     setClickedCell({ row, col });
     setRippleKey((k) => k + 1);
   };
@@ -116,8 +115,8 @@ const DivGrid = ({
   borderColor = "#3f3f46",
   fillColor = "rgba(14,165,233,0.3)",
   clickedCell = null,
-  onCellClick = () => {},
-  onCellHover = () => {},
+  onCellClick = () => { },
+  onCellHover = () => { },
   interactive = true,
 }: DivGridProps) => {
   const cells = useMemo(
@@ -147,9 +146,9 @@ const DivGrid = ({
 
         const style: CellStyle = clickedCell
           ? {
-              "--delay": `${delay}ms`,
-              "--duration": `${duration}ms`,
-            }
+            "--delay": `${delay}ms`,
+            "--duration": `${duration}ms`,
+          }
           : {};
 
         return (

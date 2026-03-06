@@ -12,10 +12,10 @@ function Footer() {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    
+
     // Extract the hash from href (e.g., "/#about" -> "#about")
     const hash = href.split('#')[1];
-    
+
     // If we're on the home page, just scroll
     if (pathname === '/') {
       if (hash) {
@@ -28,7 +28,7 @@ function Footer() {
       }
       return;
     }
-    
+
     // Not on home page, navigate home first
     router.push('/');
     // Wait for navigation and page load, then scroll
@@ -56,7 +56,7 @@ function Footer() {
                 alt="GDG Noida Logo"
                 width={180}
                 height={112}
-                className="object-contain w-[180px] h-auto"
+                className="object-contain w-[140px] md:w-[180px] h-auto"
               />
               <p className="text-gray-300 text-base leading-relaxed max-w-[250px]">
                 Empowering developers to build, learn, and grow together in the Noida community.
@@ -140,36 +140,36 @@ function Footer() {
                   href="https://instagram.com/gdg-noida"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                  className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
-                  <Instagram size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <Instagram size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
                   <span>gdg-noida</span>
                 </a>
                 <a
                   href="https://twitter.com/gdgnoida"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                  className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
-                  <Twitter size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <Twitter size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
                   <span>gdgnoida</span>
                 </a>
                 <a
                   href="https://linkedin.com/company/gdgnoida"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                  className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
-                  <Linkedin size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <Linkedin size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
                   <span>gdgnoida</span>
                 </a>
                 <a
                   href="https://youtube.com/@gdgnoida"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-300 text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                  className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
-                  <Youtube size={20} className="text-gray-400 group-hover:text-white transition-colors" />
+                  <Youtube size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
                   <span>gdgnoida</span>
                 </a>
               </div>

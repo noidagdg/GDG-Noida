@@ -150,23 +150,23 @@ const eventSets: EventCard[][] = [
   ],
 ];
 
-function CounterNumber ({ value, eventKey }: { readonly value: string; readonly eventKey: string }) {
+function CounterNumber({ value, eventKey }: { readonly value: string; readonly eventKey: string }) {
   const [count, setCount] = useState(0);
   const [showPlus, setShowPlus] = useState(false);
-  
+
   // Extract number and check for plus sign
   const numericValue = Number.parseInt(value.replaceAll(",", "").replaceAll("+", ""));
   const hasPlus = value.includes("+");
-  
+
   useEffect(() => {
     setCount(0);
     setShowPlus(false);
-    
+
     const duration = 2000; // 2 seconds
     const steps = 60;
     const increment = numericValue / steps;
     let currentStep = 0;
-    
+
     const timer = setInterval(() => {
       currentStep++;
       if (currentStep <= steps) {
@@ -179,13 +179,13 @@ function CounterNumber ({ value, eventKey }: { readonly value: string; readonly 
         }
       }
     }, duration / steps);
-    
+
     return () => clearInterval(timer);
   }, [numericValue, hasPlus, eventKey]);
-  
+
   // Format number with commas
   const formattedCount = count.toLocaleString();
-  
+
   return (
     <span className="text-[24px] md:text-[28px] lg:text-[33px] font-normal text-[#34A853]">
       {formattedCount}
@@ -203,18 +203,18 @@ function CounterNumber ({ value, eventKey }: { readonly value: string; readonly 
   );
 }
 
-export default function FlagshipEvents () {
+export default function FlagshipEvents() {
   const [currentSet, setCurrentSet] = useState(0);
   const [direction, setDirection] = useState(0);
   const [resetKey, setResetKey] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   // Detect mobile screen size
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024);
     };
-    
+
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -258,9 +258,6 @@ export default function FlagshipEvents () {
 
   // Auto-slide every 10 seconds (desktop only)
   useEffect(() => {
-    // Don't auto-slide on mobile
-    if (isMobile) return;
-
     const interval = setInterval(() => {
       setDirection(1);
       setCurrentSet((prev) => {
@@ -275,7 +272,7 @@ export default function FlagshipEvents () {
   }, [currentSet, isMobile]);
 
   return (
-    <section 
+    <section
       id="events"
       className="py-20 px-4 md:px-8 lg:px-16 transition-all duration-700"
     >
@@ -304,12 +301,10 @@ export default function FlagshipEvents () {
                 duration: 0.4,
                 ease: [0.32, 0.72, 0, 1],
               }}
-              drag={isMobile ? false : "x"}
+              drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={1}
               onDragEnd={(e, { offset, velocity }) => {
-                if (isMobile) return; // Disable drag on mobile
-                
                 const swipe = swipePower(offset.x, velocity.x);
 
                 if (swipe < -swipeConfidenceThreshold) {
@@ -325,81 +320,81 @@ export default function FlagshipEvents () {
               {/* Event Cards Grid */}
               <div className="block lg:flex lg:flex-row lg:items-start lg:justify-center lg:gap-[120px]">
                 {eventSets[currentSet].map((event, index) => {
-            // Calculate gap from title section based on design specs
-            const marginTopClass = index === 1 ? "lg:mt-[90px]" : "lg:mt-[39px]";
-            
-            // Assign z-index based on position for stacking effect (higher index = higher z-index)
-            let zIndexClass = "z-10";
-            if (index === 1) {
-              zIndexClass = "z-20";
-            } else if (index === 2) {
-              zIndexClass = "z-30";
-            }
-            
-            return (
-              <div
-                key={event.year}
-                className={cn(
-                  "rounded-[20px] shadow-xl relative flex flex-col items-center",
-                  "w-full max-w-[280px] md:max-w-[320px] lg:max-w-[372px]",
-                  "h-[380px] md:h-[430px] lg:h-[493px]",
-                  "mx-auto lg:mx-0",
-                  event.backgroundColor,
-                  // Mobile: spacing for stacking effect, Desktop: design specs
-                  index === 0 ? "mt-0" : "mt-[25vh] lg:mt-0",
-                  marginTopClass,
-                  // Z-index only on mobile for stacking
-                  `lg:z-auto ${zIndexClass}`,
-                  "sticky top-[20vh] lg:static" // Sticky in middle of screen on mobile, static on desktop
-                )}
-              >
-                {/* Event Logo */}
-                <div className="mt-4 md:mt-5 lg:mt-6 mb-3 md:mb-3.5 lg:mb-4 flex items-center justify-center w-full px-4 md:px-5 lg:px-6">
-                  <div className="relative w-full h-[45px] md:h-[50px] lg:h-[60px]">
-                    <Image
-                      src={event.logo}
-                      alt={`DevFest ${event.year} Logo`}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
+                  // Calculate gap from title section based on design specs
+                  const marginTopClass = index === 1 ? "lg:mt-[90px]" : "lg:mt-[39px]";
 
-                {/* Event Image */}
-                <div className="relative w-[250px] md:w-[290px] lg:w-[334px] h-[260px] md:h-[295px] lg:h-[347px] shrink-0">
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                    <Image
-                      src={event.image}
-                      alt={`DevFest ${event.year}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  
-                  {/* Stats Overlay */}
-                  <div className="absolute bottom-2 md:bottom-2.5 lg:bottom-3 left-[30%] md:left-[32%] lg:left-[35%] space-y-1.5 md:space-y-2 lg:space-y-2.5">
-                    {event.stats.map((stat) => (
-                      <div
-                        key={`${event.year}-${stat.label}`}
-                        className="bg-white rounded-[12px] md:rounded-[15px] lg:rounded-[17px] px-2 md:px-2.5 py-1.5 md:py-2 flex items-center gap-1.5 md:gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)] w-fit"
-                      >
-                        <CounterNumber value={stat.value} eventKey={`${currentSet}-${event.year}-${stat.label}`} />
-                        <span className="text-[16px] md:text-[19px] lg:text-[22px] font-normal text-black">
-                          {stat.label}
-                        </span>
+                  // Assign z-index based on position for stacking effect (higher index = higher z-index)
+                  let zIndexClass = "z-10";
+                  if (index === 1) {
+                    zIndexClass = "z-20";
+                  } else if (index === 2) {
+                    zIndexClass = "z-30";
+                  }
+
+                  return (
+                    <div
+                      key={event.year}
+                      className={cn(
+                        "rounded-[20px] shadow-xl relative flex flex-col items-center",
+                        "w-full max-w-[280px] md:max-w-[320px] lg:max-w-[372px]",
+                        "h-[380px] md:h-[430px] lg:h-[493px]",
+                        "mx-auto lg:mx-0",
+                        event.backgroundColor,
+                        // Mobile: spacing for stacking effect, Desktop: design specs
+                        index === 0 ? "mt-0" : "mt-[25vh] lg:mt-0",
+                        marginTopClass,
+                        // Z-index only on mobile for stacking
+                        `lg:z-auto ${zIndexClass}`,
+                        "sticky top-[20vh] lg:static" // Sticky in middle of screen on mobile, static on desktop
+                      )}
+                    >
+                      {/* Event Logo */}
+                      <div className="mt-4 md:mt-5 lg:mt-6 mb-3 md:mb-3.5 lg:mb-4 flex items-center justify-center w-full px-4 md:px-5 lg:px-6">
+                        <div className="relative w-full h-[45px] md:h-[50px] lg:h-[60px]">
+                          <Image
+                            src={event.logo}
+                            alt={`DevFest ${event.year} Logo`}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
 
-                {/* Venue */}
-                <div className="flex items-center justify-center gap-1.5 md:gap-2 text-black mt-auto pt-1.5 md:pt-2 pb-4 md:pb-5 lg:pb-6 px-4">
-                  <MapPin className="w-4 h-4 md:w-[18px] md:h-[18px] lg:w-5 lg:h-5 shrink-0" />
-                  <span className="text-[14px] md:text-[17px] lg:text-[20px] font-medium text-center leading-tight">{event.venue}</span>
-                </div>
-              </div>
-            );
-          })}
+                      {/* Event Image */}
+                      <div className="relative w-[250px] md:w-[290px] lg:w-[334px] h-[260px] md:h-[295px] lg:h-[347px] shrink-0">
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                          <Image
+                            src={event.image}
+                            alt={`DevFest ${event.year}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+
+                        {/* Stats Overlay */}
+                        <div className="absolute bottom-2 md:bottom-2.5 lg:bottom-3 left-[30%] md:left-[32%] lg:left-[35%] space-y-1.5 md:space-y-2 lg:space-y-2.5">
+                          {event.stats.map((stat) => (
+                            <div
+                              key={`${event.year}-${stat.label}`}
+                              className="bg-white rounded-[12px] md:rounded-[15px] lg:rounded-[17px] px-2 md:px-2.5 py-1.5 md:py-2 flex items-center gap-1.5 md:gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)] w-fit"
+                            >
+                              <CounterNumber value={stat.value} eventKey={`${currentSet}-${event.year}-${stat.label}`} />
+                              <span className="text-[16px] md:text-[19px] lg:text-[22px] font-normal text-black">
+                                {stat.label}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Venue */}
+                      <div className="flex items-center justify-center gap-1.5 md:gap-2 text-black mt-auto pt-1.5 md:pt-2 pb-4 md:pb-5 lg:pb-6 px-4">
+                        <MapPin className="w-4 h-4 md:w-[18px] md:h-[18px] lg:w-5 lg:h-5 shrink-0" />
+                        <span className="text-[14px] md:text-[17px] lg:text-[20px] font-medium text-center leading-tight">{event.venue}</span>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -422,7 +417,7 @@ export default function FlagshipEvents () {
               >
                 {/* Background */}
                 <div className="absolute inset-0 bg-gray-300" />
-                
+
                 {/* Progress Bar (only for active) */}
                 {currentSet === index && (
                   <motion.div
@@ -437,7 +432,7 @@ export default function FlagshipEvents () {
                     style={{ willChange: "transform" }}
                   />
                 )}
-                
+
                 {/* Static fill for inactive dots */}
                 {currentSet !== index && (
                   <div className="absolute inset-0 bg-gray-300 hover:bg-gray-400 transition-colors" />

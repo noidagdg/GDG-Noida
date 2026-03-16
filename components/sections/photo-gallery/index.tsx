@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import BlurFade from "@/components/magicui/blur-fade";
 import Image from "next/image";
@@ -9,398 +8,161 @@ interface PhotoGalleryProps {
   readonly className?: string;
 }
 
-// Image pools by SIZE CATEGORY - images only rotate within same size
-// Tall images (h-182): for columns 1 & 8
-const tallImagePool = [
-  "/assets/photo-gallery/column1.webp",
-  "/assets/photo-gallery/column1-2.webp",
-  "/assets/photo-gallery/column8-1.webp",
-  "/assets/photo-gallery/column8-2.webp",
-];
+// Custom Push Pin SVG Component
+const PushPin = ({ color, angle }: { color: string, angle: string }) => (
+  <div className={cn("absolute -top-4 sm:-top-5 left-1/2 -translate-x-1/2 z-20 drop-shadow-md", angle)}>
+    <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Pin needle */}
+      <path d="M16 26L15 14H17L16 26Z" fill="#94a3b8" />
+      {/* Pin base */}
+      <path d="M13 14H19L18 17H14L13 14Z" fill={color} />
+      {/* Pin head */}
+      <circle cx="16" cy="11" r="5" fill={color} />
+      {/* Shine/Reflection */}
+      <circle cx="14.5" cy="9.5" r="1.5" fill="white" fillOpacity="0.6" />
+    </svg>
+  </div>
+);
 
-// Medium images (h-146): for columns 2 & 7
-const mediumImagePool = [
-  "/assets/photo-gallery/column2-1.webp",
-  "/assets/photo-gallery/column2-2.webp",
-  "/assets/photo-gallery/column2-3.webp",
-  "/assets/photo-gallery/column7-1.webp",
-  "/assets/photo-gallery/column7-2.webp",
-  "/assets/photo-gallery/column7-3.webp",
-];
-
-// Center card images (h-250)
-const centerImagePool = [
-  "/assets/photo-gallery/column3.webp",
-  "/assets/photo-gallery/column4.webp",
-  "/assets/photo-gallery/column5.webp",
-  "/assets/photo-gallery/column6.webp",
-];
-
-// Center card offsets (fixed positions)
-const centerOffsets = [50, 86, 113, 50];
-const maxOffset = 113;
-
-// Simple crossfade component - uses key to force clean remount on src change
-function CrossfadeImage({
+// Polaroid Frame Component
+const Polaroid = ({
   src,
   alt,
-  width,
-  height,
-  fill = false,
-  sizes,
-  className
-}: {
-  src: string;
-  alt: string;
-  width?: number;
-  height?: number;
-  fill?: boolean;
-  sizes?: string;
-  className?: string;
-}) {
-  const [currentSrc, setCurrentSrc] = useState(src);
-  const [previousSrc, setPreviousSrc] = useState<string | null>(null);
-  const [opacity, setOpacity] = useState(1);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    // If src changed, start crossfade
-    if (src !== currentSrc) {
-      // Clear any pending timeout
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      // Keep old image visible, start fading
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setPreviousSrc(currentSrc);
-      setCurrentSrc(src);
-      setOpacity(0);
-
-      // Fade in new image
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setOpacity(1);
-        });
-      });
-
-      // Clean up previous image after transition
-      timeoutRef.current = setTimeout(() => {
-        setPreviousSrc(null);
-      }, 1000);
-    }
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [src, currentSrc]);
-
-  return (
-    <div className={cn("relative overflow-hidden", className)}>
-      {/* Previous image (fades out) */}
-      {previousSrc && (
-        fill ? (
-          <Image
-            src={previousSrc}
-            alt={alt}
-            fill
-            sizes={sizes}
-            className="object-cover absolute inset-0"
-          />
-        ) : (
-          <Image
-            src={previousSrc}
-            alt={alt}
-            width={width}
-            height={height}
-            className="h-full w-full object-cover absolute inset-0"
-          />
-        )
+  frameColor,
+  pinColor,
+  pinAngle,
+  rotateAngle,
+  aspectRatio,
+  delay
+}: any) => (
+  <BlurFade delay={delay} inView className="relative flex-shrink-0 z-10">
+    <div
+      className={cn(
+        "relative flex flex-col p-3 sm:p-4 pb-12 sm:pb-16 rounded-xl shadow-[0_15px_40px_-5px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-105 hover:z-30 cursor-pointer w-[240px] sm:w-[280px] md:w-[320px]",
+        frameColor,
+        rotateAngle
       )}
+    >
+      <PushPin color={pinColor} angle={pinAngle} />
 
-      {/* Current image (fades in) */}
-      {fill ? (
+      {/* Photo Container */}
+      <div className={cn("relative w-full overflow-hidden rounded border border-black/5 bg-zinc-100 shadow-inner", aspectRatio)}>
         <Image
-          src={currentSrc}
+          src={src}
           alt={alt}
           fill
-          sizes={sizes}
-          className="object-cover transition-opacity duration-1000 ease-in-out"
-          style={{ opacity }}
+          className="object-cover"
+          sizes="(max-width: 640px) 240px, (max-width: 768px) 280px, 320px"
         />
-      ) : (
-        <Image
-          src={currentSrc}
-          alt={alt}
-          width={width}
-          height={height}
-          className="h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
-          style={{ opacity }}
-        />
-      )}
+      </div>
+
+      {/* Polaroid Caption */}
+      <div className="absolute bottom-3 sm:bottom-5 left-0 w-full text-center px-4">
+        <p className="text-zinc-800 font-medium text-[14px] sm:text-[16px] tracking-tight">
+          Supporting Text Here
+        </p>
+      </div>
     </div>
-  );
-}
+  </BlurFade>
+);
 
 export default function PhotoGallery({ className }: PhotoGalleryProps) {
-  // State arrays - each index maps to a specific slot position
-  // Initialize with unique images from pools
-  const [tallSlots, setTallSlots] = useState(() => [...tallImagePool]);
-  const [mediumSlots, setMediumSlots] = useState(() => [...mediumImagePool]);
-  const [centerSlots, setCenterSlots] = useState(() => [...centerImagePool]);
-
-  // Update images smoothly by pulling from all pools to simulate continuous new photos
-  useEffect(() => {
-    // Collect all available unique images across pools
-    const allImages = [...tallImagePool, ...mediumImagePool, ...centerImagePool];
-
-    const interval = setInterval(() => {
-      // Pick which category to update (0=tall, 1=medium, 2=center)
-      const category = Math.floor(Math.random() * 3);
-
-      // Randomly select an image that is not currently shown in the category
-      if (category === 0) {
-        setTallSlots((prev) => {
-          const arr = [...prev];
-          const len = arr.length;
-          const i = Math.floor(Math.random() * len);
-
-          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          while (arr.includes(randomNextImage)) {
-            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          }
-
-          arr[i] = randomNextImage;
-          return arr;
-        });
-      } else if (category === 1) {
-        setMediumSlots((prev) => {
-          const arr = [...prev];
-          const len = arr.length;
-          const i = Math.floor(Math.random() * len);
-
-          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          while (arr.includes(randomNextImage)) {
-            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          }
-
-          arr[i] = randomNextImage;
-          return arr;
-        });
-      } else {
-        setCenterSlots((prev) => {
-          const arr = [...prev];
-          const len = arr.length;
-          const i = Math.floor(Math.random() * len);
-
-          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          while (arr.includes(randomNextImage)) {
-            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          }
-
-          arr[i] = randomNextImage;
-          return arr;
-        });
-      }
-    }, 5000); // reduced from 10000ms to 5000ms for more active gallery feeling
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Column 1 uses tallSlots[0] and tallSlots[1]
-  // Column 8 uses tallSlots[2] and tallSlots[3]
-  // Column 2 uses mediumSlots[0], [1], [2]
-  // Column 7 uses mediumSlots[3], [4], [5]
-  // Center uses centerSlots[0], [1], [2], [3]
-
   return (
-    <section id="gallery" className={cn("relative w-full overflow-hidden bg-linear-to-b from-gray-50 to-white py-12 lg:py-0", className)}>
-      <div className="relative mx-auto max-w-[1920px]">
-        {/* Mobile View - Only 3 columns */}
-        <div className="lg:hidden px-2 sm:px-4">
-          {/* Title Section - Mobile */}
-          <div className="mb-6 sm:mb-8 text-center">
-            <BlurFade delay={0.2} inView>
-              <h2 className="text-3xl font-semibold sm:text-4xl md:text-5xl text-zinc-900">
+    <section id="gallery" className={cn("relative w-full overflow-hidden bg-white py-16 md:py-32", className)}>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        {/* Header Section */}
+        <div className="relative mb-24 md:mb-36 text-center flex flex-col items-center z-20">
+          <BlurFade delay={0.2} inView>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <h2 className="text-4xl font-bold sm:text-5xl md:text-6xl text-zinc-900 tracking-tight">
                 Photo Gallery
               </h2>
-            </BlurFade>
-            <BlurFade delay={0.3} inView>
-              <p className="mt-3 sm:mt-4 text-base sm:text-lg text-zinc-600">
-                A glimpse into our most memorable moments
-              </p>
-            </BlurFade>
-          </div>
-
-          {/* 3-Column Mobile Grid */}
-          <div className="flex items-center justify-center gap-3 sm:gap-5 md:gap-8 max-w-full">
-            {/* Column 1 - Two Photos (tall) */}
-            <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-              {[0, 1].map((idx) => (
-                <BlurFade key={`mobile-col1-${idx}`} delay={0.1} inView>
-                  <div className="group relative h-[120px] w-[85px] sm:h-[150px] sm:w-[105px] md:h-[182px] md:w-[134px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      fill
-                      sizes="(max-width: 640px) 85px, (max-width: 768px) 105px, 134px"
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                </BlurFade>
-              ))}
-            </div>
-
-            {/* Center - Single Photo */}
-            <div className="flex items-center justify-center flex-shrink-0">
-              <BlurFade delay={0.15} inView>
-                <div className="group relative h-[200px] w-[140px] sm:h-[250px] sm:w-[175px] md:h-[300px] md:w-[220px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <CrossfadeImage
-                    src={centerSlots[0]}
-                    alt="Center Gallery"
-                    fill
-                    sizes="(max-width: 640px) 140px, (max-width: 768px) 175px, 220px"
-                    className="h-full w-full"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
+              {/* CS Badge */}
+              <div className="flex items-center -ml-2 mt-1 relative">
+                <div className="flex h-[38px] w-[38px] sm:h-[46px] sm:w-[46px] items-center justify-center rounded-full bg-[#fbbc04] shadow-[0_2px_10px_rgba(0,0,0,0.15)] z-10 border-2 border-white">
+                  <span className="text-base sm:text-lg font-bold text-zinc-900">C</span>
                 </div>
-              </BlurFade>
+                <div className="flex h-[38px] w-[38px] sm:h-[46px] sm:w-[46px] -ml-3 items-center justify-center rounded-full bg-[#4285f4] shadow-[0_2px_10px_rgba(0,0,0,0.15)] z-20 border-2 border-white">
+                  <span className="text-base sm:text-lg font-bold text-white">S</span>
+                </div>
+              </div>
             </div>
-
-            {/* Column 8 - Two Photos (tall) */}
-            <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-              {[2, 3].map((idx) => (
-                <BlurFade key={`mobile-col8-${idx}`} delay={0.1} inView>
-                  <div className="group relative h-[120px] w-[85px] sm:h-[150px] sm:w-[105px] md:h-[182px] md:w-[134px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      fill
-                      sizes="(max-width: 640px) 85px, (max-width: 768px) 105px, 134px"
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                </BlurFade>
-              ))}
-            </div>
-          </div>
+          </BlurFade>
+          <BlurFade delay={0.3} inView>
+            <p className="mt-4 text-lg text-zinc-500 sm:text-xl md:text-2xl font-medium max-w-2xl mx-auto">
+              A glimpse into our most memorable moments
+            </p>
+          </BlurFade>
         </div>
 
-        {/* Desktop View - Full Layout */}
-        <div className="hidden lg:block relative">
-          <div className="relative flex items-start justify-center gap-[30px]">
-            {/* Left Side - Column 1 & 2 */}
-            <div className="flex gap-[30px]">
-              {/* Column 1 - Tall images (h-182) */}
-              <div className="flex flex-col items-center justify-start gap-[30px] pt-[70px]">
-                {[0, 1].map((idx) => (
-                  <div key={`col1-${idx}`} className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={182}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
+        {/* Gallery Section */}
+        <div className="relative w-full min-h-[400px] md:min-h-[500px] flex items-center justify-center py-10">
 
-              {/* Column 2 - Medium images (h-146) */}
-              <div className="flex flex-col items-center justify-start gap-[19px]">
-                {[0, 1, 2].map((idx) => (
-                  <div key={`col2-${idx}`} className="group relative h-[146px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={mediumSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={146}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
+          {/* Wavy Line SVG Background */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 w-full h-[300px] flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+            <svg
+              className="w-[200%] md:w-full h-full text-zinc-900"
+              viewBox="0 0 1440 300"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+            >
+              {/* A smooth bezier curve crossing the section */}
+              <path
+                d="M-100,200 C200,50 450,280 720,200 C1000,120 1200,280 1540,150"
+                stroke="currentColor"
+                strokeWidth="3.5"
+                fill="none"
+              />
+            </svg>
+          </div>
+
+          {/* Polaroids Container */}
+          <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 md:gap-6 px-4">
+
+            {/* Polaroid 1 (Left) - Pink Frame */}
+            <div className="md:-mt-16 xl:-mt-24">
+              <Polaroid
+                src="/Images/polariod1.png"
+                alt="Memorable moment 1"
+                frameColor="bg-[#ffeef2]" // Light Pink
+                pinColor="#a855f7" // Purple pin
+                pinAngle="-rotate-[10deg]"
+                rotateAngle="-rotate-6 md:-rotate-12 hover:rotate-0"
+                aspectRatio="aspect-square"
+                delay={0.4}
+              />
             </div>
 
-            {/* Middle Section - Center cards and text */}
-            <div className="relative flex flex-col items-center justify-center">
-              <div className="relative flex flex-col items-center justify-center">
-                {/* 4 Center Cards (h-250) */}
-                <div className="relative flex items-start justify-center gap-[30px] mt-2" style={{ marginBottom: `${maxOffset}px` }}>
-                  {[0, 1, 2, 3].map((idx) => (
-                    <div
-                      key={`center-${idx}`}
-                      style={{ marginTop: `${maxOffset - centerOffsets[idx]}px` }}
-                      className="group relative h-[250px] w-[135px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                    >
-                      <CrossfadeImage
-                        src={centerSlots[idx]}
-                        alt={`Center Gallery ${idx + 1}`}
-                        width={135}
-                        height={250}
-                        className="h-full w-full"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                    </div>
-                  ))}
-                </div>
-
-                {/* Text */}
-                <div className="relative text-center">
-                  <BlurFade delay={0.9} inView>
-                    <h2 className="whitespace-nowrap font-semibold text-5xl text-zinc-900 sm:text-6xl md:text-7xl lg:text-[64px]">
-                      Photo Gallery
-                    </h2>
-                  </BlurFade>
-                  <BlurFade delay={1.0} inView>
-                    <p className="mt-4 text-lg text-zinc-600 sm:text-xl md:text-2xl">
-                      A glimpse into our most memorable moments
-                    </p>
-                  </BlurFade>
-                </div>
-              </div>
+            {/* Polaroid 2 (Middle) - Green Frame */}
+            <div className="md:mt-24 xl:mt-32">
+              <Polaroid
+                src="/Images/polaroid2.png"
+                alt="Memorable moment 2"
+                frameColor="bg-[#eef8f0]" // Light Green
+                pinColor="#3b82f6" // Blue pin
+                pinAngle="rotate-[12deg]"
+                rotateAngle="rotate-3 md:rotate-6 hover:rotate-0"
+                aspectRatio="aspect-[4/3]"
+                delay={0.5}
+              />
             </div>
 
-            {/* Right Side - Column 7 & 8 */}
-            <div className="flex gap-[30px]">
-              {/* Column 7 - Medium images (h-146) */}
-              <div className="flex flex-col items-center justify-start gap-[19px]">
-                {[3, 4, 5].map((idx) => (
-                  <div key={`col7-${idx}`} className="group relative h-[146px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={mediumSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={146}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
-
-              {/* Column 8 - Tall images (h-182) */}
-              <div className="flex flex-col items-center justify-start gap-[30px] pt-[70px]">
-                {[2, 3].map((idx) => (
-                  <div key={`col8-${idx}`} className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={182}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
+            {/* Polaroid 3 (Right) - Blue Frame */}
+            <div className="md:-mt-20 xl:-mt-32">
+              <Polaroid
+                src="/Images/polaroid3.png"
+                alt="Memorable moment 3"
+                frameColor="bg-[#eef4ff]" // Light Blue
+                pinColor="#ef4444" // Red pin
+                pinAngle="rotate-[5deg]"
+                rotateAngle="-rotate-2 md:-rotate-3 hover:rotate-0"
+                aspectRatio="aspect-[3/4]"
+                delay={0.6}
+              />
             </div>
+
           </div>
         </div>
       </div>

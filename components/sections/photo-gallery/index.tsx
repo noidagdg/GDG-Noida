@@ -1,408 +1,334 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import BlurFade from "@/components/magicui/blur-fade";
 import Image from "next/image";
+import { motion, Variants } from "framer-motion";
 
 interface PhotoGalleryProps {
   readonly className?: string;
 }
 
-// Image pools by SIZE CATEGORY - images only rotate within same size
-// Tall images (h-182): for columns 1 & 8
-const tallImagePool = [
-  "/assets/photo-gallery/column1.webp",
-  "/assets/photo-gallery/column1-2.webp",
-  "/assets/photo-gallery/column8-1.webp",
-  "/assets/photo-gallery/column8-2.webp",
-];
+// ─── Shared animation variant ──────────────────────────────────────────────
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28, scale: 0.97, filter: "blur(8px)" },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      delay: delay / 1000,
+      duration: 0.65,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  }),
+};
 
-// Medium images (h-146): for columns 2 & 7
-const mediumImagePool = [
-  "/assets/photo-gallery/column2-1.webp",
-  "/assets/photo-gallery/column2-2.webp",
-  "/assets/photo-gallery/column2-3.webp",
-  "/assets/photo-gallery/column7-1.webp",
-  "/assets/photo-gallery/column7-2.webp",
-  "/assets/photo-gallery/column7-3.webp",
-];
+const textChild: Variants = {
+  hidden: { opacity: 0, y: 16, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.65, ease: "easeOut" },
+  },
+};
 
-// Center card images (h-250)
-const centerImagePool = [
-  "/assets/photo-gallery/column3.webp",
-  "/assets/photo-gallery/column4.webp",
-  "/assets/photo-gallery/column5.webp",
-  "/assets/photo-gallery/column6.webp",
-];
-
-// Center card offsets (fixed positions)
-const centerOffsets = [50, 86, 113, 50];
-const maxOffset = 113;
-
-// Simple crossfade component - uses key to force clean remount on src change
-function CrossfadeImage({
+// ─── Photo card — absolutely positioned inside the ratio container ─────────
+/**
+ * `style` carries the absolute percentage-based position + size.
+ * Next.js `fill` works because the motion.div is `position: absolute`
+ * (which is a "positioned" element), giving the fill image its dimensions.
+ */
+function PhotoCard({
   src,
   alt,
-  width,
-  height,
-  fill = false,
+  delay = 0,
   sizes,
-  className
+  style,
+  className,
 }: {
   src: string;
   alt: string;
-  width?: number;
-  height?: number;
-  fill?: boolean;
-  sizes?: string;
+  delay?: number;
+  sizes: string;
+  style: React.CSSProperties;
   className?: string;
 }) {
-  const [currentSrc, setCurrentSrc] = useState(src);
-  const [previousSrc, setPreviousSrc] = useState<string | null>(null);
-  const [opacity, setOpacity] = useState(1);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    // If src changed, start crossfade
-    if (src !== currentSrc) {
-      // Clear any pending timeout
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-
-      // Keep old image visible, start fading
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setPreviousSrc(currentSrc);
-      setCurrentSrc(src);
-      setOpacity(0);
-
-      // Fade in new image
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setOpacity(1);
-        });
-      });
-
-      // Clean up previous image after transition
-      timeoutRef.current = setTimeout(() => {
-        setPreviousSrc(null);
-      }, 1000);
-    }
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [src, currentSrc]);
-
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      {/* Previous image (fades out) */}
-      {previousSrc && (
-        fill ? (
-          <Image
-            src={previousSrc}
-            alt={alt}
-            fill
-            sizes={sizes}
-            className="object-cover absolute inset-0"
-          />
-        ) : (
-          <Image
-            src={previousSrc}
-            alt={alt}
-            width={width}
-            height={height}
-            className="h-full w-full object-cover absolute inset-0"
-          />
-        )
+    <motion.div
+      custom={delay}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-6%" }}
+      whileHover={{ scale: 1.025, zIndex: 20 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      className={cn(
+        "absolute overflow-hidden rounded-2xl",
+        "shadow-[0_2px_16px_rgba(0,0,0,0.09)]",
+        "hover:shadow-[0_8px_40px_rgba(0,0,0,0.18)]",
+        "transition-shadow duration-400",
+        className
       )}
-
-      {/* Current image (fades in) */}
-      {fill ? (
+      style={style}
+    >
+      {/* Image zoom on hover */}
+      <motion.div
+        className="absolute inset-0"
+        whileHover={{ scale: 1.06 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <Image
-          src={currentSrc}
+          src={src}
           alt={alt}
           fill
           sizes={sizes}
-          className="object-cover transition-opacity duration-1000 ease-in-out"
-          style={{ opacity }}
+          className="object-cover"
         />
-      ) : (
-        <Image
-          src={currentSrc}
-          alt={alt}
-          width={width}
-          height={height}
-          className="h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
-          style={{ opacity }}
-        />
-      )}
-    </div>
+      </motion.div>
+      {/* Hover gradient overlay */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent z-10"
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      />
+    </motion.div>
   );
 }
 
+// ─── Main component ────────────────────────────────────────────────────────
 export default function PhotoGallery({ className }: PhotoGalleryProps) {
-  // State arrays - each index maps to a specific slot position
-  // Initialize with unique images from pools
-  const [tallSlots, setTallSlots] = useState(() => [...tallImagePool]);
-  const [mediumSlots, setMediumSlots] = useState(() => [...mediumImagePool]);
-  const [centerSlots, setCenterSlots] = useState(() => [...centerImagePool]);
-
-  // Update images smoothly by pulling from all pools to simulate continuous new photos
-  useEffect(() => {
-    // Collect all available unique images across pools
-    const allImages = [...tallImagePool, ...mediumImagePool, ...centerImagePool];
-
-    const interval = setInterval(() => {
-      // Pick which category to update (0=tall, 1=medium, 2=center)
-      const category = Math.floor(Math.random() * 3);
-
-      // Randomly select an image that is not currently shown in the category
-      if (category === 0) {
-        setTallSlots((prev) => {
-          const arr = [...prev];
-          const len = arr.length;
-          const i = Math.floor(Math.random() * len);
-
-          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          while (arr.includes(randomNextImage)) {
-            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          }
-
-          arr[i] = randomNextImage;
-          return arr;
-        });
-      } else if (category === 1) {
-        setMediumSlots((prev) => {
-          const arr = [...prev];
-          const len = arr.length;
-          const i = Math.floor(Math.random() * len);
-
-          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          while (arr.includes(randomNextImage)) {
-            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          }
-
-          arr[i] = randomNextImage;
-          return arr;
-        });
-      } else {
-        setCenterSlots((prev) => {
-          const arr = [...prev];
-          const len = arr.length;
-          const i = Math.floor(Math.random() * len);
-
-          let randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          while (arr.includes(randomNextImage)) {
-            randomNextImage = allImages[Math.floor(Math.random() * allImages.length)];
-          }
-
-          arr[i] = randomNextImage;
-          return arr;
-        });
-      }
-    }, 5000); // reduced from 10000ms to 5000ms for more active gallery feeling
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Column 1 uses tallSlots[0] and tallSlots[1]
-  // Column 8 uses tallSlots[2] and tallSlots[3]
-  // Column 2 uses mediumSlots[0], [1], [2]
-  // Column 7 uses mediumSlots[3], [4], [5]
-  // Center uses centerSlots[0], [1], [2], [3]
+  /**
+   * DESKTOP LAYOUT — Figma-faithful absolute percentage positioning
+   * ────────────────────────────────────────────────────────────────
+   * Reference frame: 1315 × 967.73 px
+   *
+   * Gap derivations (no hardcoded px — derived from Figma proportions):
+   *   H-gap = (1315 − (376+240+241+375)) / 3 = 83/3 = 27.67 px → 2.10% of W
+   *   V-gap = (967.73 − (302+304+304)) / 2 = 57.73/2 = 28.87 px → 2.98% of H
+   *
+   * Column x-starts (% of frame width 1315):
+   *   C1:  0 / 1315                           = 0.00%
+   *   C2: (376 + 27.67) / 1315                = 30.70%
+   *   C3: (376 + 27.67 + 240 + 27.67) / 1315 = 51.05%
+   *   C4: (376 + 27.67 + 240 + 27.67
+   *         + 241 + 27.67) / 1315             = 71.48%
+   *
+   * Row y-starts (% of frame height 967.73):
+   *   R1: 0 / 967.73                          = 0.00%
+   *   R2: (302 + 28.87) / 967.73              = 34.19%
+   *   R3: (302 + 28.87 + 304 + 28.87) / 967.73 = 68.59%
+   *
+   * Each image's width%  = image_px_width  / 1315
+   * Each image's height% = image_px_height / 967.73
+   *
+   * NOTE: bottomleft (551px) starts at C1 (0%) and has width 41.90%.
+   *       This does NOT align to C2 (44.00% is where bottommiddle starts).
+   *       Only an absolute-position approach handles this; a fixed CSS grid cannot.
+   */
 
   return (
-    <section id="gallery" className={cn("relative w-full overflow-hidden bg-linear-to-b from-gray-50 to-white py-12 lg:py-0", className)}>
-      <div className="relative mx-auto max-w-[1920px]">
-        {/* Mobile View - Only 3 columns */}
-        <div className="lg:hidden px-2 sm:px-4">
-          {/* Title Section - Mobile */}
-          <div className="mb-6 sm:mb-8 text-center">
-            <BlurFade delay={0.2} inView>
-              <h2 className="text-3xl font-semibold sm:text-4xl md:text-5xl text-zinc-900">
+    <section
+      id="gallery"
+      className={cn(
+        "relative w-full overflow-hidden bg-white py-16 lg:py-20",
+        className
+      )}
+    >
+      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
+
+        {/* ── MOBILE — 2-col masonry, aspect-ratio per image ──────────── */}
+        <div className="lg:hidden">
+          <motion.div
+            className="text-center mb-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
+          >
+            <motion.h2 variants={textChild} className="text-4xl font-semibold text-zinc-900 tracking-tight">
+              Photo Gallery
+            </motion.h2>
+            <motion.p variants={textChild} className="mt-3 text-base text-zinc-500">
+              A glimpse into our most memorable moments
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {/* Left column */}
+            <div className="flex flex-col gap-3">
+              {[
+                { src: "/photogallery/topleft376x302.png",    alt: "Community gathering",  ar: "376/302", d: 0   },
+                { src: "/photogallery/leftmiddle376x304.png", alt: "Group photo at event",  ar: "376/304", d: 80  },
+                { src: "/photogallery/bottomleft551x304.png", alt: "Team at workshop",      ar: "551/304", d: 160 },
+              ].map(({ src, alt, ar, d }) => (
+                <motion.div
+                  key={src}
+                  custom={d}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="relative w-full overflow-hidden rounded-2xl shadow-md"
+                  style={{ aspectRatio: ar }}
+                >
+                  <Image src={src} alt={alt} fill sizes="45vw" className="object-cover" />
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Right column */}
+            <div className="flex flex-col gap-3">
+              {[
+                { src: "/photogallery/topright375x444.png",     alt: "GDG Noida cake",       ar: "375/444", d: 40  },
+                { src: "/photogallery/bottommiddle333x304.png", alt: "Audience at talk",      ar: "333/304", d: 120 },
+                { src: "/photogallery/bottomright375x495.png",  alt: "Crowd with raised hands", ar: "375/495", d: 200 },
+              ].map(({ src, alt, ar, d }) => (
+                <motion.div
+                  key={src}
+                  custom={d}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="relative w-full overflow-hidden rounded-2xl shadow-md"
+                  style={{ aspectRatio: ar }}
+                >
+                  <Image src={src} alt={alt} fill sizes="45vw" className="object-cover" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── DESKTOP — Figma absolute % positions inside ratio container ── */}
+        {/*
+         *  The container's height = its width × (967.73 / 1315) via aspect-ratio.
+         *  Every child is position:absolute with left/top/width/height as
+         *  derived percentages — zero hardcoded px values.
+         */}
+        <div
+          className="hidden lg:block relative w-full"
+          style={{ aspectRatio: "1315 / 967.73" }}
+        >
+
+          {/* topleft  376×302  → left=0%  top=0%  w=28.60%  h=31.21% */}
+          <PhotoCard
+            src="/photogallery/topleft376x302.png"
+            alt="Community raising hands at event"
+            delay={60}
+            sizes="28vw"
+            style={{ left: "0%", top: "0%", width: "28.60%", height: "31.21%" }}
+          />
+
+          {/* topmiddle240  240×303  → left=30.70%  top=0%  w=18.25%  h=31.31% */}
+          <PhotoCard
+            src="/photogallery/topmiddle240x303.png"
+            alt="DevFest speaker on stage"
+            delay={40}
+            sizes="18vw"
+            style={{ left: "30.70%", top: "0%", width: "18.25%", height: "31.31%" }}
+          />
+
+          {/* topmiddle241  241×303  → left=51.05%  top=0%  w=18.33%  h=31.31% */}
+          <PhotoCard
+            src="/photogallery/topmiddle241x303.png"
+            alt="Two developers working at laptop"
+            delay={40}
+            sizes="18vw"
+            style={{ left: "51.05%", top: "0%", width: "18.33%", height: "31.31%" }}
+          />
+
+          {/* topright  375×444  → left=71.48%  top=0%  w=28.52%  h=45.88% */}
+          <PhotoCard
+            src="/photogallery/topright375x444.png"
+            alt="GDG Noida anniversary cake with cupcakes"
+            delay={80}
+            sizes="28vw"
+            style={{ left: "71.48%", top: "0%", width: "28.52%", height: "45.88%" }}
+          />
+
+          {/* leftmiddle  376×304  → left=0%  top=34.19%  w=28.60%  h=31.41% */}
+          <PhotoCard
+            src="/photogallery/leftmiddle376x304.png"
+            alt="Large group photo at GDG event"
+            delay={80}
+            sizes="28vw"
+            style={{ left: "0%", top: "34.19%", width: "28.60%", height: "31.41%" }}
+          />
+
+          {/* Center text block — col2+col3 area, row2
+           *  left=30.70%  top=34.19%  width=(71.48−30.70)%=40.78%  height=31.41% */}
+          <motion.div
+            className="absolute flex items-center justify-center"
+            style={{
+              left: "30.70%",
+              top: "34.19%",
+              width: "40.78%",
+              height: "31.41%",
+            }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-5%" }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.14 } } }}
+          >
+            <div className="text-center select-none px-2">
+              <motion.h2
+                variants={textChild}
+                className="font-semibold text-zinc-900 tracking-tight leading-none whitespace-nowrap"
+                style={{ fontSize: "clamp(2rem, 4.5vw, 4.5rem)" }}
+              >
                 Photo Gallery
-              </h2>
-            </BlurFade>
-            <BlurFade delay={0.3} inView>
-              <p className="mt-3 sm:mt-4 text-base sm:text-lg text-zinc-600">
+              </motion.h2>
+              <motion.p
+                variants={textChild}
+                className="mt-[0.6em] text-zinc-500 leading-relaxed"
+                style={{ fontSize: "clamp(0.75rem, 1.2vw, 1.2rem)" }}
+              >
                 A glimpse into our most memorable moments
-              </p>
-            </BlurFade>
-          </div>
-
-          {/* 3-Column Mobile Grid */}
-          <div className="flex items-center justify-center gap-3 sm:gap-5 md:gap-8 max-w-full">
-            {/* Column 1 - Two Photos (tall) */}
-            <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-              {[0, 1].map((idx) => (
-                <BlurFade key={`mobile-col1-${idx}`} delay={0.1} inView>
-                  <div className="group relative h-[120px] w-[85px] sm:h-[150px] sm:w-[105px] md:h-[182px] md:w-[134px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      fill
-                      sizes="(max-width: 640px) 85px, (max-width: 768px) 105px, 134px"
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                </BlurFade>
-              ))}
+              </motion.p>
             </div>
+          </motion.div>
 
-            {/* Center - Single Photo */}
-            <div className="flex items-center justify-center flex-shrink-0">
-              <BlurFade delay={0.15} inView>
-                <div className="group relative h-[200px] w-[140px] sm:h-[250px] sm:w-[175px] md:h-[300px] md:w-[220px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                  <CrossfadeImage
-                    src={centerSlots[0]}
-                    alt="Center Gallery"
-                    fill
-                    sizes="(max-width: 640px) 140px, (max-width: 768px) 175px, 220px"
-                    className="h-full w-full"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                </div>
-              </BlurFade>
-            </div>
+          {/* bottomright  375×495
+           *  Anchored to bottom of frame.
+           *  top = 1 − (495/967.73) = 1 − 0.5115 = 48.85%
+           *  left=71.48%  w=28.52%  h=51.15% */}
+          <PhotoCard
+            src="/photogallery/bottomright375x495.png"
+            alt="Huge crowd with raised hands"
+            delay={120}
+            sizes="28vw"
+            style={{ left: "71.48%", top: "48.85%", width: "28.52%", height: "51.15%" }}
+          />
 
-            {/* Column 8 - Two Photos (tall) */}
-            <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 flex-shrink-0">
-              {[2, 3].map((idx) => (
-                <BlurFade key={`mobile-col8-${idx}`} delay={0.1} inView>
-                  <div className="group relative h-[120px] w-[85px] sm:h-[150px] sm:w-[105px] md:h-[182px] md:w-[134px] overflow-hidden rounded-xl sm:rounded-2xl md:rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      fill
-                      sizes="(max-width: 640px) 85px, (max-width: 768px) 105px, 134px"
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                </BlurFade>
-              ))}
-            </div>
-          </div>
+          {/* bottomleft  551×304
+           *  Width: 551/1315 = 41.90%  (intentionally wider than col1+half-col2)
+           *  left=0%  top=68.59%  w=41.90%  h=31.41% */}
+          <PhotoCard
+            src="/photogallery/bottomleft551x304.png"
+            alt="Team smiling at workshop desk"
+            delay={100}
+            sizes="42vw"
+            style={{ left: "0%", top: "68.59%", width: "41.90%", height: "31.41%" }}
+          />
+
+          {/* bottommiddle  333×304
+           *  left = (551+27.67)/1315 = 578.67/1315 = 44.00%
+           *  top=68.59%  w=333/1315=25.32%  h=31.41% */}
+          <PhotoCard
+            src="/photogallery/bottommiddle333x304.png"
+            alt="Audience listening at a talk"
+            delay={140}
+            sizes="25vw"
+            style={{ left: "44.00%", top: "68.59%", width: "25.32%", height: "31.41%" }}
+          />
+
         </div>
+        {/* ── END DESKTOP ── */}
 
-        {/* Desktop View - Full Layout */}
-        <div className="hidden lg:block relative">
-          <div className="relative flex items-start justify-center gap-[30px]">
-            {/* Left Side - Column 1 & 2 */}
-            <div className="flex gap-[30px]">
-              {/* Column 1 - Tall images (h-182) */}
-              <div className="flex flex-col items-center justify-start gap-[30px] pt-[70px]">
-                {[0, 1].map((idx) => (
-                  <div key={`col1-${idx}`} className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={182}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
-
-              {/* Column 2 - Medium images (h-146) */}
-              <div className="flex flex-col items-center justify-start gap-[19px]">
-                {[0, 1, 2].map((idx) => (
-                  <div key={`col2-${idx}`} className="group relative h-[146px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={mediumSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={146}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Middle Section - Center cards and text */}
-            <div className="relative flex flex-col items-center justify-center">
-              <div className="relative flex flex-col items-center justify-center">
-                {/* 4 Center Cards (h-250) */}
-                <div className="relative flex items-start justify-center gap-[30px] mt-2" style={{ marginBottom: `${maxOffset}px` }}>
-                  {[0, 1, 2, 3].map((idx) => (
-                    <div
-                      key={`center-${idx}`}
-                      style={{ marginTop: `${maxOffset - centerOffsets[idx]}px` }}
-                      className="group relative h-[250px] w-[135px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                    >
-                      <CrossfadeImage
-                        src={centerSlots[idx]}
-                        alt={`Center Gallery ${idx + 1}`}
-                        width={135}
-                        height={250}
-                        className="h-full w-full"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                    </div>
-                  ))}
-                </div>
-
-                {/* Text */}
-                <div className="relative text-center">
-                  <BlurFade delay={0.9} inView>
-                    <h2 className="whitespace-nowrap font-semibold text-5xl text-zinc-900 sm:text-6xl md:text-7xl lg:text-[64px]">
-                      Photo Gallery
-                    </h2>
-                  </BlurFade>
-                  <BlurFade delay={1.0} inView>
-                    <p className="mt-4 text-lg text-zinc-600 sm:text-xl md:text-2xl">
-                      A glimpse into our most memorable moments
-                    </p>
-                  </BlurFade>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side - Column 7 & 8 */}
-            <div className="flex gap-[30px]">
-              {/* Column 7 - Medium images (h-146) */}
-              <div className="flex flex-col items-center justify-start gap-[19px]">
-                {[3, 4, 5].map((idx) => (
-                  <div key={`col7-${idx}`} className="group relative h-[146px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={mediumSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={146}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
-
-              {/* Column 8 - Tall images (h-182) */}
-              <div className="flex flex-col items-center justify-start gap-[30px] pt-[70px]">
-                {[2, 3].map((idx) => (
-                  <div key={`col8-${idx}`} className="group relative h-[182px] w-[134px] overflow-hidden rounded-3xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <CrossfadeImage
-                      src={tallSlots[idx]}
-                      alt={`Gallery ${idx + 1}`}
-                      width={134}
-                      height={182}
-                      className="h-full w-full"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

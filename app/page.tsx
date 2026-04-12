@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Navbar from "@/components/sections/navbar";
-import Hero from "@/components/sections/hero";
+import Loader from "@/components/Loader";
+import HeroSection from "@/components/HeroSection";
 import FlagshipEvents from "@/components/sections/flagship-events";
 import UpcomingEvents from "@/components/sections/upcoming-events";
 import StarSpeakers from "@/components/sections/star-speakers";
@@ -16,21 +17,35 @@ import { SecretDialog } from "@/components/ui/secret-dialog";
 
 export default function Home() {
   const [isSecretDialogOpen, setIsSecretDialogOpen] = useState(false);
+  const [loaderDone, setLoaderDone] = useState(false);
 
   return (
     <div className="min-h-screen">
+      <Loader onComplete={() => setLoaderDone(true)} />
+
+      {/* Navbar will rely on data-navbar-theme attributes attached to sections below */}
       <Navbar onSecretUnlocked={() => setIsSecretDialogOpen(true)} />
-      <Hero />
-      <Marquee />
-      <UpcomingEvents />
-      <StarSpeakers />
-      <WhoWeAre />
-      <FlagshipEvents />
-      <Sponsors />
-      <Testimonials />
-      <PhotoGallery />
-      <Footer />
-      
+
+      <main>
+        {/* Light theme for Hero */}
+        <section data-navbar-theme="light">
+          <HeroSection heroReady={loaderDone} />
+        </section>
+
+        {/* Light theme for all other sections */}
+        <section data-navbar-theme="light">
+          <Marquee />
+          <UpcomingEvents />
+          <StarSpeakers />
+          <WhoWeAre />
+          <FlagshipEvents />
+          <Sponsors />
+          <Testimonials />
+          <PhotoGallery />
+          <Footer />
+        </section>
+      </main>
+
       {/* Secret Dialog */}
       <SecretDialog isOpen={isSecretDialogOpen} onClose={() => setIsSecretDialogOpen(false)} />
     </div>

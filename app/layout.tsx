@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { PageLoader } from "@/components/ui/page-loader";
 
 export const metadata: Metadata = {
   title: "GDG Noida",
@@ -50,11 +49,10 @@ export default function RootLayout({
         <meta property="og:logo" content="https://iili.io/fdmbmil.png" />
       </head>
       <body
-        className="antialiased overflow-hidden"
+        className="antialiased"
         style={{ fontFamily: "'Product Sans', ui-sans-serif, system-ui, sans-serif" }}
         suppressHydrationWarning
       >
-        <PageLoader />
         {children}
       </body>
     </html>

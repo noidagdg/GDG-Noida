@@ -14,6 +14,7 @@ import Testimonials from "@/components/sections/Testimonials";
 import Marquee from "@/components/sections/marquee";
 import WhoWeAre from "@/components/sections/who-we-are";
 import { SecretDialog } from "@/components/ui/secret-dialog";
+import { AnimatedDivider } from "@/components/ui/animated-divider";
 
 export default function Home() {
   const [isSecretDialogOpen, setIsSecretDialogOpen] = useState(false);
@@ -35,12 +36,16 @@ export default function Home() {
         {/* Light theme for all other sections */}
         <section data-navbar-theme="light">
           <Marquee />
+          <AnimatedDivider />
           <UpcomingEvents />
           <StarSpeakers />
+          <AnimatedDivider />
           <WhoWeAre />
+          <AnimatedDivider className="rotate-180" />
           <FlagshipEvents />
           <Sponsors />
           <Testimonials />
+          <AnimatedDivider />
           <PhotoGallery />
           <Footer />
         </section>

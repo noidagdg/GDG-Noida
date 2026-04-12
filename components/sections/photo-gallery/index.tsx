@@ -2,7 +2,29 @@
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useState } from "react";
 import { motion, Variants } from "framer-motion";
+
+function GalleryImage({ src, alt, sizes, className = "" }: { src: string, alt: string, sizes: string, className?: string }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  return (
+    <>
+      <div className={cn("absolute inset-0 bg-zinc-200/60 dark:bg-zinc-800/60 animate-pulse", isLoaded ? "opacity-0" : "opacity-100", "transition-opacity duration-300")} />
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        onLoad={() => setIsLoaded(true)}
+        className={cn(
+          "object-cover transition-opacity duration-500",
+          isLoaded ? "opacity-100" : "opacity-0",
+          className
+        )}
+      />
+    </>
+  );
+}
 
 interface PhotoGalleryProps {
   readonly className?: string;
@@ -79,12 +101,10 @@ function PhotoCard({
         whileHover={{ scale: 1.06 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <Image
+        <GalleryImage
           src={src}
           alt={alt}
-          fill
           sizes={sizes}
-          className="object-cover"
         />
       </motion.div>
       {/* Hover gradient overlay */}
@@ -160,9 +180,9 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
             {/* Left column */}
             <div className="flex flex-col gap-3">
               {[
-                { src: "/photogallery/topleft376x302.png",    alt: "Community gathering",  ar: "376/302", d: 0   },
-                { src: "/photogallery/leftmiddle376x304.png", alt: "Group photo at event",  ar: "376/304", d: 80  },
-                { src: "/photogallery/bottomleft551x304.png", alt: "Team at workshop",      ar: "551/304", d: 160 },
+                { src: "/photogallery/topleft376x302.png", alt: "Community gathering", ar: "376/302", d: 0 },
+                { src: "/photogallery/leftmiddle376x304.png", alt: "Group photo at event", ar: "376/304", d: 80 },
+                { src: "/photogallery/bottomleft551x304.png", alt: "Team at workshop", ar: "551/304", d: 160 },
               ].map(({ src, alt, ar, d }) => (
                 <motion.div
                   key={src}
@@ -174,7 +194,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
                   className="relative w-full overflow-hidden rounded-2xl shadow-md"
                   style={{ aspectRatio: ar }}
                 >
-                  <Image src={src} alt={alt} fill sizes="45vw" className="object-cover" />
+                  <GalleryImage src={src} alt={alt} sizes="45vw" />
                 </motion.div>
               ))}
             </div>
@@ -182,9 +202,9 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
             {/* Right column */}
             <div className="flex flex-col gap-3">
               {[
-                { src: "/photogallery/topright375x444.png",     alt: "GDG Noida cake",       ar: "375/444", d: 40  },
-                { src: "/photogallery/bottommiddle333x304.png", alt: "Audience at talk",      ar: "333/304", d: 120 },
-                { src: "/photogallery/bottomright375x495.png",  alt: "Crowd with raised hands", ar: "375/495", d: 200 },
+                { src: "/photogallery/topright375x444.png", alt: "GDG Noida cake", ar: "375/444", d: 40 },
+                { src: "/photogallery/bottommiddle333x304.png", alt: "Audience at talk", ar: "333/304", d: 120 },
+                { src: "/photogallery/bottomright375x495.png", alt: "Crowd with raised hands", ar: "375/495", d: 200 },
               ].map(({ src, alt, ar, d }) => (
                 <motion.div
                   key={src}
@@ -196,7 +216,7 @@ export default function PhotoGallery({ className }: PhotoGalleryProps) {
                   className="relative w-full overflow-hidden rounded-2xl shadow-md"
                   style={{ aspectRatio: ar }}
                 >
-                  <Image src={src} alt={alt} fill sizes="45vw" className="object-cover" />
+                  <GalleryImage src={src} alt={alt} sizes="45vw" />
                 </motion.div>
               ))}
             </div>

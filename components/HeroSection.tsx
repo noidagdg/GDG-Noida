@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ParticleNetwork } from '@/components/ui/particle-network';
 
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
@@ -18,88 +19,7 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const magneticRef = useRef<HTMLDivElement>(null);
 
-    // 4. Floating Particle Field
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        let particles: any[] = [];
-        let animationFrame: number;
-        let mouseX = -1000;
-        let mouseY = -1000;
-
-        // Check if mobile (reduce particles)
-        const isMobile = window.innerWidth <= 768;
-        const numParticles = isMobile ? 25 : 60;
-
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-        window.addEventListener('resize', resize);
-        resize();
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        window.addEventListener('mouseout', () => {
-            mouseX = -1000;
-            mouseY = -1000;
-        });
-
-        for (let i = 0; i < numParticles; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                radius: 2,
-                color: BRAND_COLORS[Math.floor(Math.random() * BRAND_COLORS.length)]
-            });
-        }
-
-        const draw = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach((p) => {
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0) p.x = canvas.width;
-                if (p.x > canvas.width) p.x = 0;
-                if (p.y < 0) p.y = canvas.height;
-                if (p.y > canvas.height) p.y = 0;
-
-                // Repel
-                const dx = mouseX - p.x;
-                const dy = mouseY - p.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 150) {
-                    const force = (150 - dist) / 150;
-                    p.x -= (dx / dist) * force * 2;
-                    p.y -= (dy / dist) * force * 2;
-                }
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.fill();
-            });
-            animationFrame = requestAnimationFrame(draw);
-        };
-        draw();
-
-        return () => {
-            window.removeEventListener('resize', resize);
-            cancelAnimationFrame(animationFrame);
-        };
-    }, []);
-
+    // 4. Floating Particle Field (Handled by ParticleNetwork Component)
     // 2. Text Scramble on Load
     useEffect(() => {
         if (!heroReady) return;
@@ -297,7 +217,7 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
       `}</style>
 
             {/* 4. Canvas Particles */}
-            <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none z-0" />
+            <ParticleNetwork />
 
             {/* Content */}
             <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full">

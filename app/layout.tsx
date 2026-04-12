@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 export const metadata: Metadata = {
   title: "GDG Noida",
@@ -53,6 +54,7 @@ export default function RootLayout({
         style={{ fontFamily: "'Product Sans', ui-sans-serif, system-ui, sans-serif" }}
         suppressHydrationWarning
       >
+        <ScrollProgress />
         {children}
       </body>
     </html>

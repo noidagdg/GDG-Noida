@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -9,6 +9,15 @@ if (typeof window !== 'undefined') {
 }
 
 const BRAND_COLORS = ['#4285F4', '#EA4335', '#FBBC04', '#34A853'];
+
+interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    color: string;
+}
 
 export default function HeroSection({ heroReady = true }: { heroReady?: boolean }) {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -25,7 +34,7 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        let particles: any[] = [];
+        const particles: Particle[] = [];
         let animationFrame: number;
         let mouseX = -1000;
         let mouseY = -1000;
@@ -161,7 +170,7 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
             return;
         }
 
-        let ctx = gsap.context(() => {
+        const ctx = gsap.context(() => {
             // Entrance
             gsap.fromTo(
                 '.hero-word',

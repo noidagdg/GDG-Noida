@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
@@ -22,7 +23,9 @@ export default function Loader({ onComplete }: LoaderProps) {
         // Skip on repeat visits
         if (sessionStorage.getItem('loaderSeen')) {
             onComplete();
-            setVisible(false);
+            queueMicrotask(() => {
+                setVisible(false);
+            });
             return;
         }
         sessionStorage.setItem('loaderSeen', 'true');
@@ -117,7 +120,16 @@ export default function Loader({ onComplete }: LoaderProps) {
             <div ref={q4Ref} className="quad quad-4" />
             <div ref={glowRef} className="loader-glow" />
             <div ref={logoWrapRef} className="loader-logo-wrap">
-                <img ref={logoRef} src="/assets/gdg_logo.svg" alt="GDG Noida" />
+                <Image
+                    ref={logoRef}
+                    src="/assets/gdg_logo.svg"
+                    alt="GDG Noida"
+                    width={200}
+                    height={200}
+                    className="h-auto w-auto max-w-[min(50vw,200px)]"
+                    priority
+                    unoptimized
+                />
                 <p>
                     <span className="tagline-word">Think.</span>
                     <span className="tagline-word">Build.</span>

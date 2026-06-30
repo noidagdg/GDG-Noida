@@ -137,40 +137,40 @@ function Footer() {
               </h3>
               <div className="flex flex-col gap-3">
                 <a
-                  href="https://instagram.com/gdg-noida"
+                  href="https://instagram.com/gdg_noida"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
                   <Instagram size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
-                  <span>gdg-noida</span>
+                  <span>gdg_noida</span>
                 </a>
                 <a
-                  href="https://twitter.com/gdgnoida"
+                  href="https://twitter.com/gdg-noida"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
                   <Twitter size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
-                  <span>gdgnoida</span>
+                  <span>gdg-noida</span>
                 </a>
                 <a
-                  href="https://linkedin.com/company/gdgnoida"
+                  href="https://linkedin.com/company/noidagdg"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
                   <Linkedin size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
-                  <span>gdgnoida</span>
+                  <span>noidagdg</span>
                 </a>
                 <a
-                  href="https://youtube.com/@gdgnoida"
+                  href="https://youtube.com/@gdg_noida"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-gray-300 text-sm md:text-base hover:text-white hover:translate-x-1 transition-all duration-200 group"
                 >
                   <Youtube size={20} className="w-5 h-5 md:w-[20px] md:h-[20px] text-gray-400 group-hover:text-white transition-colors" />
-                  <span>gdgnoida</span>
+                  <span>gdg_noida</span>
                 </a>
               </div>
             </div>

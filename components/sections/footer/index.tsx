@@ -210,6 +210,13 @@ function Footer() {
                 >
                   Cookies Settings
                 </Link>
+                <span className="text-gray-600">•</span>
+                <Link
+                  href="/community-guidelines"
+                  className="text-gray-400 text-base hover:text-white transition-colors duration-200"
+                >
+                  Community Guidelines
+                </Link>
               </div>
             </div>
           </div>

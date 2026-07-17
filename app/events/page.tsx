@@ -4,6 +4,7 @@ import { useState } from "react";
 import { devfestData } from "@/lib/data/devfest-data";
 import Image from "next/image";
 import CommunityFeedback from "@/components/sections/community-feedback";
+import AttendeeStats from "@/components/sections/attendee-stats";
 
 const EventsPage = () => {
     const years = Object.keys(devfestData).map(Number) as Array<
@@ -72,6 +73,9 @@ const EventsPage = () => {
                     })}
                 </div>
             </div>
+            {/* Attendee Stats */}
+            <AttendeeStats />
+
             {/* Community Feedback */}
             <CommunityFeedback />
         </div>

@@ -6,6 +6,9 @@ import Image from "next/image";
 import CommunityFeedback from "@/components/sections/community-feedback";
 import AttendeeStats from "@/components/sections/attendee-stats";
 import Agenda from "@/components/sections/agenda";
+import MomentsGallery from "@/components/sections/moments-gallery";
+import { galleryCategories } from "@/lib/content";
+import type { GalleryImage } from "@/lib/content";
 
 const EventsPage = () => {
     const years = Object.keys(devfestData).map(Number) as Array<
@@ -16,6 +19,9 @@ const EventsPage = () => {
     );
 
     const event = devfestData[selectedYear];
+
+    // Cast gallery images from devfest-data (which uses `as const`) to mutable GalleryImage[]
+    const galleryImages = event.gallery.images as unknown as GalleryImage[];
 
     return (
         <div className="min-h-screen bg-white pt-24 sm:pt-28 md:pt-32">
@@ -82,6 +88,11 @@ const EventsPage = () => {
 
             {/* Agenda */}
             <Agenda />
+            {/* Moments from DevFest Gallery */}
+            <MomentsGallery
+                categories={galleryCategories}
+                images={galleryImages}
+            />
         </div>
     );
 };

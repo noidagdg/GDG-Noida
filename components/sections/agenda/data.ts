@@ -242,7 +242,7 @@ export const tracks: Track[] = [
           {
             name: "Vipul Gupta",
             designation:
-              "Senior Software Engineer @ balena | GitHub Star | Google Cloud Architect | Mixster",
+              "Senior Software Engineer @ balena",
           },
         ],
       },
@@ -609,7 +609,7 @@ export const tracks: Track[] = [
           },
           {
             name: "Siddhi Khaire",
-            designation: "GDG Pune Volunteer and Speaker",
+            designation: "GDG Pune Volunteer",
           },
           {
             name: "Vishal",
@@ -660,7 +660,7 @@ export const tracks: Track[] = [
           {
             name: "Anupam Singh",
             designation:
-              "Mobile App Development Geek Turned Entrepreneur",
+              "Mobile App Development",
           },
         ],
       },
@@ -681,7 +681,7 @@ export const tracks: Track[] = [
           },
           {
             name: "Abhigya Verma",
-            designation: "Developer, Building LLMs at ServiceNow",
+            designation: "Developer",
           },
           {
             name: "Pushplata Ranjan",
@@ -709,11 +709,11 @@ export const tracks: Track[] = [
           {
             name: "Ashish Kumar Verma",
             designation:
-              "Google Developer Expert | Japan Sakura Science Alumnus",
+              "Google Developer Expert",
           },
           {
             name: "Harsh",
-            designation: "Making ML Infra Systems Fun and Easy",
+            designation: "ML Infra Systems",
           },
         ],
       },

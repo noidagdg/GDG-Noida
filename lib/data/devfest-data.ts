@@ -136,44 +136,26 @@ export const devfestData = {
         },
       ],
 
+      // TODO: replace with real categorized images
       images: [
-        {
-          id: 1,
-          src: "",
-          alt: "",
-          categories: [],
-        },
-        {
-          id: 2,
-          src: "",
-          alt: "",
-          categories: [],
-        },
-        {
-          id: 3,
-          src: "",
-          alt: "",
-          categories: [],
-        },
-        {
-          id: 4,
-          src: "",
-          alt: "",
-          categories: [],
-        },
-        {
-          id: 5,
-          src: "",
-          alt: "",
-          categories: [],
-        },
-        {
-          id: 6,
-          src: "",
-          alt: "",
-          categories: [],
-        },
+        { id: 1, src: "/momentsgallery/1.jpg", alt: "Moments from DevFest", category: "talks", aspectRatio: 3265 / 4898 },
+        { id: 2, src: "/momentsgallery/2.jpg", alt: "Moments from DevFest", category: "networking", aspectRatio: 4898 / 3265 },
+        { id: 3, src: "/momentsgallery/3.jpg", alt: "Moments from DevFest", category: "workshops", aspectRatio: 4898 / 3265 },
+        { id: 4, src: "/momentsgallery/4.JPG", alt: "Moments from DevFest", category: "talks", aspectRatio: 4928 / 3264 },
+        { id: 5, src: "/momentsgallery/5.jpg", alt: "Moments from DevFest", category: "networking", aspectRatio: 4898 / 3265 },
+        { id: 6, src: "/momentsgallery/6.jpg", alt: "Moments from DevFest", category: "talks", aspectRatio: 3265 / 4898 },
+        { id: 7, src: "/momentsgallery/7.jpg", alt: "Moments from DevFest", category: "networking", aspectRatio: 4898 / 3265 },
+        { id: 8, src: "/momentsgallery/8.jpg", alt: "Moments from DevFest", category: "workshops", aspectRatio: 4898 / 3265 },
+        { id: 9, src: "/momentsgallery/9.jpg", alt: "Moments from DevFest", category: "networking", aspectRatio: 4898 / 3265 },
+        { id: 10, src: "/momentsgallery/10.jpg", alt: "Moments from DevFest", category: "networking", aspectRatio: 4898 / 3265 },
+        { id: 11, src: "/momentsgallery/11.jpg", alt: "Moments from DevFest", category: "workshops", aspectRatio: 2496 / 3744 },
+        { id: 12, src: "/momentsgallery/12.jpg", alt: "Moments from DevFest", category: "talks", aspectRatio: 3744 / 2496 },
+        { id: 13, src: "/momentsgallery/13.jpg", alt: "Moments from DevFest", category: "workshops", aspectRatio: 4898 / 3265 },
+        { id: 14, src: "/momentsgallery/14.jpg", alt: "Moments from DevFest", category: "workshops", aspectRatio: 4898 / 3265 },
+        { id: 15, src: "/momentsgallery/15.jpg", alt: "Moments from DevFest", category: "networking", aspectRatio: 4096 / 3072 },
+        { id: 16, src: "/momentsgallery/17.jpg", alt: "Moments from DevFest", category: "talks", aspectRatio: 3265 / 4898 },
       ],
+
     },
   },
 

@@ -143,3 +143,27 @@ export const testimonials: TestimonialsData = {
   },
 };
 
+// ─── Gallery Types & Data ───────────────────────────────────────────────────
+
+export type GalleryCategoryId = "all" | "talks" | "workshops" | "networking";
+
+export interface GalleryCategory {
+  id: GalleryCategoryId;
+  label: string;
+}
+
+export interface GalleryImage {
+  id: number;
+  src: string;
+  alt: string;
+  category: "talks" | "workshops" | "networking";
+  aspectRatio: number; // width / height
+}
+
+export const galleryCategories: GalleryCategory[] = [
+  { id: "all", label: "All" },
+  { id: "talks", label: "Talks" },
+  { id: "workshops", label: "Workshops" },
+  { id: "networking", label: "Networking" },
+];
+

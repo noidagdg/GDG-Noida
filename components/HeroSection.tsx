@@ -290,6 +290,7 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
 
     return (
         <section
+            id="home"
             ref={containerRef}
             className={`relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden transition-opacity duration-500 bg-background ${heroReady ? 'opacity-100' : 'opacity-0'}`}
         >

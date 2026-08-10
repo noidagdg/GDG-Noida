@@ -136,9 +136,7 @@ function Footer() {
                     aria-label={`${label} — ${handle}`}
                     title={`${label} — ${handle}`}
                     style={{ '--accent': accent } as React.CSSProperties}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04]
-                               text-white/60 transition-all duration-300
-                               hover:-translate-y-0.5 hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/60 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--accent)] hover:text-[var(--accent)]"
                   >
                     <Icon size={16} className="h-4 w-4" />
                   </a>
@@ -216,13 +214,11 @@ function Footer() {
                 type="button"
                 onClick={() => smoothScrollTo(lenis, 0)}
                 aria-label="Back to top"
-                className="group flex items-center gap-2 text-sm text-white/40 transition-colors duration-200
-                           hover:text-white md:border-l md:border-white/10 md:pl-6"
+                className="group flex items-center gap-2 text-sm text-white/40 transition-colors duration-200 hover:text-white md:border-l md:border-white/10 md:pl-6"
               >
                 Top
                 <span
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10
-                             transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-white/30 group-hover:bg-white/10"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-white/30 group-hover:bg-white/10"
                 >
                   <ArrowUp className="h-3.5 w-3.5" />
                 </span>

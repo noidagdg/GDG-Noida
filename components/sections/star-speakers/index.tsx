@@ -63,11 +63,7 @@ export default function StarSpeakers({ className }: StarSpeakersProps) {
           {speakers.map((speaker, idx) => (
             <BlurFade key={speaker.id} delay={0.3 + idx * 0.1} inView>
               <div
-                className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl
-                  w-[156px] h-[187px]
-                  sm:w-[196px] sm:h-[235px]
-                  md:w-[220px] md:h-[263px]
-                  lg:w-[261px] lg:h-[313px]"
+                className="group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl w-[156px] h-[187px] sm:w-[196px] sm:h-[235px] md:w-[220px] md:h-[263px] lg:w-[261px] lg:h-[313px]"
                 style={{
                   backgroundColor: speaker.backgroundColor,
                   backgroundImage: GRAIN,

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 import { BlurFade } from '@/components/magicui'
 import { GRAIN, GRAIN_SIZE } from '@/lib/grain'
 
@@ -118,7 +118,6 @@ function Sponsors() {
   // Bumped on every resume so the timer effect below re-runs and starts a fresh
   // full interval, rather than resuming whatever was left of the previous one.
   const [runId, setRunId] = useState(0)
-  const prefersReducedMotion = useReducedMotion()
 
   const running = inView && !paused
 
@@ -281,10 +280,10 @@ function Sponsors() {
                   id={`sponsor-panel-${activeSponsor.id}`}
                   role="tabpanel"
                   aria-labelledby={`sponsor-tab-${activeSponsor.id}`}
-                  // Reduced motion keeps the swap but drops the travel: cross-fade only.
-                  initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
-                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
-                  exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -12 }}
+                  // Fixed initial state to prevent hydration mismatches on reduced-motion devices.
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+                  exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
                   style={{
                     backgroundColor: activeSponsor.accent,

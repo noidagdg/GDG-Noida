@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from "@/components/sections/navbar";
 import Loader from "@/components/Loader";
 import HeroSection from "@/components/HeroSection";
@@ -18,6 +18,13 @@ import { SecretDialog } from "@/components/ui/secret-dialog";
 export default function Home() {
   const [isSecretDialogOpen, setIsSecretDialogOpen] = useState(false);
   const [loaderDone, setLoaderDone] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen">

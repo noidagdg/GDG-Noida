@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import SmoothScroll from "@/components/providers/smooth-scroll";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -57,7 +58,7 @@ export default function RootLayout({
         style={{ fontFamily: "'Product Sans', ui-sans-serif, system-ui, sans-serif" }}
         suppressHydrationWarning
       >
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
       </body>
     </html>

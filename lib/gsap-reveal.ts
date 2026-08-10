@@ -31,9 +31,9 @@ interface RevealOptions {
  */
 export function useGsapReveal<T extends HTMLElement>({
   y = 28,
-  duration = 0.6,
+  duration = 0.8,
   stagger = 0.08,
-  start = "top 85%",
+  start = "top 75%",
 }: RevealOptions = {}) {
   const ref = useRef<T>(null);
 
@@ -54,7 +54,7 @@ export function useGsapReveal<T extends HTMLElement>({
           scrollTrigger: {
             trigger: ref.current,
             start,
-            toggleActions: "play none none reverse",
+            toggleActions: "play reverse play reverse",
           },
         },
       );

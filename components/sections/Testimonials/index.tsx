@@ -48,11 +48,7 @@ export default function Testimonials({ className }: TestimonialsProps) {
         {/* A snap-scrolling strip on phones, CSS masonry from md up. Columns beat a
             hand-assigned grid here: the quotes range from two lines to a full
             paragraph, and masonry packs that variance without ragged column feet. */}
-        <div
-          className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2
-                     md:mx-0 md:block md:columns-2 md:gap-6 md:overflow-visible md:px-0
-                     lg:columns-3"
-        >
+        <div className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 md:mx-0 md:block md:columns-2 md:gap-6 md:overflow-visible md:px-0 lg:columns-3">
           {testimonials.map((testimonial, index) => {
             const { accent, accentDeep } = PALETTE[index % PALETTE.length];
             return (

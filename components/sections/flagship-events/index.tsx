@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useInView } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useGsapReveal } from "@/lib/gsap-reveal";
 
@@ -212,6 +212,8 @@ function CounterNumber({
 
 export default function FlagshipEvents() {
   const sectionRef = useGsapReveal<HTMLElement>();
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselInView = useInView(carouselRef, { once: false, amount: 0.35 });
   const [currentSet, setCurrentSet] = useState(0);
   const [direction, setDirection] = useState(0);
   const [inView, setInView] = useState(false);
@@ -272,20 +274,20 @@ export default function FlagshipEvents() {
   };
 
   const cardVariants = {
-    enter: (dir: number) => ({ opacity: 0, y: 32, scale: 0.94, x: dir > 0 ? 48 : -48 }),
+    enter: (dir: number) => ({ opacity: 0, y: 32, scale: 0.94, x: dir === 0 ? 0 : (dir > 0 ? 48 : -48) }),
     center: {
       opacity: 1,
       y: 0,
       scale: 1,
       x: 0,
-      transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+      transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] as const },
     },
     exit: (dir: number) => ({
       opacity: 0,
       y: -18,
       scale: 0.97,
       x: dir < 0 ? 48 : -48,
-      transition: { duration: 0.22, ease: "easeIn" as const },
+      transition: { duration: 0.3, ease: "easeIn" as const },
     }),
   };
 
@@ -308,14 +310,14 @@ export default function FlagshipEvents() {
         </div>
 
         {/* Carousel — advances on its own whenever the section is on screen. */}
-        <div data-reveal className="relative lg:overflow-hidden">
-          <AnimatePresence initial={false} custom={direction} mode="wait">
+        <div ref={carouselRef} className="relative lg:overflow-hidden">
+          <AnimatePresence custom={direction} mode="wait">
             <motion.div
               key={currentSet}
               custom={direction}
               variants={setVariants}
               initial="enter"
-              animate="center"
+              animate={carouselInView ? "center" : "enter"}
               exit="exit"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
@@ -339,6 +341,7 @@ export default function FlagshipEvents() {
                   return (
                     <motion.div
                       key={event.year}
+                      custom={direction}
                       variants={cardVariants}
                       // The lift is a gesture prop, not a CSS hover: the variants
                       // above own `transform`, so a Tailwind translate would be
@@ -423,7 +426,7 @@ export default function FlagshipEvents() {
           </AnimatePresence>
 
           {/* Navigation Dots with Progress Loader */}
-          <div className="mt-6 flex justify-center gap-3 lg:mt-16">
+          <div data-reveal className="mt-6 flex justify-center gap-3 lg:mt-16">
             {eventSets.map((set, index) => {
               const isActive = currentSet === index;
               return (

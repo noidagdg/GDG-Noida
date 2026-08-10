@@ -76,7 +76,10 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ y: -50, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
       className={cn(
         "fixed top-4 md:top-10 inset-x-0 max-w-7xl mx-auto z-50 px-4 md:px-8 lg:px-20",
         className
@@ -222,6 +225,6 @@ export default function Navbar({ className, onSecretUnlocked }: NavbarProps) {
           )}
         </AnimatePresence>
       </nav>
-    </div>
+    </motion.div>
   );
 }

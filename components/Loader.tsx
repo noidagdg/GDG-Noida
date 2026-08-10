@@ -22,16 +22,8 @@ export default function Loader({ onComplete }: LoaderProps) {
     const logoRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
-        // Skip on repeat visits
-        if (sessionStorage.getItem('loaderSeen')) {
-            onComplete();
-            queueMicrotask(() => {
-                setVisible(false);
-            });
-            return;
-        }
-        sessionStorage.setItem('loaderSeen', 'true');
-
+        // Play loader animation on every load/reload as requested
+        
         // Respect reduced motion
         const reducedMotion = window.matchMedia(
             '(prefers-reduced-motion: reduce)'

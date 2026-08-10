@@ -30,11 +30,11 @@ interface BlurFadeProps {
 export default function BlurFade({
   children,
   className,
-  duration = 0.4,
+  duration = 0.6,
   delay = 0,
   yOffset = 6,
   inView = false,
-  inViewMargin = "-50px",
+  inViewMargin = "-120px",
   blur = "6px",
 }: BlurFadeProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -59,12 +59,8 @@ export default function BlurFade({
           duration,
           delay: 0.04 + delay,
           ease: "power2.out",
-          // Drop the inline filter once revealed. A lingering `blur(0px)` still
-          // forces the whole subtree through the filter pipeline every frame,
-          // which visibly stutters any hover animation on the children.
-          clearProps: "filter",
           scrollTrigger: inView
-            ? { trigger: el, start, toggleActions: "play none none reverse" }
+            ? { trigger: el, start, toggleActions: "play reverse play reverse" }
             : undefined,
         },
       );

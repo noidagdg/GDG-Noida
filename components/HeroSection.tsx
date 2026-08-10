@@ -171,7 +171,7 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
         }
 
         const ctx = gsap.context(() => {
-            // Entrance
+            // Entrance for Hero Words
             gsap.fromTo(
                 '.hero-word',
                 { y: '100%' },
@@ -183,6 +183,24 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
                     delay: 0.1
                 }
             );
+
+            // Entrance for Subheading
+            if (subheadingRef.current) {
+                gsap.fromTo(
+                    subheadingRef.current,
+                    { opacity: 0, y: 20 },
+                    { opacity: 1, y: 0, duration: 0.8, delay: 0.4, ease: 'power3.out' }
+                );
+            }
+
+            // Entrance for CTA Button
+            if (magneticRef.current) {
+                gsap.fromTo(
+                    magneticRef.current,
+                    { opacity: 0, scale: 0.9 },
+                    { opacity: 1, scale: 1, duration: 0.8, delay: 0.6, ease: 'back.out(1.5)' }
+                );
+            }
 
             // Scroll Collapse
             if (headlineRef.current && containerRef.current) {

@@ -231,8 +231,7 @@ function Sponsors() {
                 if (e.target instanceof Element && e.target.matches(':focus-visible')) setPaused(true)
               }}
               onBlurCapture={() => resume()}
-              className="no-scrollbar flex w-full gap-3 overflow-x-auto scroll-smooth
-                         lg:h-full lg:flex-col lg:gap-4 lg:overflow-x-visible"
+              className="no-scrollbar flex w-full gap-3 overflow-x-auto scroll-smooth lg:h-full lg:flex-col lg:gap-4 lg:overflow-x-visible"
             >
               {sponsors.map((sponsor, index) => {
                 const isActive = index === activeIndex
@@ -253,15 +252,7 @@ function Sponsors() {
                         ? { backgroundColor: sponsor.accent, backgroundImage: GRAIN, backgroundSize: GRAIN_SIZE }
                         : undefined
                     }
-                    className={`group relative flex shrink-0 transform-gpu items-center justify-center overflow-hidden
-                                rounded-2xl px-4 outline-none transition-[transform,box-shadow,background-color] duration-300 ease-out
-                                focus-visible:ring-4 focus-visible:ring-[#4285F4]/35
-                                h-[84px] w-[124px] md:h-[96px] md:w-[140px]
-                                lg:h-auto lg:min-h-[112px] lg:w-full lg:flex-1 lg:px-6
-                                ${isActive
-                                  ? 'shadow-[0_10px_30px_-14px_rgba(16,24,40,0.45)]'
-                                  : 'bg-white shadow-[0_2px_10px_-4px_rgba(16,24,40,0.14)] hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-16px_rgba(16,24,40,0.35)]'
-                                }`}
+                    className={`group relative flex shrink-0 transform-gpu items-center justify-center overflow-hidden rounded-2xl px-4 outline-none transition-[transform,box-shadow,background-color] duration-300 ease-out focus-visible:ring-4 focus-visible:ring-[#4285F4]/35 h-[84px] w-[124px] md:h-[96px] md:w-[140px] lg:h-auto lg:min-h-[112px] lg:w-full lg:flex-1 lg:px-6 ${isActive ? 'shadow-[0_10px_30px_-14px_rgba(16,24,40,0.45)]' : 'bg-white shadow-[0_2px_10px_-4px_rgba(16,24,40,0.14)] hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-16px_rgba(16,24,40,0.35)]'}`}
                   >
                     <span className="sr-only">Read the {sponsor.name} testimonial</span>
                     {/* Fixed "logo well": object-contain fits each mark inside the
@@ -273,11 +264,7 @@ function Sponsors() {
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 150px, 100px"
-                        className={`object-contain transition-[filter,opacity] duration-500 ease-out
-                                    ${isActive
-                                      ? 'opacity-100 grayscale-0'
-                                      : 'opacity-55 grayscale group-hover:opacity-85 group-hover:grayscale-0'
-                                    }`}
+                        className={`object-contain transition-[filter,opacity] duration-500 ease-out ${isActive ? 'opacity-100 grayscale-0' : 'opacity-55 grayscale group-hover:opacity-85 group-hover:grayscale-0'}`}
                       />
                     </span>
 
@@ -296,7 +283,7 @@ function Sponsors() {
                   aria-labelledby={`sponsor-tab-${activeSponsor.id}`}
                   // Reduced motion keeps the swap but drops the travel: cross-fade only.
                   initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
                   exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -12 }}
                   transition={{ duration: 0.35, ease: 'easeOut' }}
                   style={{
@@ -304,8 +291,7 @@ function Sponsors() {
                     backgroundImage: GRAIN,
                     backgroundSize: GRAIN_SIZE,
                   }}
-                  className="flex min-h-[480px] w-full flex-col rounded-3xl p-6 shadow-[0_18px_40px_-24px_rgba(16,24,40,0.45)]
-                             md:min-h-[540px] md:p-8 lg:min-h-[620px] lg:p-10"
+                  className="flex min-h-[480px] w-full flex-col rounded-3xl p-6 shadow-[0_18px_40px_-24px_rgba(16,24,40,0.45)] md:min-h-[540px] md:p-8 lg:min-h-[620px] lg:p-10"
                 >
                   {/* One type size for every quote. The lengths differ a lot, so the
                       mark and the text centre together in the flex track — the glyph
@@ -355,7 +341,7 @@ function Sponsors() {
                           <motion.span
                             key={index}
                             initial={{ opacity: 0, scale: 0.4 }}
-                            animate={{ opacity: 1, scale: 1 }}
+                            animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.4 }}
                             transition={{ delay: 0.25 + index * 0.05, duration: 0.2 }}
                           >
                             <GoogleStar

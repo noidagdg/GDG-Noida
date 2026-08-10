@@ -60,18 +60,10 @@ export default function UpcomingEvents() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ backgroundColor: event.backgroundColor }}
-                className="group relative flex h-full transform-gpu flex-col rounded-3xl p-3 outline-none
-                           shadow-[0_2px_10px_-4px_rgba(16,24,40,0.10)]
-                           transition-transform duration-400 ease-out hover:-translate-y-1
-                           focus-visible:ring-4 focus-visible:ring-[#4285F4]/35
-                           after:pointer-events-none after:absolute after:inset-0 after:rounded-3xl
-                           after:shadow-[0_18px_40px_-16px_rgba(16,24,40,0.30)]
-                           after:opacity-0 after:transition-opacity after:duration-400 after:ease-out
-                           hover:after:opacity-100"
+                className="group relative flex h-full transform-gpu flex-col rounded-3xl p-3 outline-none shadow-[0_2px_10px_-4px_rgba(16,24,40,0.10)] transition-transform duration-400 ease-out hover:-translate-y-1 focus-visible:ring-4 focus-visible:ring-[#4285F4]/35 after:pointer-events-none after:absolute after:inset-0 after:rounded-3xl after:shadow-[0_18px_40px_-16px_rgba(16,24,40,0.30)] after:opacity-0 after:transition-opacity after:duration-400 after:ease-out hover:after:opacity-100"
               >
                 {/* Artwork, inset like a framed poster. Radius = card radius minus padding. */}
-                <div className="relative aspect-[650/298] w-full overflow-hidden rounded-xl
-                                shadow-[0_4px_14px_-6px_rgba(16,24,40,0.35)]">
+                <div className="relative aspect-[650/298] w-full overflow-hidden rounded-xl shadow-[0_4px_14px_-6px_rgba(16,24,40,0.35)]">
                   <Image
                     src={event.image}
                     alt={event.title}

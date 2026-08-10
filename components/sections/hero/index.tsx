@@ -144,7 +144,7 @@ function Hero() {
 
         {/* Join Community Button */}
         <BlurFade delay={0.75} inView inViewMargin="0px">
-          <button className="flex items-center justify-center gap-2 bg-[#4285F4] text-white hover:bg-blue-700 transition-colors cursor-pointer mx-auto rounded-full shadow-lg w-auto px-4 sm:px-6 md:px-8 lg:px-10 py-3 md:py-4 lg:py-5 min-w-0 sm:min-w-[175px] h-[48px] md:h-[52px] lg:h-[56px]">
+          <button className="flex items-center justify-center gap-2 bg-[#4285F4] text-white transition-colors cursor-pointer mx-auto rounded-full shadow-lg w-auto px-4 sm:px-6 md:px-8 lg:px-10 py-3 md:py-4 lg:py-5 min-w-0 sm:min-w-[175px] h-[48px] md:h-[52px] lg:h-[56px]">
             <Image 
               src="/assets/commudle.svg" 
               alt="Join Community" 

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import BlurFade from "@/components/magicui/blur-fade";
 
 interface UpcomingEvent {
   id: string;
@@ -17,7 +18,7 @@ const upcomingEvents: UpcomingEvent[] = [
     id: "1",
     title: "DevFest Noida 2025",
     subtitle: "Quickly create design mockups and prototypes with the latest Material 3, expressive components and styles",
-    image: "/assets/upcomingEvents/leftCardUpEvent.svg",
+    image: "/assets/upcomingEvents/devfest-noida-2025.jpg",
     link: "https://www.commudle.com/communities/gdg-noida/events/devfest-noida-2025",
     backgroundColor: "#E9F9EE",
   },
@@ -25,69 +26,83 @@ const upcomingEvents: UpcomingEvent[] = [
     id: "2",
     title: "HackSpace Noida",
     subtitle: "Easier-to-implement motion system for more customizable transitions powered by tokens",
-    image: "/assets/upcomingEvents/rightCardUpEvent.svg",
+    image: "/assets/upcomingEvents/hackspace-noida.jpg",
     link: "https://www.commudle.com/communities/gdg-cloud-noida/hackathons/google-hackspace",
     backgroundColor: "#FFF7E0",
   },
 ];
 
-export default function UpcomingEvents () {
+export default function UpcomingEvents() {
   return (
-    <section className="py-8 px-2 md:px-4 lg:px-8">
-      <div className="max-w-[1400px] mx-auto">
-        {/* Title Section */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl text-black">
-            Upcoming <span className="font-bold">Events</span>
-          </h2>
-          <p className="text-base md:text-2xl text-gray-600 mt-3">
-            Exciting experiences on the horizon
-          </p>
+    <section className="relative w-full py-16 md:py-24">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
+        <div className="mb-12 text-center md:mb-16">
+          <BlurFade delay={0.1} inView>
+            <h2 className="text-3xl text-zinc-900 md:text-5xl lg:text-6xl">
+              Upcoming <span className="font-bold">Events</span>
+            </h2>
+          </BlurFade>
+          <BlurFade delay={0.2} inView>
+            <p className="mt-4 text-base text-zinc-600 md:text-lg">
+              Exciting experiences on the horizon
+            </p>
+          </BlurFade>
         </div>
 
-        {/* Cards Container with 48px gap from title */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 mt-12">
-          {upcomingEvents.map((event) => (
-            <div
-              key={event.id}
-              className="relative w-full max-w-[650px] h-[443px] rounded-[20px] overflow-hidden bg-white shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              {/* Image Section - 650x298 */}
-              <div className="relative w-full h-[298px]">
-                <Image
-                  src={event.image}
-                  alt={event.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* Content Section - Remaining height (443 - 298 = 145px) */}
-              <div className="absolute bottom-0 left-0 right-0 h-[145px] flex items-center justify-between px-6 py-4" style={{ backgroundColor: event.backgroundColor }}>
-                {/* Text Content - Left Aligned */}
-                <div className="flex-1 pr-6 max-w-[520px]">
-                  <h3 className="text-2xl font-semibold text-black leading-tight mb-1">
-                    {event.title}
-                  </h3>
-                  <p className="text-base text-gray-600 leading-tight line-clamp-2">
-                    {event.subtitle}
-                  </p>
+        {/* Event Cards */}
+        <div className="mx-auto grid max-w-[1360px] gap-8 md:grid-cols-2 lg:gap-10">
+          {upcomingEvents.map((event, idx) => (
+            <BlurFade key={event.id} delay={0.3 + idx * 0.1} inView className="h-full">
+              {/* The pastel is the card surface; the whole card is the link */}
+              <a
+                href={event.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ backgroundColor: event.backgroundColor }}
+                className="group relative flex h-full transform-gpu flex-col rounded-3xl p-3 outline-none
+                           shadow-[0_2px_10px_-4px_rgba(16,24,40,0.10)]
+                           transition-transform duration-400 ease-out hover:-translate-y-1
+                           focus-visible:ring-4 focus-visible:ring-[#4285F4]/35
+                           after:pointer-events-none after:absolute after:inset-0 after:rounded-3xl
+                           after:shadow-[0_18px_40px_-16px_rgba(16,24,40,0.30)]
+                           after:opacity-0 after:transition-opacity after:duration-400 after:ease-out
+                           hover:after:opacity-100"
+              >
+                {/* Artwork, inset like a framed poster. Radius = card radius minus padding. */}
+                <div className="relative aspect-[650/298] w-full overflow-hidden rounded-xl
+                                shadow-[0_4px_14px_-6px_rgba(16,24,40,0.35)]">
+                  <Image
+                    src={event.image}
+                    alt={event.title}
+                    fill
+                    sizes="(min-width: 1024px) 650px, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
                 </div>
 
-                {/* Circular Arrow Button - Right Side, Vertically Centered */}
-                <button
-                  onClick={() => globalThis.location.href = event.link}
-                  className="shrink-0 w-[40px] h-[40px] rounded-full bg-[#4285F4] flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg"
-                  aria-label={`View ${event.title}`}
-                >
-                  <ArrowRight className="text-white" style={{ width: "18px", height: "18px" }} strokeWidth={2.5} />
-                </button>
-              </div>
-            </div>
+                <div className="flex flex-1 flex-col px-2 pt-5 pb-2 md:px-3">
+                  <h3 className="text-xl leading-tight font-semibold text-zinc-900 md:text-2xl">
+                    {event.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-2 text-sm leading-snug text-zinc-600 md:text-base">
+                    {event.subtitle}
+                  </p>
+
+                  {/* mt-auto keeps the CTA on the baseline even if titles wrap differently */}
+                  <span className="mt-auto flex items-center gap-2 pt-5 text-sm font-semibold text-zinc-900">
+                    Know More
+                    <ArrowRight
+                      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                      strokeWidth={2.5}
+                    />
+                  </span>
+                </div>
+              </a>
+            </BlurFade>
           ))}
         </div>
       </div>
     </section>
   );
 }
-

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { useLenis } from 'lenis/react';
 
 interface LoaderProps {
     onComplete: () => void;
@@ -10,6 +11,7 @@ interface LoaderProps {
 
 export default function Loader({ onComplete }: LoaderProps) {
     const [visible, setVisible] = useState(true);
+    const lenis = useLenis();
     const loaderRef = useRef<HTMLDivElement>(null);
     const q1Ref = useRef<HTMLDivElement>(null);
     const q2Ref = useRef<HTMLDivElement>(null);
@@ -100,15 +102,20 @@ export default function Loader({ onComplete }: LoaderProps) {
         if (visible) {
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
+            // `overflow: hidden` only blocks user-driven scrolling; Lenis scrolls
+            // programmatically, so it has to be paused explicitly.
+            lenis?.stop();
         } else {
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
+            lenis?.start();
         }
         return () => {
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
+            lenis?.start();
         };
-    }, [visible]);
+    }, [visible, lenis]);
 
     if (!visible) return null;
 

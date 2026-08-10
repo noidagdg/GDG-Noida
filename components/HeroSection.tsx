@@ -41,7 +41,7 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
 
         // Check if mobile (reduce particles)
         const isMobile = window.innerWidth <= 768;
-        const numParticles = isMobile ? 25 : 60;
+        const numParticles = isMobile ? 50 : 120;
 
         const resize = () => {
             canvas.width = window.innerWidth;
@@ -351,12 +351,11 @@ export default function HeroSection({ heroReady = true }: { heroReady?: boolean 
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.boxShadow = '0 0 30px rgba(66, 133, 244, 0.7)';
-                            e.currentTarget.style.backgroundPosition = 'right center';
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.boxShadow = '0 0 20px rgba(66, 133, 244, 0.4)';
-                            e.currentTarget.style.backgroundPosition = 'left center';
                         }}
+                        onClick={() => window.open('https://www.commudle.com/communities/gdg-noida', '_blank', 'noopener,noreferrer')}
                     >
                         Join Community
                     </button>

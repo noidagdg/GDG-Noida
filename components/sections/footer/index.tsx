@@ -188,9 +188,10 @@ function Footer() {
         {/* Bottom bar */}
         <div data-reveal className="mt-10 border-t border-white/10 pt-5 md:mt-12">
           <div className="flex flex-col-reverse items-center gap-4 md:flex-row md:justify-between">
-            <p className="text-sm text-white/40">
-              © GDG Noida. All rights reserved.
-            </p>
+            <div className="flex items-center gap-1 text-sm text-white/40">
+              <span className="text-[15px] leading-none mb-[1px]" style={{ fontFamily: 'system-ui, sans-serif' }}>&copy;</span>
+              <span>GDG Noida. All rights reserved.</span>
+            </div>
 
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
               {LEGAL_LINKS.map(({ label, href }) => (
